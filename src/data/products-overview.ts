@@ -4,28 +4,6 @@ import {
   productCategories,
 } from "./navigation";
 
-/**
- * Products Overview page copy (SITE_STRUCTURE.md §4.3).
- *
- * Hero (section 1). DRAFT-TEMP, PENDING APPROVAL: owner-supplied
- * provisional copy (2026-10-26), shown as supplied. It describes the
- * catalogue and its use only; no origins, grades, capacity or claims
- * (BRAND_GUIDELINES.md §10).
- */
-export const intro = {
-  eyebrow: "Our Products",
-  title: "Quality Ingredients for Every Business",
-  text: "Spices, dehydrated ingredients and fresh fruits and vegetables for food businesses.",
-  /**
-   * Image: src/assets/images/hero/products-overview.png, the owner's C04
-   * banner (ASSET_GUIDELINES.md §9.2). It also shows cranberries, quinces,
-   * thyme, pecans, almonds and orange slices, which are not in the
-   * catalogue; the alt text describes the scene, not Aureva's products.
-   */
-  imageAlt:
-    "Fresh ginger, cinnamon sticks, a halved pomegranate, quinces, cranberries, thyme, turmeric powder and garlic on a linen cloth and wooden board",
-};
-
 /** Overview card copy for one category; name, link and image come from navigation.ts */
 export interface CategoryCardCopy {
   description: string;

@@ -5,15 +5,11 @@ import CategoryCard from "../../product/CategoryCard.astro";
 import SectionHeader from "../../ui/SectionHeader.astro";
 
 /**
- * Products Overview "Explore Our Categories" (SITE_STRUCTURE.md §4.3).
- *
- * Alternate background after the Ivory hero (DESIGN_SYSTEM.md §11); white
- * cards carry the contrast. Heading block left-aligned, with the intro
- * beside it from lg. Cards reuse CategoryCard: 1 column, 3 from md (§6.2),
- * linking to the approved category routes (D-10). No product lists on the
- * cards: the portfolio below shows every product. Cards reveal once with
- * an 80 ms stagger (§14) and stay visible without JavaScript and under
- * reduced motion.
+ * Products Overview "Explore Our Categories" (SITE_STRUCTURE.md §4.3), the
+ * first section of the page since the introduction was removed (owner
+ * request, 2026-10-27), so its heading is the page h1. White background;
+ * cards: 1 column, 3 from md (§6.2), each linking to its category page
+ * (D-10). Cards reveal once with an 80 ms stagger (§14).
  */
 
 /** Crop focus per image: the fresh produce photo leans left, away from the off-catalogue tomatoes */
@@ -24,11 +20,12 @@ const imagePositions: Partial<Record<string, string>> = {
 
 <section
   aria-labelledby="explore-categories-title"
-  class="bg-bg-alt py-section"
+  class="bg-bg pt-12 pb-section sm:pt-16 lg:pt-20"
 >
   <div class="container-wide">
     <SectionHeader
       id="explore-categories-title"
+      level={1}
       eyebrow={section.eyebrow}
       title={section.title}
       intro={section.intro}

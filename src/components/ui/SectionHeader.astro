@@ -4,17 +4,23 @@
  * label, h2 and one-sentence intro, stacked and left-aligned. An optional
  * `action` slot (such as a "View all" link) sits at the right edge from
  * lg and below the text on smaller screens. Reveals once (§14).
+ *
+ * `level={1}` makes the heading the page h1 (for a page that opens with
+ * this section); it then uses the h1 size and is never hidden by a reveal,
+ * because it is visible on first load (§14).
  */
 interface Props {
-  /** id of the h2, referenced by the section's aria-labelledby */
+  /** id of the heading, referenced by the section's aria-labelledby */
   id: string;
+  level?: 1 | 2;
   eyebrow?: string;
   title: string;
   intro?: string;
   class?: string;
 }
 
-const { id, eyebrow, title, intro, class: className } = Astro.props;
+const { id, level = 2, eyebrow, title, intro, class: className } = Astro.props;
+const Heading = `h${level}` as const;
 const hasAction = Astro.slots.has("action");
 ---
 
@@ -23,21 +29,22 @@ const hasAction = Astro.slots.has("action");
     "flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between lg:gap-16",
     className,
   ]}
-  data-reveal
+  data-reveal={level === 2 || undefined}
 >
   <div class="max-w-3xl">
     {eyebrow && (
       <p class="text-eyebrow font-semibold text-primary">{eyebrow}</p>
     )}
-    <h2
+    <Heading
       id={id}
       class:list={[
-        "font-display text-h2 text-balance text-heading",
+        "font-display text-balance text-heading",
+        level === 1 ? "text-h1" : "text-h2",
         eyebrow && "mt-4",
       ]}
     >
       {title}
-    </h2>
+    </Heading>
     {intro && (
       <p class="mt-4 max-w-[60ch] text-lead text-text-muted">{intro}</p>
     )}

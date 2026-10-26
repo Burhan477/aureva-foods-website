@@ -1,7 +1,6 @@
 ---
 import EnquiryCTA from "../../components/sections/EnquiryCTA.astro";
 import Categories from "../../components/sections/products/Categories.astro";
-import Intro from "../../components/sections/products/Intro.astro";
 import Portfolio from "../../components/sections/products/Portfolio.astro";
 import { enquiryCta } from "../../data/products-overview";
 import BaseLayout from "../../layouts/BaseLayout.astro";
@@ -17,7 +16,6 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
   description="Explore Aureva Foods' three product ranges: spices, dehydrated products, and fresh fruits and vegetables from India. Request a quote for bulk supply."
 >
   <main id="main">
-    <Intro />
     <Categories />
     <Portfolio />
     <EnquiryCTA content={enquiryCta} />

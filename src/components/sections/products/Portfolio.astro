@@ -41,7 +41,11 @@ const fill = (template: string, key: string, value: string | number) =>
   template.replace(`{${key}}`, String(value));
 ---
 
-<section aria-labelledby="portfolio-title" class="bg-bg py-section">
+<section
+  id="product-portfolio"
+  aria-labelledby="portfolio-title"
+  class="bg-bg-alt py-section"
+>
   <div class="container-wide">
     <SectionHeader
       id="portfolio-title"

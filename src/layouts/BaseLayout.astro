@@ -4,6 +4,7 @@ import { Font } from "astro:assets";
 import Footer from "../components/layout/Footer.astro";
 import Header from "../components/layout/Header.astro";
 import SkipLink from "../components/layout/SkipLink.astro";
+import { site } from "../data/site";
 import "../styles/global.css";
 
 interface Props {
@@ -12,6 +13,13 @@ interface Props {
 }
 
 const { title, description } = Astro.props;
+
+// Social sharing (SEO_AND_PERFORMANCE.md §6). og:url and og:image must be
+// absolute, so they are left out until the production `site` URL is set (C-18)
+const pageUrl = Astro.site
+  ? new URL(Astro.url.pathname, Astro.site).href
+  : null;
+const ogImage = Astro.site ? new URL("/og/default.jpg", Astro.site).href : null;
 ---
 
 <!doctype html>
@@ -21,6 +29,21 @@ const { title, description } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name.value} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    {pageUrl && <meta property="og:url" content={pageUrl} />}
+    {ogImage && (
+      <>
+        <meta property="og:image" content={ogImage} />
+        <meta property="og:image:type" content="image/jpeg" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt" content="Aureva Foods logo" />
+      </>
+    )}
+    <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <Font cssVariable="--font-inter" preload />

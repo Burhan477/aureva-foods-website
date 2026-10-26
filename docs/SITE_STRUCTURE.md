@@ -70,7 +70,7 @@ The theme modernisation merged or removed sections that repeated the same messag
 |---|---|
 | Home | Order: Hero, Our Product Categories, Featured Spices, Dehydrated Products Showcase, Fresh Fruits & Vegetables Showcase, About Aureva Foods, Quality & Compliance, Business Enquiry CTA. About, Why Aureva Foods and Global Presence are merged into one About section; the globe is removed; category cards no longer list products |
 | About Us | Who We Are is folded into the Company Introduction. Global Markets is shown as "Who We Work With" (buyer types; markets stay unconfirmed, C-07), without its closing card. Product Range cards no longer list products |
-| Products Overview | Why Choose Aureva Foods removed (it repeated Home and About) |
+| Products Overview | Why Choose Aureva Foods removed (it repeated Home and About). Introduction removed (owner request, 2026-10-27); the page opens with the category cards, whose heading is the page h1 |
 | Spices | B2B Supply Enquiries section removed; the range cards in Product Range & Specifications and the 4-step workflow in Quality are removed (they repeated the grid and the enquiry process) |
 | Dehydrated Products | B2B Supply Enquiries section and the A/B/C group summary removed; Garlic keeps one CTA |
 | Fresh Fruits & Vegetables | B2B Supply Enquiries section removed; one CTA per product group |
