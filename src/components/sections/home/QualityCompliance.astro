@@ -1,0 +1,120 @@
+---
+import { Files, MessageCircleQuestionMark, PackageSearch } from "lucide-react";
+
+import {
+  type QualityPoint,
+  qualityCompliance as section,
+} from "../../../data/home";
+import Button from "../../ui/Button.astro";
+import PendingContent from "../../ui/PendingContent.astro";
+import ComplianceList from "../ComplianceList.astro";
+
+/**
+ * Home "Quality & Certifications", shown as "Quality & Compliance"
+ * (SITE_STRUCTURE.md §4.1 section 8, M3.8, C-05).
+ *
+ * Alternate background after the Ivory "Why Aureva Foods" (DESIGN_SYSTEM.md
+ * §11). From lg, the heading and CTA sit in 5 columns beside a 7-column
+ * white panel holding the three blocks; below lg everything stacks with the
+ * CTA last. Icons are neutral document and enquiry marks, never ticks,
+ * shields or badges that could read as a certification (BRAND_GUIDELINES.md
+ * §8). The blocks are not interactive, so they have no hover state.
+ * Everything reveals once (§14) and stays visible without JavaScript and
+ * under reduced motion.
+ */
+
+const icons: Record<QualityPoint["id"], typeof Files> = {
+  "product-information": PackageSearch,
+  documentation: Files,
+  enquiries: MessageCircleQuestionMark,
+};
+
+const ctaClasses = "w-full text-center whitespace-normal! sm:w-auto";
+---
+
+<section aria-labelledby="quality-title" class="bg-bg-alt py-section">
+  <div class="container-wide grid gap-10 lg:grid-cols-12 lg:grid-rows-[auto_1fr] lg:gap-x-16 lg:gap-y-10">
+    <div class="lg:col-span-5" data-reveal>
+      <p class="flex items-center gap-3 text-eyebrow font-semibold text-olive uppercase">
+        <span class="h-px w-8 bg-olive" aria-hidden="true"></span>
+        {section.eyebrow}
+      </p>
+
+      <h2
+        id="quality-title"
+        class="mt-5 font-display text-h2 text-balance text-heading"
+      >
+        {section.title}
+      </h2>
+
+      <p class="mt-6 max-w-[68ch] text-lead text-text">{section.intro}</p>
+    </div>
+
+    <div class="lg:col-span-7 lg:col-start-6 lg:row-span-2 lg:row-start-1">
+      <ul class="divide-y divide-line rounded-lg border border-line bg-surface">
+        {section.points.map((point, index) => {
+          const Icon = icons[point.id];
+          return (
+            <li
+              class="flex gap-5 p-6 sm:gap-6 sm:p-8"
+              data-reveal
+              style={`transition-delay: calc(var(--reveal-stagger) * ${index})`}
+            >
+              <span
+                class="flex size-12 shrink-0 items-center justify-center rounded-md bg-bg-alt text-olive"
+                aria-hidden="true"
+              >
+                <Icon
+                  className="size-6"
+                  strokeWidth={1.75}
+                  aria-hidden="true"
+                />
+              </span>
+
+              <div>
+                <h3 class="text-h3 font-semibold text-charcoal">
+                  {point.title}
+                </h3>
+                <p class="mt-2 max-w-[60ch] text-text">{point.text}</p>
+              </div>
+            </li>
+          );
+        })}
+      </ul>
+
+      <ComplianceList class="mt-10" />
+    </div>
+
+    <div class="lg:col-span-5 lg:row-start-2" data-reveal>
+      {section.cta.href ? (
+        <Button href={section.cta.href} size="lg" class={ctaClasses}>
+          {section.cta.label}
+        </Button>
+      ) : (
+        <button
+          type="button"
+          aria-disabled="true"
+          class:list={[
+            "inline-flex min-h-13 cursor-not-allowed items-center justify-center rounded-md bg-primary px-7 py-3 text-body font-semibold text-white opacity-60",
+            ctaClasses,
+          ]}
+        >
+          {section.cta.label}
+          <span class="sr-only">(not available yet)</span>
+        </button>
+      )}
+
+      {!section.cta.href && (
+        <PendingContent
+          item="M5.3"
+          note={section.cta.pendingNote}
+          class="mt-4"
+        />
+      )}
+    </div>
+  </div>
+</section>
+
+<script>
+  import "../../../scripts/reveal";
+</script>

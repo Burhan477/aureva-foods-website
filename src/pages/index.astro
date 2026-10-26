@@ -1,11 +1,34 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import About from "../components/sections/home/About.astro";
+import DehydratedShowcase from "../components/sections/home/DehydratedShowcase.astro";
+import FeaturedSpices from "../components/sections/home/FeaturedSpices.astro";
+import FreshShowcase from "../components/sections/home/FreshShowcase.astro";
+import GlobalPresence from "../components/sections/home/GlobalPresence.astro";
+import Hero from "../components/sections/home/Hero.astro";
+import ProductCategories from "../components/sections/home/ProductCategories.astro";
+import QualityCompliance from "../components/sections/home/QualityCompliance.astro";
+import WhyAureva from "../components/sections/home/WhyAureva.astro";
+import EnquiryCTA from "../components/sections/EnquiryCTA.astro";
+import { enquiryCta } from "../data/home";
+import BaseLayout from "../layouts/BaseLayout.astro";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+// Remaining homepage sections are built in M3, one at a time.
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<BaseLayout
+  title="Aureva Foods"
+  description="Aureva Foods website, in development."
+>
+  <main id="main">
+    <Hero />
+    <About />
+    <ProductCategories />
+    <FeaturedSpices />
+    <DehydratedShowcase />
+    <FreshShowcase />
+    <WhyAureva />
+    <QualityCompliance />
+    <GlobalPresence />
+    <EnquiryCTA content={enquiryCta} />
+  </main>
+</BaseLayout>

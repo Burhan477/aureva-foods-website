@@ -1,0 +1,142 @@
+---
+import { Image } from "astro:assets";
+import { Menu, X } from "lucide-react";
+
+import logo from "../../assets/images/brand/aureva-foods-logo.png";
+import {
+  aboutLink,
+  contactLink,
+  homeLink,
+  isCurrentPath,
+  isExactPath,
+} from "../../data/navigation";
+import WhatsAppButton from "../ui/WhatsAppButton.astro";
+import MobileMenu from "./MobileMenu.astro";
+import ProductsMenu from "./ProductsMenu.astro";
+import {
+  desktopNavItem,
+  desktopNavLabel,
+  desktopNavUnderline,
+} from "./navClasses";
+
+/**
+ * Sticky site header (COMPONENT_INVENTORY.md, Header): logo, main
+ * navigation with the Products mega menu, WhatsApp Us. Below lg the
+ * navigation moves into MobileMenu and WhatsApp Us stays in the bar.
+ */
+const pathname = Astro.url.pathname;
+
+const links = {
+  home: isExactPath(pathname, homeLink.href),
+  about: isCurrentPath(pathname, aboutLink.href),
+  contact: isCurrentPath(pathname, contactLink.href),
+};
+---
+
+<header class="group/header sticky top-0 z-(--z-header)" data-site-header>
+  <!-- Background and scroll shadow sit on their own layers so the header
+       itself never becomes a containing block for the fixed mobile menu -->
+  <div
+    class="absolute inset-0 border-b border-line bg-bg/95 backdrop-blur-md"
+    aria-hidden="true"
+  ></div>
+  <div
+    class="pointer-events-none absolute inset-0 opacity-0 shadow-float transition-opacity duration-(--duration-base) ease-out group-data-scrolled/header:opacity-100"
+    aria-hidden="true"
+  ></div>
+
+  <div class="relative container-wide flex h-(--header-height) items-center justify-between gap-3 lg:grid lg:grid-cols-[1fr_auto_1fr] lg:gap-6">
+    <a href={homeLink.href} class="flex shrink-0 items-center rounded-md">
+      <Image
+        src={logo}
+        alt="Aureva Foods home"
+        height={56}
+        densities={[1, 2]}
+        loading="eager"
+        class="h-12 w-auto lg:h-14"
+      />
+    </a>
+
+    <nav aria-label="Main" class="hidden self-stretch lg:flex">
+      <ul class="flex items-stretch">
+        <li class="flex">
+          <a
+            href={homeLink.href}
+            class={desktopNavItem}
+            aria-current={links.home ? "page" : undefined}
+          >
+            <span class={desktopNavLabel}>
+              {homeLink.label}
+              <span class={desktopNavUnderline} aria-hidden="true"></span>
+            </span>
+          </a>
+        </li>
+        <li class="flex">
+          <a
+            href={aboutLink.href}
+            class={desktopNavItem}
+            aria-current={links.about ? "page" : undefined}
+          >
+            <span class={desktopNavLabel}>
+              {aboutLink.label}
+              <span class={desktopNavUnderline} aria-hidden="true"></span>
+            </span>
+          </a>
+        </li>
+        <ProductsMenu pathname={pathname} />
+        <li class="flex">
+          <a
+            href={contactLink.href}
+            class={desktopNavItem}
+            aria-current={links.contact ? "page" : undefined}
+          >
+            <span class={desktopNavLabel}>
+              {contactLink.label}
+              <span class={desktopNavUnderline} aria-hidden="true"></span>
+            </span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="flex items-center gap-2 lg:justify-self-end">
+      <WhatsAppButton class="max-sm:px-3.5" />
+
+      <!-- Without JavaScript, "Menu" jumps to the footer links -->
+      <a
+        href="#footer-navigation"
+        class="inline-flex size-11 items-center justify-center rounded-md text-charcoal lg:hidden"
+        aria-label="Menu"
+        data-mobile-menu-fallback
+      >
+        <Menu className="size-6" strokeWidth={1.75} aria-hidden="true" />
+      </a>
+      <button
+        type="button"
+        class="group inline-flex size-11 items-center justify-center rounded-md text-charcoal transition-colors duration-(--duration-fast) hover:bg-ivory-deep lg:hidden"
+        aria-label="Menu"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        data-mobile-menu-toggle
+        hidden
+      >
+        <Menu
+          className="size-6 group-aria-expanded:hidden"
+          strokeWidth={1.75}
+          aria-hidden="true"
+        />
+        <X
+          className="hidden size-6 group-aria-expanded:block"
+          strokeWidth={1.75}
+          aria-hidden="true"
+        />
+      </button>
+    </div>
+  </div>
+
+  <MobileMenu pathname={pathname} />
+</header>
+
+<script>
+  import "../../scripts/navigation";
+</script>

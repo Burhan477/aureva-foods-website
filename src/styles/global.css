@@ -1,1 +1,196 @@
 @import "tailwindcss";
+
+/*
+ * Design tokens (DESIGN_SYSTEM.md, D-01, D-19).
+ * Tailwind's default colours and font sizes are removed so only approved
+ * values exist (DESIGN_SYSTEM.md §3.5).
+ */
+@theme {
+  --color-*: initial;
+
+  /* Brand colours (§3.1) */
+  --color-ivory: #f5f2e9;
+  --color-white: #ffffff;
+  --color-olive: #2f4638;
+  --color-charcoal: #252a26;
+  --color-saffron: #f4c430;
+  --color-terracotta: #b96f4a;
+  --color-leaf: #2e7d32;
+
+  /* Derived working shades (§3.2) */
+  --color-olive-deep: #26382d;
+  --color-saffron-deep: #dbb22f;
+  --color-ivory-deep: #e5e4db;
+  --color-muted: #5f625d;
+  --color-line: #d8d6ce;
+  --color-field-border: #878a88;
+  --color-error: #8d5a3f;
+
+  /* Semantic tokens (§3.3) */
+  --color-bg: var(--color-ivory);
+  --color-bg-alt: var(--color-ivory-deep);
+  --color-surface: var(--color-white);
+  --color-inverse: var(--color-olive);
+  --color-text: var(--color-charcoal);
+  --color-text-muted: var(--color-muted);
+  --color-text-inverse: var(--color-ivory);
+  --color-heading: var(--color-olive);
+  --color-primary: var(--color-olive);
+  --color-primary-hover: var(--color-olive-deep);
+  --color-accent: var(--color-saffron);
+  --color-accent-hover: var(--color-saffron-deep);
+  /* Overridden per category container (§3.4) and on dark surfaces (focus) */
+  --color-category: var(--color-olive);
+  --color-focus: var(--color-olive);
+
+  /* Typography (§4); families come from the Astro fonts config (AD-10) */
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-dm-serif-display);
+
+  --text-*: initial;
+  --text-display: clamp(2.5rem, 1.913rem + 2.609vw, 4rem);
+  --text-display--line-height: 1.08;
+  --text-display--letter-spacing: -0.01em;
+  --text-h1: clamp(2.25rem, 1.859rem + 1.739vw, 3.25rem);
+  --text-h1--line-height: 1.1;
+  --text-h1--letter-spacing: -0.01em;
+  --text-h2: clamp(1.75rem, 1.457rem + 1.304vw, 2.5rem);
+  --text-h2--line-height: 1.15;
+  --text-h2--letter-spacing: -0.01em;
+  --text-h3: clamp(1.25rem, 1.152rem + 0.435vw, 1.5rem);
+  --text-h3--line-height: 1.3;
+  --text-h4: 1.125rem;
+  --text-h4--line-height: 1.4;
+  --text-lead: clamp(1.125rem, 1.076rem + 0.217vw, 1.25rem);
+  --text-lead--line-height: 1.6;
+  --text-body: clamp(1rem, 0.976rem + 0.109vw, 1.0625rem);
+  --text-body--line-height: 1.65;
+  --text-small: 0.875rem;
+  --text-small--line-height: 1.5;
+  --text-eyebrow: 0.8125rem;
+  --text-eyebrow--line-height: 1.3;
+  --text-eyebrow--letter-spacing: 0.12em;
+  /* Button and navigation label size (§9.2: 15 px) */
+  --text-button: 0.9375rem;
+  --text-button--line-height: 1.2;
+  /* Legal copyright line only (§4.2 rules) */
+  --text-legal: 0.8125rem;
+  --text-legal--line-height: 1.5;
+
+  /* Spacing (§5) */
+  --spacing-section: clamp(4rem, 2.8rem + 5vw, 7.5rem);
+  --spacing-section-tight: clamp(3rem, 2.2rem + 3.5vw, 5rem);
+  --spacing-stack: 1.5rem;
+
+  /* Shape and elevation (§8) */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
+  --shadow-card-hover: 0 12px 28px -16px rgb(37 42 38 / 0.28);
+  --shadow-float: 0 8px 24px -8px rgb(37 42 38 / 0.35);
+
+  /* Motion (§14) */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+:root {
+  /* Container side padding (§5): mobile → tablet → desktop */
+  --space-gutter: 1rem;
+
+  /* Motion (§14) */
+  --duration-fast: 150ms;
+  --duration-base: 250ms;
+  --duration-reveal: 450ms;
+  --reveal-distance: 16px;
+  --reveal-stagger: 80ms;
+  --hover-lift: -3px;
+  --hover-zoom: 1.05;
+
+  /* Layering (§15) */
+  --z-float: 30;
+  --z-header: 40;
+  --z-dropdown: 50;
+  --z-menu: 60;
+  --z-skip: 100;
+
+  /* Header height (§16): 64 px on phones, 80 px from lg */
+  --header-height: 4rem;
+}
+
+@media (width >= 40rem) {
+  :root {
+    --space-gutter: 1.5rem;
+  }
+}
+
+@media (width >= 64rem) {
+  :root {
+    --space-gutter: 2rem;
+    --header-height: 5rem;
+  }
+}
+
+@layer base {
+  html {
+    /* Keeps anchor targets clear of the sticky header */
+    scroll-padding-top: calc(var(--header-height) + 1rem);
+  }
+
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 2px;
+  }
+}
+
+/* Containers (§6.1): centred, gutter padding, content never touches the edge */
+@utility container-wide {
+  width: 100%;
+  max-width: calc(80rem + 2 * var(--space-gutter));
+  margin-inline: auto;
+  padding-inline: var(--space-gutter);
+}
+
+@utility container-text {
+  width: 100%;
+  max-width: calc(48rem + 2 * var(--space-gutter));
+  margin-inline: auto;
+  padding-inline: var(--space-gutter);
+}
+
+/* Reveal once (AD-05, §14): the hidden state exists only after
+   src/scripts/reveal.ts has run, so content is visible without JavaScript */
+@media (prefers-reduced-motion: no-preference) {
+  .reveal-ready [data-reveal] {
+    transition:
+      opacity var(--duration-reveal) var(--ease-out),
+      transform var(--duration-reveal) var(--ease-out);
+  }
+
+  .reveal-ready [data-reveal]:not(.is-revealed) {
+    opacity: 0;
+    transform: translateY(var(--reveal-distance));
+  }
+
+  .reveal-ready [data-reveal] + [data-reveal] {
+    transition-delay: var(--reveal-stagger);
+  }
+}
+
+/* All motion off under reduced motion (AD-15, §14) */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

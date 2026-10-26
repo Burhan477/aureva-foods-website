@@ -1,0 +1,74 @@
+---
+import { Picture } from "astro:assets";
+
+import heroImage from "../../../assets/images/hero/home-hero.png";
+import { hero } from "../../../data/home";
+import Button from "../../ui/Button.astro";
+
+/**
+ * Home hero (COMPONENT_INVENTORY.md §6, M3.1).
+ *
+ * The owner-supplied photo is the section background. Below xl it sits
+ * under the text, cropped to the ingredients and fading up into the page
+ * background. From xl there is room beside the ingredients, so it fills
+ * the section with an Ivory wash on the text side; the copy never sits on
+ * the busy part of the photo (DESIGN_SYSTEM.md §12).
+ *
+ * The image is the LCP element: eager, high priority, and never hidden
+ * by a reveal animation (DESIGN_SYSTEM.md §14). No client JavaScript.
+ */
+---
+
+<section
+  aria-labelledby="hero-title"
+  class="relative isolate flex flex-col overflow-hidden bg-bg xl:min-h-[clamp(36rem,calc(100svh-var(--header-height)),42rem)] xl:justify-center"
+>
+  <div class="container-wide pt-12 sm:pt-16 xl:py-section-tight">
+    <!-- Wide enough for each heading line to stay on one line from xl -->
+    <div class="max-w-xl xl:max-w-160">
+      <p class="flex items-center gap-3 text-eyebrow font-semibold text-olive uppercase">
+        <span class="h-px w-8 bg-olive" aria-hidden="true"></span>
+        {hero.eyebrow}
+      </p>
+
+      <h1 id="hero-title" class="mt-5 font-display text-display text-heading">
+        {hero.title.map((line) => (
+          <span class="block">{line} </span>
+        ))}
+      </h1>
+
+      <p class="mt-6 max-w-[68ch] text-lead text-text xl:max-w-136">
+        {hero.intro}
+      </p>
+
+      <div class="mt-8 flex flex-wrap gap-3">
+        <Button href={hero.primaryCta.href} size="lg">
+          {hero.primaryCta.label}
+        </Button>
+        <Button href={hero.secondaryCta.href} variant="secondary" size="lg">
+          {hero.secondaryCta.label}
+        </Button>
+      </div>
+    </div>
+  </div>
+
+  <div class="relative -z-10 -mt-10 aspect-4/3 sm:-mt-16 sm:aspect-video lg:aspect-21/9 xl:absolute xl:inset-0 xl:mt-0 xl:aspect-auto">
+    <Picture
+      src={heroImage}
+      alt={hero.imageAlt}
+      formats={["avif", "webp"]}
+      fallbackFormat="jpg"
+      widths={[640, 960, 1280, 1600, heroImage.width]}
+      sizes="100vw"
+      loading="eager"
+      fetchpriority="high"
+      class="absolute inset-0 size-full object-cover object-[85%_50%] lg:object-center xl:object-[75%_50%]"
+    />
+    <!-- Fades the photo into the page: from the top below xl, from the
+         text side from xl -->
+    <div
+      class="absolute inset-0 bg-linear-to-b from-bg to-bg/0 to-40% xl:bg-linear-to-r xl:from-bg xl:from-25% xl:via-bg/85 xl:via-40% xl:to-bg/0 xl:to-65%"
+      aria-hidden="true"
+    ></div>
+  </div>
+</section>

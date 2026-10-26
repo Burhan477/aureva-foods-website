@@ -1,0 +1,51 @@
+---
+/**
+ * Button (COMPONENT_INVENTORY.md §4, DESIGN_SYSTEM.md §9).
+ * Renders a link when `href` is given, a button otherwise.
+ * WhatsApp Us has its own component (WhatsAppButton).
+ */
+interface Props {
+  variant?: "primary" | "secondary";
+  /** Background the button sits on (DESIGN_SYSTEM.md §9.1) */
+  tone?: "light" | "dark";
+  size?: "md" | "lg";
+  href?: string;
+  class?: string;
+}
+
+const {
+  variant = "primary",
+  tone = "light",
+  size = "md",
+  href,
+  class: className,
+} = Astro.props;
+
+const variants = {
+  primary: {
+    light: "bg-primary text-white hover:bg-primary-hover",
+    dark: "bg-accent text-charcoal hover:bg-accent-hover",
+  },
+  secondary: {
+    light: "border-[1.5px] border-olive text-olive hover:bg-ivory-deep",
+    dark: "border-[1.5px] border-ivory text-ivory hover:bg-ivory/10",
+  },
+};
+
+const classes = [
+  "inline-flex shrink-0 items-center justify-center gap-2 rounded-md font-semibold whitespace-nowrap transition-colors duration-(--duration-fast) ease-out",
+  size === "md" ? "min-h-11 px-5 text-button" : "min-h-13 px-7 text-body",
+  variants[variant][tone],
+  className,
+];
+---
+
+{href ? (
+  <a href={href} class:list={classes}>
+    <slot />
+  </a>
+) : (
+  <button type="button" class:list={classes}>
+    <slot />
+  </button>
+)}

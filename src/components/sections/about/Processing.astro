@@ -1,0 +1,105 @@
+---
+import { Picture } from "astro:assets";
+
+import heroImage from "../../../assets/images/hero/home-hero.png";
+import { processing as section } from "../../../data/about";
+
+/**
+ * About Us "Manufacturing & Processing Capabilities" (SITE_STRUCTURE.md
+ * §4.2 section 4, M5.1). BLOCKED (C-08): the copy describes
+ * supplier-dependent options only; see data/about.ts.
+ *
+ * Text + image split (DESIGN_SYSTEM.md §6.2), 6 / 6 from lg with the text
+ * on the left, alternating with Who We Are; stacked text first below lg,
+ * as in Sections 1 and 2. Then the four capabilities as an ordered list of
+ * white cards: 1 column, 2 from sm, 4 from lg. They are numbered rather
+ * than given icons because no icon in the set shows grinding without
+ * suggesting machinery. Alternate background after the Ivory product
+ * range (§11).
+ *
+ * The photo is the Home hero image cropped to its ingredients: raw roots
+ * and whole spices beside ground powders, with no facility, equipment or
+ * people (ASSET_GUIDELINES.md §6). The source is 2.5:1, so in a 4:3 frame
+ * it renders about 1.9 times the frame width; `sizes` gives that width.
+ * Everything reveals once (§14) and stays visible without JavaScript and
+ * under reduced motion.
+ */
+---
+
+<section aria-labelledby="processing-title" class="bg-bg-alt py-section">
+  <div class="container-wide">
+    <div class="grid items-center gap-10 lg:grid-cols-12 lg:gap-16">
+      <div class="lg:col-span-6" data-reveal>
+        <p class="flex items-center gap-3 text-eyebrow font-semibold text-olive uppercase">
+          <span class="h-px w-8 bg-olive" aria-hidden="true"></span>
+          {section.eyebrow}
+        </p>
+
+        <h2
+          id="processing-title"
+          class="mt-5 font-display text-h2 text-balance text-heading"
+        >
+          {section.title}
+        </h2>
+
+        <p class="mt-6 max-w-[68ch] text-lead text-text">{section.intro}</p>
+
+        <p class="mt-5 max-w-[68ch] text-text-muted">{section.supporting}</p>
+      </div>
+
+      <div class="lg:col-span-6" data-reveal>
+        <!-- Offset outline frame: decorative, from lg only -->
+        <div class="relative lg:mr-4 lg:mb-4">
+          <div
+            class="absolute inset-0 hidden translate-x-4 translate-y-4 rounded-lg border border-olive/25 lg:block"
+            aria-hidden="true"
+          ></div>
+          <div class="relative aspect-4/3 overflow-hidden rounded-lg bg-ivory">
+            <Picture
+              src={heroImage}
+              alt={section.imageAlt}
+              formats={["avif", "webp"]}
+              fallbackFormat="jpg"
+              widths={[640, 960, 1280, 1600, heroImage.width]}
+              sizes="(min-width: 1344px) 1110px, (min-width: 1024px) 85vw, 188vw"
+              class="absolute inset-0 size-full object-cover object-[85%_50%]"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ol class="mt-12 grid gap-6 sm:grid-cols-2 lg:mt-16 lg:grid-cols-4 lg:gap-8">
+      {section.capabilities.map((capability, index) => (
+        <li
+          class="relative flex flex-col rounded-lg border border-line bg-surface p-6 lg:p-8"
+          data-reveal
+          style={`transition-delay: calc(var(--reveal-stagger) * ${index})`}
+        >
+          <span
+            class="absolute top-0 left-6 h-0.5 w-12 bg-saffron lg:left-8"
+            aria-hidden="true"
+          ></span>
+
+          <!-- The list already conveys the order to assistive technology -->
+          <span
+            class="text-eyebrow font-semibold text-olive tabular-nums"
+            aria-hidden="true"
+          >
+            {String(index + 1).padStart(2, "0")}
+          </span>
+
+          <h3 class="mt-4 text-h3 font-semibold text-charcoal">
+            {capability.title}
+          </h3>
+
+          <p class="mt-3 text-text">{capability.text}</p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<script>
+  import "../../../scripts/reveal";
+</script>

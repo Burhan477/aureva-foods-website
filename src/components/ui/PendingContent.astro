@@ -1,0 +1,25 @@
+---
+/**
+ * Marks content that is waiting for owner input (COMPONENT_INVENTORY.md §4).
+ * Visible in development only; renders nothing in production builds.
+ */
+interface Props {
+  /** Open item IDs from the master plan, for example "C-01, C-02" */
+  item: string;
+  note: string;
+  class?: string;
+}
+
+const { item, note, class: className } = Astro.props;
+---
+
+{import.meta.env.DEV && (
+  <p
+    class:list={[
+      "rounded-sm border border-dashed border-current px-3 py-2 text-small",
+      className,
+    ]}
+  >
+    <strong class="font-semibold">Pending ({item}):</strong> {note}
+  </p>
+)}

@@ -1,0 +1,180 @@
+# AUREVA FOODS — SEO and Performance
+
+| | |
+|---|---|
+| Version | 0.1 |
+| Last updated | 2026-10-25 |
+| Status | APPROVED by owner, 2026-10-25 |
+| Coordinated by | [AUREVA_FOODS_MASTER_DEVELOPMENT_PLAN.md](AUREVA_FOODS_MASTER_DEVELOPMENT_PLAN.md) |
+
+## 1. Status and scope
+
+This document defines how pages are described to search engines and how fast they must be: titles, descriptions, canonical URLs, sitemap, robots, structured data, headings, internal links, image SEO, Core Web Vitals, budgets and how all of this is measured.
+
+Page priority and topics come from SITE_STRUCTURE.md §7. Everything marked SUGGESTION is a starting point, not keyword research; real data replaces it once Search Console is running.
+
+**Targets are goals, not results.** Nothing in this document claims a score until it has been measured and reported (master plan §12.3).
+
+## 2. SEO priorities
+
+1. Spices (`/products/spices/`)
+2. Dehydrated Products (`/products/dehydrated-products/`)
+3. Fresh Fruits & Vegetables (`/products/fresh-fruits-vegetables/`)
+
+Home and Products Overview introduce the company and route visitors to these pages rather than competing with them (S-01, S-02 Q15).
+
+## 3. Titles and descriptions
+
+### 3.1 Rules
+
+- Title: unique, about 50–60 characters, pattern `{Page topic} | Aureva Foods`; Home leads with the brand.
+- Description: unique, about 140–160 characters (legal pages may be shorter), plain statement of what the page offers and an invitation to enquire.
+- No restricted wording (BRAND_GUIDELINES.md §10.2): no "100% natural", "pure", "best", "certified".
+- "Exporter" and "manufacturer" describe the business as the client stated it (S-02 Q1); they remain CLIENT-PROVIDED / UNVERIFIED (C-08). Drafts below use "supplier" until C-08 is confirmed.
+- Final wording is approved page by page in M6.3.
+
+### 3.2 Draft titles and descriptions (SUGGESTION)
+
+| Page | Title | Description |
+|---|---|---|
+| Home | Aureva Foods \| Indian Spices, Dehydrated Foods & Produce | B2B supplier of Indian spices, dehydrated onion, garlic and vegetable powders, and fresh fruits and vegetables. Enquire on WhatsApp or request a quote. |
+| About Us | About Us \| Aureva Foods | Learn about Aureva Foods, a B2B supplier of spices, dehydrated products and fresh produce from India for importers, distributors and wholesalers. |
+| Products Overview | Products \| Aureva Foods | Explore Aureva Foods' three product ranges: spices, dehydrated products, and fresh fruits and vegetables from India. Request a quote for bulk supply. |
+| Spices | Indian Spices: Powders & Whole Spices \| Aureva Foods | Turmeric, chilli, cumin, cardamom, ginger and fenugreek powders, whole coriander and cumin, garlic powder and fennel seeds from India. Request a quote. |
+| Dehydrated Products | Dehydrated Onion, Garlic & Vegetable Powders \| Aureva Foods | Dehydrated white, pink and fried onion, garlic, and powders including beetroot, lemon, tamarind, mint and spinach from India. Request a quote. |
+| Fresh Fruits & Vegetables | Fresh Fruits & Vegetables from India \| Aureva Foods | Fresh onion, green chilli, banana, pomegranate and mango from India for B2B buyers. Contact Aureva Foods on WhatsApp or request a quote. |
+| Contact Us | Contact Us \| Aureva Foods | Contact Aureva Foods for business enquiries and quotations. Message us on WhatsApp or send an enquiry about spices, dehydrated products or fresh produce. |
+| Privacy Policy | Privacy Policy \| Aureva Foods | How Aureva Foods collects, uses and protects information submitted through this website. |
+| Terms & Conditions | Terms & Conditions \| Aureva Foods | Terms for using the Aureva Foods website, including product information and intellectual property. |
+| 404 | Page Not Found \| Aureva Foods | (not indexed) |
+
+## 4. URLs, canonicals and indexing
+
+- Routes as approved (D-10), lower case, trailing slash (AD-02).
+- Every page has a self-referencing absolute canonical URL built from the production `site` URL (C-18) plus the path. No query strings in canonicals.
+- One language; no `hreflang` tags.
+- **Preview deployments are not indexed:** the host sends `X-Robots-Tag: noindex` on preview URLs (M7.1).
+- 404 page: `noindex`, served with HTTP status 404.
+
+## 5. Sitemap and robots
+
+- **Sitemap:** `sitemap.xml` generated at build by a small Astro endpoint (`src/pages/sitemap.xml.ts`) listing the nine indexable routes; no new package. The 404 page is excluded.
+- **robots.txt:** allows all crawlers and points to the sitemap. Nothing is blocked; the site has no private areas.
+- After launch, the owner verifies the domain in Google Search Console (and Bing Webmaster Tools if wanted) and submits the sitemap.
+
+## 6. Social sharing
+
+Each page sets Open Graph and Twitter card tags: `og:title`, `og:description`, `og:url` (canonical), `og:type` (`website`), `og:image` (1200 × 630, ASSET_GUIDELINES.md §4), `og:site_name` "Aureva Foods", and `twitter:card` `summary_large_image`. Until a page-specific image exists, the default share image is used.
+
+## 7. Structured data
+
+JSON-LD, using only CONFIRMED values from `site.ts` (AD-08). Fields that are still BLOCKED are omitted, never guessed.
+
+| Type | Pages | Contents | Status |
+|---|---|---|---|
+| `Organization` | Home | Name, URL, logo (when supplied), email and telephone (when confirmed), `contactPoint` | Partially blocked (C-01, C-03, C-13, C-29) |
+| `WebSite` | Home | Name, URL | Ready once the domain is known (C-18) |
+| `BreadcrumbList` | Category pages | Home › Products › Category | Ready (matches Breadcrumbs, C-32) |
+
+Not used, with reasons:
+
+- `Product`: rich results need price or offer details, which the site does not show (D-07, C-11).
+- `FAQPage`: Google shows FAQ rich results only for a small set of authoritative sites, so the markup adds no visible benefit; the FAQs stay as normal content.
+- `LocalBusiness`: needs a public address (C-19).
+
+Every structured-data block is checked with the Rich Results Test or the Schema.org validator before launch.
+
+## 8. Headings and on-page content
+
+- One `h1` per page; sections use `h2` (SITE_STRUCTURE.md §4); product cards use `h3`. No skipped levels.
+- Product names appear in headings exactly as approved (D-14).
+- Each category page has an introduction of roughly 120–250 words that is unique to that page, written for buyers, not stuffed with keywords.
+- Onion appears on both the Dehydrated and Fresh pages; each describes its own form and links to the other (SITE_STRUCTURE.md §7).
+
+## 9. Internal linking
+
+- Header and footer link to every main page and all three categories.
+- Home and Products Overview link to each category page with descriptive anchor text ("View Spices", not "Click here").
+- Category pages link to each other and to Contact.
+- Breadcrumbs on category pages (C-32).
+- No orphan pages: every indexable page is reachable from navigation.
+
+## 10. Keyword themes (SUGGESTION)
+
+Starting themes for copy and for later research. Not validated with search-volume data.
+
+| Page | Themes |
+|---|---|
+| Spices | Indian spice supplier; turmeric powder supplier; chilli powder bulk; cumin powder and whole cumin; cardamom powder; fenugreek powder; fennel seeds; whole coriander; garlic powder; ginger powder |
+| Dehydrated Products | dehydrated onion supplier (white, pink, fried onion); dehydrated garlic; beetroot powder; tamarind powder; dry mango powder; lemon powder; mint, spinach, potato, coriander leaves powder |
+| Fresh Fruits & Vegetables | fresh onion supply India; green chilli; Indian mango; pomegranate; banana |
+
+Wording such as "100% natural" or "no preservatives" is not used as a keyword (C-06). "Exporter" phrases are added only after C-08 is confirmed.
+
+## 11. Performance targets
+
+### 11.1 Core Web Vitals (field data, 75th percentile, mobile)
+
+| Metric | Target |
+|---|---|
+| Largest Contentful Paint (LCP) | ≤ 2.5 s |
+| Interaction to Next Paint (INP) | ≤ 200 ms |
+| Cumulative Layout Shift (CLS) | ≤ 0.1 |
+
+### 11.2 Lab targets (Lighthouse, mobile profile, production build)
+
+| Category | Target |
+|---|---|
+| Performance | ≥ 90 |
+| Accessibility | ≥ 95, with no failing automated checks left unexplained |
+| Best Practices | ≥ 95 |
+| SEO | 100 |
+
+### 11.3 Page budgets (compressed transfer size)
+
+| Resource | Budget |
+|---|---|
+| JavaScript, all pages except Contact | ≤ 15 KB (navigation and reveal scripts, AD-05) |
+| JavaScript, Contact page | ≤ 100 KB including the React runtime for the form (AD-04) |
+| CSS | ≤ 30 KB |
+| Fonts | ≤ 4 files, ≤ 150 KB total (AD-10) |
+| Hero image (phone) | ≤ 200 KB (ASSET_GUIDELINES.md §7) |
+| Home page total, first load on a phone | ≤ 1 MB |
+| Third-party requests on page load | 0 (the form service is contacted only on submit) |
+
+### 11.4 Rules that protect these targets
+
+- Static HTML everywhere (AD-01); React only on Contact (AD-04).
+- The hero image is the expected LCP element: loaded eagerly with high fetch priority and never hidden by a reveal animation (DESIGN_SYSTEM.md §14).
+- Fonts self-hosted with fallback metrics (AD-10); only approved weights.
+- Animations use `transform` and `opacity` only; nothing animates layout properties.
+- Hashed build assets are cached long-term by the host; HTML is not (M7.1).
+- No analytics or other third-party scripts at launch (D-17).
+
+## 12. Measuring
+
+| What | Tool | When |
+|---|---|---|
+| Lab performance, accessibility, SEO | Lighthouse in Chrome DevTools against `npm run build` + `npm run preview`, mobile and desktop | Each milestone review from M3; full run in M6.7 |
+| Real-world vitals | PageSpeed Insights on the production URL; Search Console Core Web Vitals report once data exists | M7.4 and after launch |
+| Bundle sizes | Build output and the browser Network panel | Each milestone from M2 |
+| Structured data | Rich Results Test / Schema.org validator | M6.5 |
+| HTML validity | W3C Nu HTML Checker | M6 |
+| Indexing | Search Console coverage report | After launch |
+
+Results are reported with the numbers, the page, the device profile and the date. A target that is missed is reported as missed, with the cause.
+
+## 13. Decisions needed
+
+| ID | Question | Recommendation |
+|---|---|---|
+| — | Approve the draft titles and descriptions as a starting point (final wording in M6.3) | Yes |
+| — | Sitemap as a small built-in endpoint rather than a new package | Yes |
+| — | Performance budgets in §11.3 | As written |
+
+## 14. Revision history
+
+| Version | Date | Change |
+|---|---|---|
+| 0.1 | 2026-10-25 | First draft: metadata, canonicals, sitemap, structured data, linking, keyword themes, performance targets and budgets, measurement |
+| 0.1 | 2026-10-25 | Approved by owner (D-21) |

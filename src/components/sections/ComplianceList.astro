@@ -1,0 +1,45 @@
+---
+import { type Credential, confirmed, site } from "../../data/site";
+import PendingContent from "../ui/PendingContent.astro";
+
+/**
+ * Registrations and licences (COMPONENT_INVENTORY.md §6), used on Home
+ * (M3.8) and About (M5).
+ *
+ * Shows only credentials whose status is CONFIRMED in site.ts (C-05), as
+ * text: name and document type, no numbers, seals or logos (ASSET_GUIDELINES.md
+ * §6). With none confirmed it renders nothing in production and a pending
+ * marker in development.
+ */
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+
+const credentials = site.credentials
+  .map((credential) => confirmed(credential))
+  .filter((credential): credential is Credential => credential !== null);
+---
+
+{credentials.length > 0 ? (
+  <div class={className}>
+    <h3 class="text-h4 font-semibold text-charcoal">
+      Registrations & Licences
+    </h3>
+    <ul class="mt-4 grid gap-3 sm:grid-cols-2">
+      {credentials.map((credential) => (
+        <li class="rounded-md border border-line bg-surface px-5 py-4">
+          <p class="font-semibold text-charcoal">{credential.name}</p>
+          <p class="mt-1 text-small text-text-muted">{credential.type}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
+) : (
+  <PendingContent
+    item="C-05"
+    note="No registration or licence is verified yet, so none is shown. Spices Board, APEDA, FSSAI and FDA items appear here, as text only, once the owner's documents are checked and their status is CONFIRMED in site.ts."
+    class={className}
+  />
+)}

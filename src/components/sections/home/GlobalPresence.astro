@@ -1,0 +1,163 @@
+---
+import { globalPresence as section } from "../../../data/home";
+import Button from "../../ui/Button.astro";
+import PendingContent from "../../ui/PendingContent.astro";
+
+/**
+ * Home "Global Presence" (SITE_STRUCTURE.md §4.1 section 9, M3.9, C-07).
+ *
+ * Default Ivory background after the alternate Quality & Compliance
+ * (DESIGN_SYSTEM.md §11). Text beside a decorative globe: the globe sits
+ * above the text as a small emblem below lg, and in the right 6 columns
+ * from lg. The globe is latitude and longitude lines only, with no land,
+ * pins, routes or labels, so it cannot be read as a map of markets served
+ * (COMPONENT_INVENTORY.md §6, MarketsList). The Saffron ring is decoration
+ * on a light background, never text (BRAND_GUIDELINES.md §3.3). Everything
+ * reveals once (§14) and stays visible without JavaScript and under
+ * reduced motion.
+ */
+
+// Globe geometry in a 400 × 400 viewBox
+const c = 200;
+const r = 150;
+const toRad = (deg: number) => (deg * Math.PI) / 180;
+
+// Meridians as ellipses (0° is the straight central line)
+const meridians = [30, 60].map((lon) => r * Math.sin(toRad(lon)));
+// Parallels as chords, equator included
+const parallels = [-60, -30, 0, 30, 60].map((lat) => ({
+  y: c - r * Math.sin(toRad(lat)),
+  half: r * Math.cos(toRad(lat)),
+}));
+
+// Ring around the globe, split so its back half passes behind the sphere
+const ring = { rx: r * 1.24, ry: r * 0.36 };
+const ringBack = `M ${c - ring.rx} ${c} A ${ring.rx} ${ring.ry} 0 0 1 ${c + ring.rx} ${c}`;
+const ringFront = `M ${c + ring.rx} ${c} A ${ring.rx} ${ring.ry} 0 0 1 ${c - ring.rx} ${c}`;
+
+const ctaClasses = "w-full text-center whitespace-normal! sm:w-auto";
+---
+
+<section aria-labelledby="global-title" class="bg-bg py-section">
+  <div class="container-wide grid items-center gap-10 lg:grid-cols-12 lg:gap-16">
+    <div class="lg:order-last lg:col-span-6" data-reveal>
+      <svg
+        viewBox="0 0 400 400"
+        class="block w-36 text-olive sm:w-44 lg:mx-auto lg:w-full lg:max-w-120"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <circle cx={c} cy={c} r={r * 1.3} class="fill-ivory-deep/60" />
+
+        <g transform={`rotate(-18 ${c} ${c})`}>
+          <path
+            d={ringBack}
+            fill="none"
+            class="stroke-saffron-deep"
+            stroke-opacity="0.45"
+            stroke-width="2"
+          />
+
+          <circle cx={c} cy={c} r={r} class="fill-surface" />
+
+          <g fill="none" stroke="currentColor" stroke-width="1.25">
+            <g stroke-opacity="0.28">
+              <line x1={c} y1={c - r} x2={c} y2={c + r} />
+              {meridians.map((rx) => (
+                <ellipse cx={c} cy={c} rx={rx} ry={r} />
+              ))}
+              {parallels.map(({ y, half }) => (
+                <line x1={c - half} y1={y} x2={c + half} y2={y} />
+              ))}
+            </g>
+            <circle
+              cx={c}
+              cy={c}
+              r={r}
+              stroke-opacity="0.7"
+              stroke-width="1.5"
+            />
+          </g>
+
+          <path
+            d={ringFront}
+            fill="none"
+            class="stroke-saffron"
+            stroke-width="2.5"
+            stroke-linecap="round"
+          />
+        </g>
+      </svg>
+    </div>
+
+    <div class="lg:col-span-6" data-reveal>
+      <p class="flex items-center gap-3 text-eyebrow font-semibold text-olive uppercase">
+        <span class="h-px w-8 bg-olive" aria-hidden="true"></span>
+        {section.eyebrow}
+      </p>
+
+      <h2
+        id="global-title"
+        class="mt-5 font-display text-h2 text-balance text-heading"
+      >
+        {section.title}
+      </h2>
+
+      <p class="mt-6 max-w-[68ch] text-lead text-text">{section.intro}</p>
+
+      <div class="mt-8">
+        <p
+          id="global-audience"
+          class="text-small font-semibold text-text-muted"
+        >
+          {section.audienceLabel}
+        </p>
+        <ul aria-labelledby="global-audience" class="mt-3 flex flex-wrap gap-2">
+          {section.audience.map((buyer) => (
+            <li class="rounded-sm border border-line bg-surface px-3 py-1.5 text-small text-charcoal">
+              {buyer}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="mt-10">
+        {section.cta.href ? (
+          <Button href={section.cta.href} size="lg" class={ctaClasses}>
+            {section.cta.label}
+          </Button>
+        ) : (
+          <button
+            type="button"
+            aria-disabled="true"
+            class:list={[
+              "inline-flex min-h-13 cursor-not-allowed items-center justify-center rounded-md bg-primary px-7 py-3 text-body font-semibold text-white opacity-60",
+              ctaClasses,
+            ]}
+          >
+            {section.cta.label}
+            <span class="sr-only">(not available yet)</span>
+          </button>
+        )}
+
+        {!section.cta.href && (
+          <PendingContent
+            item="M5.3"
+            note={section.cta.pendingNote}
+            class="mt-4"
+          />
+        )}
+      </div>
+
+      <PendingContent
+        item="C-07"
+        note="Markets served are not confirmed, so no country, region or map is shown. Confirmed markets can be listed here once the owner says which may be named publicly."
+        class="mt-4"
+      />
+    </div>
+  </div>
+</section>
+
+<script>
+  import "../../../scripts/reveal";
+</script>

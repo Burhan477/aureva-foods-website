@@ -1,0 +1,272 @@
+[
+  {
+    "id": "turmeric-powder",
+    "order": 1,
+    "name": "Turmeric Powder",
+    "suppliedName": "turmeric powder",
+    "category": "spices",
+    "group": "Spices",
+    "image": "../assets/images/products/spices/turmeric-powder.webp",
+    "imageAlt": "Turmeric powder in a wooden bowl, with fresh turmeric roots, sliced turmeric and green leaves around it"
+  },
+  {
+    "id": "ginger-powder",
+    "order": 2,
+    "name": "Ginger Powder",
+    "suppliedName": "ginger poweder",
+    "category": "spices",
+    "group": "Spices",
+    "image": "../assets/images/products/spices/ginger-powder.webp",
+    "imageAlt": "Ginger powder in a wooden bowl, with whole and sliced fresh ginger around it"
+  },
+  {
+    "id": "cardamom-powder",
+    "order": 3,
+    "name": "Cardamom Powder",
+    "suppliedName": "cardamom powder",
+    "category": "spices",
+    "group": "Spices",
+    "image": "../assets/images/products/spices/cardamom-powder.webp",
+    "imageAlt": "Cardamom powder in a wooden bowl, with green cardamom pods around it"
+  },
+  {
+    "id": "fenugreek-powder",
+    "order": 4,
+    "name": "Fenugreek Powder",
+    "suppliedName": "fenugirk powder",
+    "category": "spices",
+    "group": "Spices",
+    "image": "../assets/images/products/spices/fenugreek-powder.webp",
+    "imageAlt": "Fenugreek powder in a wooden bowl on fenugreek seeds, with green leaves behind"
+  },
+  {
+    "id": "cumin-powder",
+    "order": 5,
+    "name": "Cumin Powder",
+    "suppliedName": "cumin powder",
+    "category": "spices",
+    "group": "Spices",
+    "image": "../assets/images/products/spices/cumin-powder.webp",
+    "imageAlt": "Cumin powder in a wooden bowl on whole cumin seeds"
+  },
+  {
+    "id": "chilli-powder",
+    "order": 6,
+    "name": "Chilli Powder",
+    "suppliedName": "chilli powder",
+    "category": "spices",
+    "group": "Spices",
+    "image": "../assets/images/products/spices/chilli-powder.webp",
+    "imageAlt": "Chilli powder in a wooden bowl, with dried red chillies and chilli flakes around it"
+  },
+  {
+    "id": "whole-coriander",
+    "order": 7,
+    "name": "Whole Coriander",
+    "suppliedName": "corionder whole",
+    "category": "spices",
+    "group": "Spices",
+    "image": "../assets/images/products/spices/whole-coriander.webp",
+    "imageAlt": "Whole coriander seeds in a wooden bowl, with fresh coriander leaves beside it"
+  },
+  {
+    "id": "whole-cumin",
+    "order": 8,
+    "name": "Whole Cumin",
+    "suppliedName": "cumin whole",
+    "category": "spices",
+    "group": "Spices",
+    "image": "../assets/images/products/spices/whole-cumin.webp",
+    "imageAlt": "Whole cumin seeds in a wooden bowl, with a wooden scoop of cumin seeds beside it"
+  },
+  {
+    "id": "garlic-powder",
+    "order": 9,
+    "name": "Garlic Powder",
+    "suppliedName": "garli powder",
+    "category": "spices",
+    "group": "Spices",
+    "image": "../assets/images/products/spices/garlic-powder.webp",
+    "imageAlt": "Garlic powder in a wooden bowl, with whole garlic bulbs and cloves around it"
+  },
+  {
+    "id": "fennel-seeds",
+    "order": 10,
+    "name": "Fennel Seeds",
+    "suppliedName": "fennel seed",
+    "category": "spices",
+    "group": "Spices",
+    "image": "../assets/images/products/spices/fennel-seeds.webp",
+    "imageAlt": "Fennel seeds in a wooden bowl, with a wooden scoop of seeds and fresh fennel fronds"
+  },
+  {
+    "id": "white-onion",
+    "order": 1,
+    "name": "White Onion",
+    "suppliedName": "white onion",
+    "category": "dehydrated-products",
+    "group": "Dehydrated Onion Products",
+    "image": "../assets/images/products/dehydrated/white-onion.webp",
+    "imageAlt": "Dehydrated white onion in a wooden bowl, with whole and halved white onions behind"
+  },
+  {
+    "id": "pink-onion",
+    "order": 2,
+    "name": "Pink Onion",
+    "suppliedName": "pink onion",
+    "category": "dehydrated-products",
+    "group": "Dehydrated Onion Products",
+    "image": "../assets/images/products/dehydrated/pink-onion.webp",
+    "imageAlt": "Dehydrated pink onion in a wooden bowl, with whole and halved red onions behind"
+  },
+  {
+    "id": "fried-onion",
+    "order": 3,
+    "name": "Fried Onion",
+    "suppliedName": "fried onion",
+    "category": "dehydrated-products",
+    "group": "Dehydrated Onion Products",
+    "image": "../assets/images/products/dehydrated/fried-onion.webp",
+    "imageAlt": "Fried onion in a wooden bowl, with whole brown onions behind"
+  },
+  {
+    "id": "dehydrated-garlic",
+    "order": 4,
+    "name": "Dehydrated Garlic",
+    "suppliedName": "garlic",
+    "category": "dehydrated-products",
+    "group": "Dehydrated Garlic",
+    "image": "../assets/images/products/dehydrated/dehydrated-garlic.webp",
+    "imageAlt": "Dehydrated garlic in a wooden bowl, with whole garlic bulbs and cloves behind"
+  },
+  {
+    "id": "beetroot-powder",
+    "order": 5,
+    "name": "Beetroot Powder",
+    "suppliedName": "beat root powder",
+    "category": "dehydrated-products",
+    "group": "Vegetable & Other Powders",
+    "image": "../assets/images/products/dehydrated/beetroot-powder.webp",
+    "imageAlt": "Beetroot powder in a wooden bowl, beside whole and halved beetroots"
+  },
+  {
+    "id": "lemon-powder",
+    "order": 6,
+    "name": "Lemon Powder",
+    "suppliedName": "lemon powder",
+    "category": "dehydrated-products",
+    "group": "Vegetable & Other Powders",
+    "image": "../assets/images/products/dehydrated/lemon-powder.webp",
+    "imageAlt": "Lemon powder in a wooden bowl, surrounded by whole and halved lemons"
+  },
+  {
+    "id": "coriander-leaves-powder",
+    "order": 7,
+    "name": "Coriander Leaves Powder",
+    "suppliedName": "corronder leaves powder",
+    "category": "dehydrated-products",
+    "group": "Vegetable & Other Powders",
+    "image": "../assets/images/products/dehydrated/coriander-leaves-powder.webp",
+    "imageAlt": "Coriander leaves powder in a wooden bowl, with fresh coriander leaves and coriander seeds"
+  },
+  {
+    "id": "dry-mango-powder",
+    "order": 8,
+    "name": "Dry Mango Powder",
+    "suppliedName": "dry mango powder",
+    "category": "dehydrated-products",
+    "group": "Vegetable & Other Powders",
+    "image": "../assets/images/products/dehydrated/dry-mango-powder.webp",
+    "imageAlt": "Dry mango powder in a wooden bowl, with a green mango and dried mango slices"
+  },
+  {
+    "id": "tamarind-powder",
+    "order": 9,
+    "name": "Tamarind Powder",
+    "suppliedName": "tamrind powder",
+    "category": "dehydrated-products",
+    "group": "Vegetable & Other Powders",
+    "image": "../assets/images/products/dehydrated/tamarind-powder.webp",
+    "imageAlt": "Tamarind powder in a wooden bowl, with tamarind pods behind"
+  },
+  {
+    "id": "potato-powder",
+    "order": 10,
+    "name": "Potato Powder",
+    "suppliedName": "potato powder",
+    "category": "dehydrated-products",
+    "group": "Vegetable & Other Powders",
+    "image": "../assets/images/products/dehydrated/potato-powder.webp",
+    "imageAlt": "Potato powder in a wooden bowl, with whole and sliced potatoes behind"
+  },
+  {
+    "id": "spinach-powder",
+    "order": 11,
+    "name": "Spinach Powder",
+    "suppliedName": "spinach powder",
+    "category": "dehydrated-products",
+    "group": "Vegetable & Other Powders",
+    "image": "../assets/images/products/dehydrated/spinach-powder.webp",
+    "imageAlt": "Spinach powder in a wooden bowl, with fresh spinach leaves behind"
+  },
+  {
+    "id": "mint-leaves-powder",
+    "order": 12,
+    "name": "Mint Leaves Powder",
+    "suppliedName": "mint leaves powder",
+    "category": "dehydrated-products",
+    "group": "Vegetable & Other Powders",
+    "image": "../assets/images/products/dehydrated/mint-leaves-powder.webp",
+    "imageAlt": "Mint leaves powder in a wooden bowl, with fresh mint leaves around it"
+  },
+  {
+    "id": "onion",
+    "order": 1,
+    "name": "Onion",
+    "suppliedName": "onion",
+    "category": "fresh-fruits-vegetables",
+    "group": "Fresh Vegetables",
+    "image": "../assets/images/products/fresh/onion.webp",
+    "imageAlt": "Red onions in a wooden crate and on a woven mat, with one onion cut in half"
+  },
+  {
+    "id": "green-chilli",
+    "order": 2,
+    "name": "Green Chilli",
+    "suppliedName": "green chilli",
+    "category": "fresh-fruits-vegetables",
+    "group": "Fresh Vegetables",
+    "image": "../assets/images/products/fresh/green-chilli.webp",
+    "imageAlt": "Green chillies heaped in a wooden bowl, with more chillies on the table"
+  },
+  {
+    "id": "banana",
+    "order": 3,
+    "name": "Banana",
+    "suppliedName": "banana",
+    "category": "fresh-fruits-vegetables",
+    "group": "Fresh Fruits",
+    "image": "../assets/images/products/fresh/banana.webp",
+    "imageAlt": "A bunch of yellow bananas on a wooden table, with green leaves behind"
+  },
+  {
+    "id": "pomegranate",
+    "order": 4,
+    "name": "Pomegranate",
+    "suppliedName": "pomog",
+    "category": "fresh-fruits-vegetables",
+    "group": "Fresh Fruits",
+    "image": "../assets/images/products/fresh/pomegranate.webp",
+    "imageAlt": "Whole pomegranates, with one cut open to show its red seeds"
+  },
+  {
+    "id": "mango",
+    "order": 5,
+    "name": "Mango",
+    "suppliedName": "mango",
+    "category": "fresh-fruits-vegetables",
+    "group": "Fresh Fruits",
+    "image": "../assets/images/products/fresh/mango.webp",
+    "imageAlt": "Mangoes with leaves in a wooden crate, with one mango cut into cubes"
+  }
+]

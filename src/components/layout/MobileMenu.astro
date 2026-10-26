@@ -1,0 +1,150 @@
+---
+import { Image } from "astro:assets";
+import { ArrowRight, ChevronDown } from "lucide-react";
+
+import {
+  aboutLink,
+  allProductsLink,
+  contactLink,
+  homeLink,
+  isCurrentPath,
+  isExactPath,
+  productCategories,
+  productsLink,
+} from "../../data/navigation";
+import WhatsAppButton from "../ui/WhatsAppButton.astro";
+
+/**
+ * Mobile menu (below lg): full-height panel under the header bar.
+ * Products expands through a tap on a disclosure button. Focus is kept
+ * inside while open and returned to the menu button on close; Escape
+ * closes; page scrolling is locked (src/scripts/navigation.ts).
+ */
+interface Props {
+  pathname: string;
+}
+
+const { pathname } = Astro.props;
+const inProducts = isCurrentPath(pathname, productsLink.href);
+
+const rowLink =
+  "flex min-h-14 items-center text-h4 font-medium text-charcoal transition-colors duration-(--duration-fast) hover:text-olive aria-[current=page]:font-semibold aria-[current=page]:text-olive";
+---
+
+<div
+  id="mobile-menu"
+  class="fixed inset-x-0 top-(--header-height) bottom-0 z-(--z-menu) overflow-y-auto overscroll-contain border-t border-line bg-bg transition-[opacity,translate] duration-(--duration-base) ease-out starting:-translate-y-2 starting:opacity-0 lg:hidden"
+  data-mobile-menu
+  hidden
+>
+  <nav
+    aria-label="Main"
+    class="container-wide pt-2 pb-[max(2rem,env(safe-area-inset-bottom))]"
+  >
+    <ul class="divide-y divide-line border-b border-line">
+      <li>
+        <a
+          href={homeLink.href}
+          class={rowLink}
+          aria-current={
+            isExactPath(pathname, homeLink.href) ? "page" : undefined
+          }
+        >
+          {homeLink.label}
+        </a>
+      </li>
+      <li>
+        <a
+          href={aboutLink.href}
+          class={rowLink}
+          aria-current={
+            isCurrentPath(pathname, aboutLink.href) ? "page" : undefined
+          }
+        >
+          {aboutLink.label}
+        </a>
+      </li>
+      <li>
+        <button
+          type="button"
+          class="group flex min-h-14 w-full items-center justify-between text-h4 font-medium text-charcoal transition-colors duration-(--duration-fast) hover:text-olive aria-expanded:text-olive data-current:font-semibold data-current:text-olive"
+          aria-expanded={inProducts ? "true" : "false"}
+          aria-controls="mobile-products"
+          data-current={inProducts || undefined}
+          data-mobile-products-toggle
+        >
+          {productsLink.label}
+          <ChevronDown
+            className="size-5 transition-transform duration-(--duration-base) ease-out group-aria-expanded:rotate-180"
+            strokeWidth={1.75}
+            aria-hidden="true"
+          />
+        </button>
+        <div id="mobile-products" class="pb-5" hidden={!inProducts}>
+          <ul class="grid gap-3 sm:grid-cols-3">
+            {productCategories.map((category) => (
+              <li
+                class="group/card relative flex items-center gap-4 rounded-lg border border-line bg-surface p-3 has-[a:focus-visible]:outline-2 has-[a:focus-visible]:outline-offset-2 has-[a:focus-visible]:outline-focus sm:flex-col sm:items-stretch sm:gap-3"
+                style={`--color-category: var(--color-${category.accent})`}
+              >
+                <div class="aspect-3/2 w-24 shrink-0 overflow-hidden rounded-md bg-ivory-deep sm:w-full">
+                  <Image
+                    src={category.image}
+                    alt={category.imageAlt}
+                    width={640}
+                    widths={[192, 384, 640]}
+                    sizes="(min-width: 40rem) 30vw, 96px"
+                    loading="lazy"
+                    decoding="async"
+                    class="size-full object-cover"
+                  />
+                </div>
+                <div class="min-w-0 border-l-2 border-category pl-3 sm:border-t-2 sm:border-l-0 sm:pt-2 sm:pl-0">
+                  <a
+                    href={category.href}
+                    class="font-semibold text-charcoal after:absolute after:inset-0 after:content-[''] focus-visible:outline-none group-hover/card:text-olive"
+                    aria-current={
+                      isExactPath(pathname, category.href) ? "page" : undefined
+                    }
+                  >
+                    {category.label}
+                  </a>
+                  <p class="mt-0.5 text-small text-muted">
+                    {category.description}
+                  </p>
+                </div>
+              </li>
+            ))}
+          </ul>
+          <a
+            href={allProductsLink.href}
+            class="mt-3 inline-flex min-h-11 items-center gap-2 text-button font-semibold text-olive hover:underline hover:underline-offset-4"
+            aria-current={
+              isExactPath(pathname, allProductsLink.href) ? "page" : undefined
+            }
+          >
+            {allProductsLink.label}
+            <ArrowRight
+              className="size-4"
+              strokeWidth={1.75}
+              aria-hidden="true"
+            />
+          </a>
+        </div>
+      </li>
+      <li>
+        <a
+          href={contactLink.href}
+          class={rowLink}
+          aria-current={
+            isCurrentPath(pathname, contactLink.href) ? "page" : undefined
+          }
+        >
+          {contactLink.label}
+        </a>
+      </li>
+    </ul>
+
+    <WhatsAppButton size="lg" class="mt-8 w-full" />
+  </nav>
+</div>

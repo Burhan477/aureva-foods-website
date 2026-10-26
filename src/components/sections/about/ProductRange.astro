@@ -1,0 +1,95 @@
+---
+import { getCollection } from "astro:content";
+
+import { productRange as section } from "../../../data/about";
+import { productCategories } from "../../../data/navigation";
+import CategoryCard from "../../product/CategoryCard.astro";
+
+/**
+ * About Us "Our Product Range" (SITE_STRUCTURE.md §4.2 section 3, M5.1).
+ *
+ * Default Ivory background after the alternate Who We Are section
+ * (DESIGN_SYSTEM.md §11); white cards carry the contrast. Heading block
+ * left-aligned, with the intro beside it from lg, as in the Home
+ * categories section but top-aligned. Cards reuse CategoryCard: 1 column, 3 from md
+ * (§6.2), linking to the approved category routes (D-10). Each card lists
+ * its products from products.json in catalogue order. Cards reveal once
+ * with an 80 ms stagger (§14) and stay visible without JavaScript and
+ * under reduced motion.
+ */
+
+/** Crop focus per image: the fresh produce photo leans left, away from the off-catalogue tomatoes */
+const imagePositions: Partial<Record<string, string>> = {
+  "fresh-fruits-vegetables": "35% 50%",
+};
+
+const products = (await getCollection("products")).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+
+const listFormat = new Intl.ListFormat("en-GB");
+
+/** "Turmeric powder, ginger powder … and fennel seeds" */
+function productList(categoryId: string): string {
+  const list = listFormat.format(
+    products
+      .filter((product) => product.data.category === categoryId)
+      .map((product) => product.data.name.toLowerCase()),
+  );
+  return list.charAt(0).toUpperCase() + list.slice(1);
+}
+---
+
+<section aria-labelledby="product-range-title" class="bg-bg py-section">
+  <div class="container-wide">
+    <!-- Top-aligned: the two-paragraph intro is taller than the heading -->
+    <div
+      class="grid gap-6 lg:grid-cols-12 lg:items-start lg:gap-16"
+      data-reveal
+    >
+      <div class="lg:col-span-7">
+        <p class="flex items-center gap-3 text-eyebrow font-semibold text-olive uppercase">
+          <span class="h-px w-8 bg-olive" aria-hidden="true"></span>
+          {section.eyebrow}
+        </p>
+
+        <h2
+          id="product-range-title"
+          class="mt-5 font-display text-h2 text-balance text-heading"
+        >
+          {section.title}
+        </h2>
+      </div>
+
+      <div class="lg:col-span-5">
+        <p class="max-w-[68ch] text-lead text-text">{section.intro}</p>
+        <p class="mt-4 max-w-[68ch] text-text-muted">{section.supporting}</p>
+      </div>
+    </div>
+
+    <ul class="mt-12 grid gap-6 md:grid-cols-3 lg:mt-16 lg:gap-8">
+      {productCategories.map((category, index) => {
+        const copy = section.cards[category.id];
+        return (
+          <li
+            data-reveal
+            style={`transition-delay: calc(var(--reveal-stagger) * ${index})`}
+          >
+            <CategoryCard
+              category={category}
+              description={copy.description}
+              examples={productList(category.id)}
+              examplesLabel={section.examplesLabel}
+              ctaLabel={copy.ctaLabel}
+              imagePosition={imagePositions[category.id]}
+            />
+          </li>
+        );
+      })}
+    </ul>
+  </div>
+</section>
+
+<script>
+  import "../../../scripts/reveal";
+</script>

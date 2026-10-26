@@ -1,0 +1,84 @@
+---
+import { Picture } from "astro:assets";
+
+import aboutImage from "../../../assets/images/sections/home-about.jpg";
+import { companyIntro as section } from "../../../data/about";
+
+/**
+ * About Us "Company Introduction" (SITE_STRUCTURE.md §4.2 section 1, M5.1).
+ *
+ * The page `h1`. Text + image split (DESIGN_SYSTEM.md §6.2): 6 / 6 columns
+ * from lg, text on the left. Below lg it stacks with the text first, so
+ * the page title is the first thing read on phones. Default Ivory
+ * background directly under the header (§11).
+ *
+ * The image is the LCP element from lg: eager and high priority. The
+ * reveal script never hides content already on screen (§14), so this
+ * section only animates where it starts below the viewport, such as the
+ * stacked image on phones. Visible without JavaScript and under reduced
+ * motion.
+ */
+---
+
+<section
+  aria-labelledby="company-intro-title"
+  class="bg-bg pt-section-tight pb-section"
+>
+  <div class="container-wide grid items-center gap-10 lg:grid-cols-12 lg:gap-16">
+    <div class="lg:col-span-6" data-reveal>
+      <p class="flex items-center gap-3 text-eyebrow font-semibold text-olive uppercase">
+        <span class="h-px w-8 bg-olive" aria-hidden="true"></span>
+        {section.eyebrow}
+      </p>
+
+      <h1
+        id="company-intro-title"
+        class="mt-5 font-display text-h1 text-balance text-heading"
+      >
+        {section.title}
+      </h1>
+
+      {section.paragraphs.map((paragraph, index) => (
+        <p
+          class:list={[
+            "max-w-[68ch]",
+            index === 0 ? "mt-6 text-lead text-text" : "mt-5 text-text-muted",
+          ]}
+        >
+          {paragraph}
+        </p>
+      ))}
+
+      <p class="mt-8 border-l-2 border-saffron pl-5 text-h4 font-semibold text-olive">
+        {section.statement}
+      </p>
+    </div>
+
+    <div class="lg:col-span-6" data-reveal>
+      <!-- Offset outline frame: decorative, from lg only -->
+      <div class="relative lg:mr-4 lg:mb-4">
+        <div
+          class="absolute inset-0 hidden translate-x-4 translate-y-4 rounded-lg border border-olive/25 lg:block"
+          aria-hidden="true"
+        ></div>
+        <div class="relative aspect-4/3 overflow-hidden rounded-lg bg-ivory-deep lg:aspect-square">
+          <Picture
+            src={aboutImage}
+            alt={section.imageAlt}
+            formats={["avif", "webp"]}
+            fallbackFormat="jpg"
+            widths={[480, 800, 1200, aboutImage.width]}
+            sizes="(min-width: 1344px) 592px, (min-width: 1024px) 45vw, 100vw"
+            loading="eager"
+            fetchpriority="high"
+            class="absolute inset-0 size-full object-cover"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import "../../../scripts/reveal";
+</script>

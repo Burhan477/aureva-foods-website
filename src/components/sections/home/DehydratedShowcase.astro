@@ -1,0 +1,158 @@
+---
+import { getCollection } from "astro:content";
+import { ArrowLeft, ArrowRight } from "lucide-react";
+
+import { dehydratedShowcase as section } from "../../../data/home";
+import ProductCard from "../../product/ProductCard.astro";
+import Button from "../../ui/Button.astro";
+
+/**
+ * Home "Dehydrated Products Showcase" (SITE_STRUCTURE.md §4.1, M3.5).
+ *
+ * Default Ivory background after the alternate Featured Spices section
+ * (DESIGN_SYSTEM.md §11), with the Dehydrated accent, Saffron Gold, as marks
+ * only (D-09).
+ * The twelve products sit in a horizontal scroll-snap track: about 1.2
+ * cards on phones, 2 from sm, 3 from lg, 4 from xl. On phones the track
+ * runs to the screen edges and snaps to the gutter. Previous/next buttons,
+ * the position label and the progress rail come from
+ * src/scripts/carousel.ts; without JavaScript the track still scrolls and
+ * keeps its scrollbar. No autoplay.
+ */
+
+const products = (
+  await getCollection(
+    "products",
+    ({ data }) => data.category === "dehydrated-products",
+  )
+).sort((a, b) => a.data.order - b.data.order);
+
+const trackId = "dehydrated-carousel";
+
+/** Card widths per breakpoint, matching the track classes below */
+const imageSizes =
+  "(min-width: 1344px) 296px, (min-width: 1280px) 22vw, (min-width: 1024px) 29vw, (min-width: 640px) 45vw, 75vw";
+
+const controlClasses =
+  "inline-flex size-11 items-center justify-center rounded-md border-[1.5px] border-olive text-olive transition-colors duration-(--duration-fast) ease-out hover:not-aria-disabled:bg-surface aria-disabled:cursor-default aria-disabled:border-line aria-disabled:text-text-muted";
+---
+
+<section
+  aria-labelledby="dehydrated-title"
+  class="bg-bg py-section"
+  style="--color-category: var(--color-saffron)"
+>
+  <div class="container-wide">
+    <div class="grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-16" data-reveal>
+      <div class="lg:col-span-7">
+        <p class="flex items-center gap-3 text-eyebrow font-semibold text-olive uppercase">
+          <span class="h-px w-8 bg-olive" aria-hidden="true"></span>
+          {section.eyebrow}
+        </p>
+
+        <h2
+          id="dehydrated-title"
+          class="mt-5 font-display text-h2 text-heading"
+        >
+          {section.title}
+        </h2>
+      </div>
+
+      <p class="max-w-[68ch] text-lead text-text lg:col-span-5">
+        {section.intro}
+      </p>
+    </div>
+
+    <div class="group/carousel mt-8 lg:mt-12" data-carousel data-reveal>
+      <!-- Focusable so keyboard users can scroll it with the arrow keys
+           (WCAG 2.1.1: a scrollable region with no focusable content) -->
+      {/* eslint-disable astro/jsx-a11y/no-noninteractive-tabindex */}
+      <div
+        id={trackId}
+        role="region"
+        aria-label={section.carouselLabel}
+        tabindex="0"
+        class="-mx-(--space-gutter) snap-x snap-mandatory overflow-x-auto overscroll-x-contain scroll-px-(--space-gutter) px-(--space-gutter) py-4 focus-visible:-outline-offset-2 group-data-ready/carousel:[scrollbar-width:none]"
+        data-carousel-track
+      >
+        <!-- Gap equals the gutter, so at rest the next card starts exactly
+             at the track edge instead of showing as a sliver -->
+        <ul class="flex gap-(--space-gutter)">
+          {products.map(({ data }) => (
+            <li class="w-[78%] shrink-0 snap-start sm:w-[calc((100%-var(--space-gutter))/2)] lg:w-[calc((100%-2*var(--space-gutter))/3)] xl:w-[calc((100%-3*var(--space-gutter))/4)]">
+              <ProductCard product={data} sizes={imageSizes} />
+            </li>
+          ))}
+        </ul>
+      </div>
+      {/* eslint-enable astro/jsx-a11y/no-noninteractive-tabindex */}
+
+      <!-- Progress rail: decorative; the position is also given as text -->
+      <div
+        class="mt-4 h-0.5 overflow-hidden bg-line"
+        aria-hidden="true"
+        data-carousel-js
+        hidden
+      >
+        <span
+          class="block h-full w-full bg-category"
+          data-carousel-thumb
+        ></span>
+      </div>
+
+      <div class="mt-8 flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+        <!-- Arrows come before the CTA in both DOM and visual order; the
+             status text is not focusable, so it may sit either side -->
+        <div
+          class="flex items-center justify-between gap-4 sm:flex-row-reverse sm:justify-end"
+          data-carousel-js
+          hidden
+        >
+          <p
+            class="text-small text-text-muted tabular-nums"
+            aria-live="polite"
+            data-carousel-status
+          ></p>
+
+          <div class="flex gap-2">
+            <button
+              type="button"
+              class={controlClasses}
+              aria-label="Previous products"
+              aria-controls={trackId}
+              data-carousel-prev
+            >
+              <ArrowLeft
+                className="size-5"
+                strokeWidth={1.75}
+                aria-hidden="true"
+              />
+            </button>
+            <button
+              type="button"
+              class={controlClasses}
+              aria-label="Next products"
+              aria-controls={trackId}
+              data-carousel-next
+            >
+              <ArrowRight
+                className="size-5"
+                strokeWidth={1.75}
+                aria-hidden="true"
+              />
+            </button>
+          </div>
+        </div>
+
+        <Button href={section.cta.href} size="lg" class="w-full sm:w-auto">
+          {section.cta.label}
+        </Button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import "../../../scripts/reveal";
+  import "../../../scripts/carousel";
+</script>

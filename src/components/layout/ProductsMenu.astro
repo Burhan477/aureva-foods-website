@@ -1,0 +1,147 @@
+---
+import { Image } from "astro:assets";
+import { ArrowRight, ChevronDown } from "lucide-react";
+
+import {
+  allProductsLink,
+  isCurrentPath,
+  isExactPath,
+  productCategories,
+  productsLink,
+} from "../../data/navigation";
+import {
+  desktopNavItem,
+  desktopNavLabel,
+  desktopNavUnderline,
+} from "./navClasses";
+
+/**
+ * Desktop Products mega menu (lg and up): a disclosure button with an
+ * image-card panel. Opens on hover (mouse), click, Enter or Space; closes
+ * on pointer leave, Escape, outside click or focus leaving
+ * (src/scripts/navigation.ts). Without JavaScript the trigger is a link
+ * to the Products Overview page.
+ */
+interface Props {
+  pathname: string;
+}
+
+const { pathname } = Astro.props;
+const inProducts = isCurrentPath(pathname, productsLink.href);
+const onOverview = isExactPath(pathname, allProductsLink.href);
+---
+
+<li class="group/menu flex" data-products-menu>
+  <a
+    href={productsLink.href}
+    class={desktopNavItem}
+    data-current={inProducts || undefined}
+    data-products-fallback
+  >
+    <span class={desktopNavLabel}>
+      {productsLink.label}
+      <span class={desktopNavUnderline} aria-hidden="true"></span>
+    </span>
+  </a>
+
+  <button
+    type="button"
+    class={desktopNavItem}
+    aria-expanded="false"
+    aria-controls="products-menu"
+    data-current={inProducts || undefined}
+    data-products-trigger
+    hidden
+  >
+    <span class={desktopNavLabel}>
+      {productsLink.label}
+      <span class={desktopNavUnderline} aria-hidden="true"></span>
+    </span>
+    <ChevronDown
+      className="size-4 transition-transform duration-(--duration-base) ease-out group-aria-expanded/link:rotate-180"
+      strokeWidth={1.75}
+      aria-hidden="true"
+    />
+  </button>
+
+  <!-- Visibility switches at once on open (links are focusable immediately)
+       and after the fade on close -->
+  <div
+    id="products-menu"
+    class="pointer-events-none invisible absolute top-full right-(--space-gutter) left-(--space-gutter) z-(--z-dropdown) -translate-y-1 pt-2 opacity-0 transition-[opacity,translate,visibility] duration-(--duration-base) ease-out group-data-open/menu:pointer-events-auto group-data-open/menu:visible group-data-open/menu:translate-y-0 group-data-open/menu:opacity-100 group-data-open/menu:transition-[opacity,translate]"
+    data-products-panel
+  >
+    <div class="grid grid-cols-12 gap-6 rounded-lg border border-line bg-surface p-6 shadow-float xl:gap-8 xl:p-8">
+      <div class="col-span-3 flex flex-col">
+        <p class="text-eyebrow font-semibold text-olive uppercase">
+          Our products
+        </p>
+        <!-- Draft copy, PENDING APPROVAL -->
+        <p class="mt-3 text-h4 font-semibold text-charcoal">
+          Three categories for B2B buyers
+        </p>
+        <p class="mt-2 text-small text-muted">
+          Explore each range, then enquire directly with our team.
+        </p>
+        <a
+          href={allProductsLink.href}
+          class="group/all mt-auto inline-flex min-h-11 items-center gap-2 self-start pt-6 text-button font-semibold text-olive hover:underline hover:underline-offset-4"
+          aria-current={onOverview ? "page" : undefined}
+        >
+          {allProductsLink.label}
+          <ArrowRight
+            className="size-4 transition-transform duration-(--duration-base) ease-out group-hover/all:translate-x-0.5"
+            strokeWidth={1.75}
+            aria-hidden="true"
+          />
+        </a>
+      </div>
+
+      <ul class="col-span-9 grid grid-cols-3 gap-6 xl:gap-8">
+        {productCategories.map((category) => (
+          <li
+            class="group/card relative flex flex-col rounded-md has-[a:focus-visible]:outline-2 has-[a:focus-visible]:outline-offset-4 has-[a:focus-visible]:outline-focus"
+            style={`--color-category: var(--color-${category.accent})`}
+          >
+            <div class="aspect-3/2 overflow-hidden rounded-md bg-ivory-deep">
+              <Image
+                src={category.image}
+                alt={category.imageAlt}
+                width={640}
+                widths={[320, 480, 640]}
+                sizes="(min-width: 80rem) 290px, 22vw"
+                loading="lazy"
+                decoding="async"
+                class="size-full object-cover transition-transform duration-(--duration-base) ease-out group-hover/card:scale-(--hover-zoom)"
+              />
+            </div>
+            <span
+              class="mt-4 h-1 w-8 rounded-full bg-category"
+              aria-hidden="true"
+            />
+            <a
+              href={category.href}
+              class="mt-3 text-h4 font-semibold text-charcoal transition-colors duration-(--duration-fast) after:absolute after:inset-0 after:content-[''] focus-visible:outline-none group-hover/card:text-olive"
+              aria-current={
+                isExactPath(pathname, category.href) ? "page" : undefined
+              }
+            >
+              {category.label}
+            </a>
+            <p class="mt-1 text-small text-muted">{category.description}</p>
+            <span
+              class="mt-auto inline-flex items-center gap-1.5 pt-3 text-small font-semibold text-olive"
+              aria-hidden="true"
+            >
+              View range
+              <ArrowRight
+                className="size-4 transition-transform duration-(--duration-base) ease-out group-hover/card:translate-x-0.5"
+                strokeWidth={1.75}
+              />
+            </span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</li>

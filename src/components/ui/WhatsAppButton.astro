@@ -1,0 +1,63 @@
+---
+import { site } from "../../data/site";
+import { getWhatsAppHref } from "../../lib/whatsapp";
+import WhatsAppIcon from "./WhatsAppIcon.astro";
+
+/**
+ * Primary CTA "WhatsApp Us" (BRAND_GUIDELINES.md §11, AD-11).
+ * While the number is not CONFIRMED it renders as an inactive button,
+ * not a link (DESIGN_SYSTEM.md §9.2, QA-80).
+ */
+interface Props {
+  /** Background the button sits on (DESIGN_SYSTEM.md §9.1) */
+  tone?: "light" | "dark";
+  size?: "md" | "lg";
+  /** Fills the product message template (COMPONENT_INVENTORY.md §8) */
+  productName?: string;
+  class?: string;
+}
+
+const {
+  tone = "light",
+  size = "md",
+  productName,
+  class: className,
+} = Astro.props;
+
+const href = getWhatsAppHref(productName);
+const label = "WhatsApp Us";
+const pendingNote = import.meta.env.DEV
+  ? `WhatsApp number pending (${site.whatsapp.number.note})`
+  : undefined;
+
+const classes = [
+  "inline-flex shrink-0 items-center justify-center gap-2 rounded-md font-semibold whitespace-nowrap transition-colors duration-(--duration-fast) ease-out",
+  size === "md" ? "min-h-11 px-5 text-button" : "min-h-13 px-7 text-body",
+  tone === "light" ? "bg-primary text-white" : "bg-accent text-charcoal",
+  href
+    ? tone === "light"
+      ? "hover:bg-primary-hover"
+      : "hover:bg-accent-hover"
+    : "cursor-not-allowed opacity-60",
+  className,
+];
+---
+
+{href ? (
+  <a href={href} target="_blank" rel="noopener noreferrer" class:list={classes}>
+    <WhatsAppIcon class="size-5" />
+    {label}
+    <span class="sr-only">(opens in a new tab)</span>
+  </a>
+) : (
+  <button
+    type="button"
+    aria-disabled="true"
+    class:list={classes}
+    title={pendingNote}
+  >
+    <WhatsAppIcon class="size-5" />
+    {label}
+    <span class="sr-only">(not available yet)</span>
+  </button>
+)}

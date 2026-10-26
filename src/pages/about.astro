@@ -1,0 +1,35 @@
+---
+import spicesImage from "../assets/images/categories/spices.jpg";
+import CompanyIntro from "../components/sections/about/CompanyIntro.astro";
+import GlobalMarkets from "../components/sections/about/GlobalMarkets.astro";
+import Processing from "../components/sections/about/Processing.astro";
+import ProductRange from "../components/sections/about/ProductRange.astro";
+import Quality from "../components/sections/about/Quality.astro";
+import WhoWeAre from "../components/sections/about/WhoWeAre.astro";
+import EnquiryCTA from "../components/sections/EnquiryCTA.astro";
+import { enquiryCta } from "../data/about";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+// About Us (SITE_STRUCTURE.md §4.2). Sections are built one at a time in
+// M5.1. Title and description are the SEO_AND_PERFORMANCE.md §3.2 drafts
+// (SUGGESTION), approved page by page in M6.3.
+---
+
+<BaseLayout
+  title="About Us | Aureva Foods"
+  description="Learn about Aureva Foods, a B2B supplier of spices, dehydrated products and fresh produce from India for importers, distributors and wholesalers."
+>
+  <main id="main">
+    <CompanyIntro />
+    <WhoWeAre />
+    <ProductRange />
+    <Processing />
+    <Quality />
+    <GlobalMarkets />
+    <EnquiryCTA
+      content={enquiryCta}
+      tone="charcoal"
+      image={{ src: spicesImage, alt: enquiryCta.imageAlt }}
+    />
+  </main>
+</BaseLayout>
