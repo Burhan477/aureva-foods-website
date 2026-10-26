@@ -79,6 +79,7 @@ Nothing is built yet; every status is NOT BUILT. A component not listed here nee
 - **Opening:** click, tap, Enter or Space. Not opened on hover, so it never opens by accident and works the same for mouse, touch and keyboard.
 - **Closing:** Escape (focus returns to the button), clicking outside, or focus leaving the panel.
 - **No-JS fallback:** the button is rendered as a link to `/products/`.
+- **Update (owner instruction, 2026-10-26):** "Products" is always a link to `/products/`; the disclosure button is a separate chevron beside it (accessible name "Products menu", 44 px wide), shown only with JavaScript. Hover still opens the panel.
 - **Motion:** fade and 4 px drop over `--duration-base`; none under reduced motion.
 
 ### MobileMenu
@@ -134,6 +135,11 @@ Nothing is built yet; every status is NOT BUILT. A component not listed here nee
 - **Controls (script):** "Previous products" / "Next products" buttons ("Previous spices" / "Next spices" in Featured Spices, "Previous fresh produce" / "Next fresh produce" in Fresh) move one view of whole cards; `aria-disabled` at either end (stays focusable). Visible "1–4 of 12" position text (polite live region) and a decorative progress rail in the category accent (Terracotta for Spices, Saffron for Dehydrated, Leaf Green for Fresh). No autoplay; instant scrolling under reduced motion.
 - **Without JavaScript:** controls stay hidden, the track keeps its scrollbar and still scrolls by touch, trackpad and keyboard.
 - **Cards:** ProductCard with image and name only (no WhatsApp button until C-01/C-02; cards are not links because there are no product pages).
+
+### Category tabs (Products Overview portfolio)
+- Added 2026-10-26 for the owner's Products Overview brief, PENDING APPROVAL; built inside `components/sections/products/Portfolio.astro` with `src/scripts/tabs.ts` (Astro + script, AD-05).
+- **Without JavaScript:** the three category groups show one after another, each with an `h3`, a product count, a "View {Category}" link and a ProductGrid (products as `h4` through ProductCard's optional `headingLevel`, default 3).
+- **With JavaScript:** a `tablist` ("Product categories") shows one group at a time; WAI-ARIA tabs pattern with automatic activation (click, Left/Right arrows wrapping, Home, End); only the selected tab is in the tab order. Hidden groups' lazy images load when their tab opens. No animation.
 
 ### ProductGroup
 - `h2` or `h3` heading plus a ProductGrid; used for the S-01 groups (Dehydrated Onion Products, Dehydrated Garlic, Vegetable & Other Powders, Fresh Vegetables, Fresh Fruits).
@@ -200,6 +206,7 @@ A short line under the button links to the Privacy Policy; no marketing consent 
 |---|---|
 | General (header, CTAs, floating button) | "Hello Aureva Foods, I would like to make a business enquiry." |
 | Product card | "Hello Aureva Foods, I would like to enquire about {Product Name}." |
+| Contact page, WhatsApp Enquiry section (owner brief, 2026-10-26) | "Hello Aureva Foods, I would like to enquire about your products. Please share the available options and relevant product details." |
 
 Messages contain no price, quantity, availability or terms. The WhatsApp glyph is used according to WhatsApp's published brand guidelines.
 
@@ -212,7 +219,7 @@ Messages contain no price, quantity, availability or terms. The WhatsApp glyph i
 | ID | Decision | Status |
 |---|---|---|
 | D-20 | "All Products" first in the Products dropdown (resolves C-31); breadcrumbs on category pages (resolves C-32); form fields in §7.1; WhatsApp message templates in §8 | APPROVED |
-| C-02 | WhatsApp number | OPEN: messages approved, number still needed |
+| C-02 | WhatsApp number | RESOLVED by D-23 (2026-10-26): +91 87589 53000 |
 
 ## 11. Revision history
 

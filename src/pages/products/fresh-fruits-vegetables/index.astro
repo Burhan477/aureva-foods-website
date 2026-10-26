@@ -1,0 +1,27 @@
+---
+import EnquiryCTA from "../../../components/sections/EnquiryCTA.astro";
+import Fruits from "../../../components/sections/fresh/Fruits.astro";
+import Intro from "../../../components/sections/fresh/Intro.astro";
+import Vegetables from "../../../components/sections/fresh/Vegetables.astro";
+import { enquiryCta } from "../../../data/fresh-fruits-vegetables";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+
+// Fresh Fruits & Vegetables (SITE_STRUCTURE.md §4.6), built one section
+// at a time in the order of the owner's briefs (2026-10-26), each PENDING
+// APPROVAL. Section 4 (Product Availability & Supply) has no brief yet
+// and goes between Fruits and Enquiries. Title and description are the
+// SEO_AND_PERFORMANCE.md §3.2 drafts (SUGGESTION), approved page by page
+// in M6.3.
+---
+
+<BaseLayout
+  title="Fresh Fruits & Vegetables from India | Aureva Foods"
+  description="Fresh onion, green chilli, banana, pomegranate and mango from India for B2B buyers. Contact Aureva Foods on WhatsApp or request a quote."
+>
+  <main id="main">
+    <Intro />
+    <Vegetables />
+    <Fruits />
+    <EnquiryCTA id={enquiryCta.id} content={enquiryCta} />
+  </main>
+</BaseLayout>

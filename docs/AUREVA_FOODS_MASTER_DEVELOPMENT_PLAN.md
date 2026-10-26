@@ -2,8 +2,8 @@
 
 | | |
 |---|---|
-| Version | 0.9 |
-| Last updated | 2026-10-25 |
+| Version | 1.1 |
+| Last updated | 2026-10-26 |
 | Status | APPROVED by owner, 2026-10-25 |
 | Scope of this file | Coordination: sources, rules, decisions, open conflicts, milestone sequence, workflow |
 
@@ -85,7 +85,7 @@ When a source is replaced by a newer version, add a row instead of editing the o
 | Strengths / USPs: "GENERIC" | BLOCKER for specific claims (C-12) | S-02 Q10 |
 | Partner company: Dar Al Nibras Foodstuff Trading LLC | CLIENT-PROVIDED / UNVERIFIED (C-04) | S-01, S-02 Q14 |
 | Email sales@aurevafoods.com | CLIENT-PROVIDED / UNVERIFIED (C-03) | S-02 Q14 |
-| Phone +91875895300 | CLIENT-PROVIDED / UNVERIFIED, appears incomplete (C-01) | S-02 Q14 |
+| Phone and WhatsApp +91 87589 53000 | CONFIRMED by owner, 2026-10-26 (D-23; S-02 Q14 had dropped the last digit) | S-09 |
 
 ### 6.2 Product categories
 
@@ -137,7 +137,7 @@ Source: S-02 Q3. The full product list, with the client's original spelling next
 
 | ID | Date | Decision | Status | Source |
 |---|---|---|---|---|
-| D-01 | 2026-10-25 | **Brand: "Natural mix."** Soft Ivory `#F5F2E9` background; Deep Olive `#2F4638` primary (header, primary CTA, key headings); Saffron Gold `#F4C430` accent, used as a fill behind dark text or on Deep Olive only, **never as text on light surfaces** (1.64:1 on white); Charcoal `#252A26` text; Terracotta `#B96F4A` Spices accent, large text or non-text only (3.45:1 on ivory); Leaf Green `#2E7D32` Fresh Produce accent (4.58:1 on ivory); White `#FFFFFF` cards. Sage `#89947B` dropped (2.85:1 on ivory). Fonts: DM Serif Display for headlines, Inter for body and UI. Layout keeps the brief's grid, whitespace and precision principles with a natural look. Supersedes the S-04 palette and fonts and the brief's "proposed" Saffron/Leaf Green/Inter set. Full guidance to be written in BRAND_GUIDELINES.md. | APPROVED | Owner, 2026-10-25 |
+| D-01 | 2026-10-25 | **Brand: "Natural mix."** Soft Ivory `#F5F2E9` background; Deep Olive `#2F4638` primary (header, primary CTA, key headings); Saffron Gold `#F4C430` accent, used as a fill behind dark text or on Deep Olive only, **never as text on light surfaces** (1.64:1 on white); Charcoal `#252A26` text; Terracotta `#B96F4A` Spices accent, large text or non-text only (3.45:1 on ivory); Leaf Green `#2E7D32` Fresh Produce accent (4.58:1 on ivory); White `#FFFFFF` cards. Sage `#89947B` dropped (2.85:1 on ivory). Fonts: DM Serif Display for headlines, Inter for body and UI. Layout keeps the brief's grid, whitespace and precision principles with a natural look. Supersedes the S-04 palette and fonts and the brief's "proposed" Saffron/Leaf Green/Inter set. Full guidance to be written in BRAND_GUIDELINES.md. | SUPERSEDED for palette and fonts by D-24 | Owner, 2026-10-25 |
 | D-02 | 2026-10-25 | Earlier build work from before the repository was re-created (2026-10-24) is ignored. The current repository is the only implementation record; M1 has not started. | APPROVED | Owner, 2026-10-25 |
 | D-03 | 2026-10-25 | Client source documents are not copied into the repository; they are referenced by path in §3. | APPROVED | Owner, 2026-10-25 |
 | D-04 | 2026-10-25 | Milestone names and sequence follow S-06: P0, M1–M7. | APPROVED | Owner, 2026-10-25 |
@@ -155,9 +155,11 @@ Source: S-02 Q3. The full product list, with the client's original spelling next
 | D-16 | 2026-10-25 | Enquiry form delivered through a managed form service; the specific service is chosen together with hosting (AD-12). Resolves C-17. | APPROVED | Owner, 2026-10-25 |
 | D-17 | 2026-10-25 | No analytics at launch (AD-14). Resolves C-30. | APPROVED | Owner, 2026-10-25 |
 | D-18 | 2026-10-25 | ARCHITECTURE_DECISIONS.md approved in full (AD-01 to AD-18). | APPROVED | Owner, 2026-10-25 |
-| D-19 | 2026-10-25 | DESIGN_SYSTEM.md approved, including the seven derived working shades. Resolves C-33. | APPROVED | Owner, 2026-10-25 |
+| D-19 | 2026-10-25 | DESIGN_SYSTEM.md approved, including the seven derived working shades. Resolves C-33. | SUPERSEDED for colour values by D-24 | Owner, 2026-10-25 |
 | D-20 | 2026-10-25 | COMPONENT_INVENTORY.md approved: "All Products" first in the Products dropdown (resolves C-31), breadcrumbs on category pages (resolves C-32), enquiry form fields, and the two WhatsApp message templates (the number remains open under C-01, C-02). | APPROVED | Owner, 2026-10-25 |
 | D-21 | 2026-10-25 | ASSET_GUIDELINES.md, SEO_AND_PERFORMANCE.md and QA_CHECKLIST.md approved. All ten planning documents are approved; P0 is complete. | APPROVED | Owner, 2026-10-25 |
+| D-23 | 2026-10-26 | WhatsApp and phone number +91 87589 53000 (`918758953000` in `site.ts`), supplied by the owner; the same number serves as the phone (C-01, C-02 resolved). WhatsApp buttons are now live links. | APPROVED | Owner, 2026-10-26 |
+| D-24 | 2026-10-26 | **Theme modernisation** (owner brief and answers, 2026-10-26). Palette: White `#FFFFFF` and `#FAFAF8` backgrounds, Ink `#18181B` text, `#71717A` secondary text, `#E4E4E7` decorative borders, Noir `#181C19` for the footer and contained dark panels; primary action Emerald 700 `#047857` (white text 5.48:1; the brief's `#10B981` fails at 2.54:1 and is used only for marks and for buttons on Noir with Ink text, 6.98:1); category accents Orange `#F97316` (Spices), Saffron `#F4C430` (Dehydrated) and Teal `#14B8A6` (Fresh) as marks only, with `-deep` shades for any text. Typography: Inter only (DM Serif Display removed); h1/h2 Inter 600 with tight tracking. Layout: no image washes, offset frames or globe illustrations; shared SectionHeader; eyebrows in sentence case. Content cut by roughly half on Home, About, Spices and Dehydrated; sections merged or removed as listed in SITE_STRUCTURE.md §4.0. Buttons keep the D-08 labels. Supersedes the D-01 palette and fonts and the D-19 derived shades; all other decisions stand. Copy is PENDING REVIEW. | APPROVED | Owner, 2026-10-26 |
 | D-22 | 2026-10-25 | M1.1 and M1.2 approved: dev tooling installed (TypeScript held at `~6.0.3` because `@astrojs/check` and `typescript-eslint` do not support TypeScript 7; ESLint 10 with `eslint-plugin-astro`, `eslint-plugin-jsx-a11y-x`, `@eslint-react/eslint-plugin` and `eslint-plugin-react-hooks` because the classic React and accessibility plugins stop at ESLint 9; Prettier with Astro and Tailwind plugins) and scripts `check`, `lint`, `format`, `format:check` added. Resolves C-16. | APPROVED | Owner, 2026-10-25 |
 
 New decisions are appended with the next ID. A decision that replaces an earlier one names it ("supersedes D-xx") and the earlier row is left in place.
@@ -168,8 +170,8 @@ New decisions are appended with the next ID. A decision that replaces an earlier
 
 | ID | Topic | Detail | Proposed resolution | Blocks | Status |
 |---|---|---|---|---|---|
-| C-01 | Phone number | S-02 Q14 gives `+91875895300`: 9 digits after +91, where Indian mobile numbers have 10. | Owner supplies the complete number. | WhatsApp/phone links (M2 shell CTA, M5), launch | OPEN |
-| C-02 | WhatsApp number | No WhatsApp number is stated separately; unclear whether it equals C-01. Message templates approved in D-20. | Owner confirms the WhatsApp number. Until then the CTA reads its number from config and is not published live. | M2 CTA going live, M5 | OPEN |
+| C-01 | Phone number | S-02 Q14 gives `+91875895300`: 9 digits after +91, where Indian mobile numbers have 10. | Resolved by D-23. | — | RESOLVED |
+| C-02 | WhatsApp number | No WhatsApp number is stated separately; unclear whether it equals C-01. Message templates approved in D-20. | Resolved by D-23. | — | RESOLVED |
 | C-03 | Email domain | S-02 Q14: `sales@aurevafoods.com`; S-02 note: form goes to `SALES@AUREVA.COM`. | Owner confirms the correct address and domain (affects C-18). | M5 contact details and form, launch | OPEN |
 | C-04 | Partner company | S-02 writes "DARALNIBRAS FOODSTUFF TRADIN LLC, (...)" (truncated); S-01 writes "Dar Al Nibras Foodstuff Trading LLC". Relationship and approved wording unknown. | Owner confirms legal name, relationship and what may be shown. | Contact section 5 (M5) | OPEN |
 | C-05 | Credentials | Client lists Spice Board, APEDA, GST, FSSAI, FDA (S-02 Q11). These are mostly registrations or licences, not quality certifications; none verified. S-01 headings say "Quality & Certifications". | Owner provides documents. Verify entity, type, validity, permitted wording and logo-use rules. Section headings to use accurate wording (for example "Quality & Compliance") until verified. | Home section 8 (M3), About section 5 (M5), launch | OPEN |
@@ -310,3 +312,5 @@ The site may launch only when all of the following hold:
 | 0.7 | 2026-10-25 | Five remaining documents approved (D-19 to D-21; C-31 to C-33 resolved); P0 DONE; C-02, C-06, C-13 and §7.1 updated for the logo and favicon files added in a separate session |
 | 0.8 | 2026-10-25 | M1.1 and M1.2 done (D-22, C-16 resolved); added C-34 (Node version); §7.1 and §12.3 updated for the installed tooling |
 | 0.9 | 2026-10-25 | M1.3 implemented; §7.1 updated; added C-35 (line endings) |
+| 1.0 | 2026-10-26 | Added D-23 (WhatsApp and phone number); C-01 and C-02 resolved; §6.1 updated |
+| 1.1 | 2026-10-26 | Added D-24 (theme modernisation); D-01 palette and fonts and D-19 shades marked superseded |

@@ -1,0 +1,98 @@
+---
+import { Picture } from "astro:assets";
+
+import freshImage from "../../../assets/images/categories/fresh-fruits-vegetables.jpg";
+import { whatsAppEnquiry as section } from "../../../data/contact";
+import { site } from "../../../data/site";
+import PendingContent from "../../ui/PendingContent.astro";
+import WhatsAppButton from "../../ui/WhatsAppButton.astro";
+import { isWhatsAppActive } from "../../../lib/whatsapp";
+
+/**
+ * Contact Us "WhatsApp Enquiry" (SITE_STRUCTURE.md §4.7 section 4).
+ * BLOCKED for a live link (C-01, C-02); see data/contact.ts.
+ *
+ * Charcoal band, the page's one dark section (DESIGN_SYSTEM.md §11), as in
+ * the About Us enquiry CTA: Ivory text (13.05:1) and Saffron accents
+ * (8.89:1, BRAND_GUIDELINES.md §3.2). Text in 7 columns from lg with the
+ * photo in 5; below lg the photo follows the text. A Leaf Green block
+ * offsets the photo from lg; decorative only.
+ *
+ * The CTA is the shared WhatsAppButton with the contactEnquiry message
+ * (AD-11): a link that opens WhatsApp once the number is CONFIRMED,
+ * otherwise an inactive button. Content reveals once (§14) and stays
+ * visible without JavaScript and under reduced motion.
+ */
+---
+
+<section
+  aria-labelledby="whatsapp-enquiry-title"
+  class="bg-bg py-section-tight"
+>
+  <div class="container-wide">
+    <div class="grid items-center gap-10 rounded-2xl bg-inverse px-6 py-12 text-text-inverse [--color-focus:var(--color-accent)] sm:px-10 sm:py-14 lg:grid-cols-12 lg:gap-16 lg:px-14 lg:py-16">
+      <div class="lg:col-span-7" data-reveal>
+        <p class="flex items-center gap-3 text-eyebrow font-semibold text-accent">
+          {section.eyebrow}
+        </p>
+
+        <h2
+          id="whatsapp-enquiry-title"
+          class="mt-5 font-display text-h2 text-balance text-mist"
+        >
+          {section.title}
+        </h2>
+
+        <p class="mt-6 max-w-[60ch] text-lead text-mist/90">{section.text}</p>
+
+        <ul
+          aria-label={section.topicsLabel}
+          class="mt-6 flex flex-wrap gap-2 text-small"
+        >
+          {section.topics.map((topic) => (
+            <li class="rounded-full border border-mist/20 text-mist/90 px-3 py-1">
+              {topic}
+            </li>
+          ))}
+        </ul>
+
+        <WhatsAppButton
+          tone="dark"
+          size="lg"
+          label={section.ctaLabel}
+          message={site.whatsapp.messages.contactEnquiry}
+          class="mt-8 w-full sm:w-auto"
+        />
+
+        {!isWhatsAppActive && (
+          <PendingContent
+            item="C-01, C-02"
+            note={section.pendingNote}
+            class="mt-6 text-mist/80"
+          />
+        )}
+      </div>
+
+      <div class="lg:col-span-5" data-reveal>
+        <div class="relative">
+          <!-- The 16:9 source fills a 4:3 frame at about 1.33 times its width -->
+          <div class="relative aspect-4/3 overflow-hidden rounded-lg bg-ink">
+            <Picture
+              src={freshImage}
+              alt={section.imageAlt}
+              formats={["avif", "webp"]}
+              fallbackFormat="jpg"
+              widths={[480, 800, 1200, freshImage.width]}
+              sizes="(min-width: 1344px) 655px, (min-width: 1024px) 50vw, 134vw"
+              class="absolute inset-0 size-full object-cover object-left"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import "../../../scripts/reveal";
+</script>

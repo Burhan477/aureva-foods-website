@@ -1,0 +1,54 @@
+---
+import { enquiry as section } from "../../../data/contact";
+import EnquiryForm from "../../islands/EnquiryForm";
+import PendingContent from "../../ui/PendingContent.astro";
+
+/**
+ * Contact Us "Business Enquiry Form" (SITE_STRUCTURE.md §4.7 section 3).
+ * BLOCKED for launch: no form service yet (D-16, C-18); see
+ * data/contact.ts.
+ *
+ * The `#enquiry-form` anchor (D-10) is the section, so the heading shows
+ * when a CTA jumps here. Ivory band after the alternate Contact
+ * Information band (DESIGN_SYSTEM.md §11). From lg the heading block sits
+ * in 4 columns and stays in view beside the form, which takes 8 columns
+ * in a white card; below lg they stack. The form is the page's only React
+ * island (AD-04), hydrated when it scrolls into view; its markup is
+ * server-rendered, so the fields show before JavaScript loads.
+ */
+---
+
+<section
+  id="enquiry-form"
+  aria-labelledby="enquiry-form-title"
+  class="bg-bg py-section"
+>
+  <div class="container-wide grid gap-10 lg:grid-cols-12 lg:gap-16">
+    <div class="lg:col-span-4">
+      <div class="lg:sticky lg:top-[calc(var(--header-height)+2rem)]">
+        <p class="flex items-center gap-3 text-eyebrow font-semibold text-primary">
+          {section.eyebrow}
+        </p>
+
+        <h2
+          id="enquiry-form-title"
+          class="mt-5 font-display text-h2 text-balance text-heading"
+        >
+          {section.title}
+        </h2>
+
+        <p class="mt-6 max-w-[48ch] text-lead text-text">{section.intro}</p>
+
+        <PendingContent
+          item="C-18, C-03, M6.1"
+          note={section.pendingNote}
+          class="mt-8 text-text-muted"
+        />
+      </div>
+    </div>
+
+    <div class="rounded-lg border border-line bg-surface p-6 sm:p-8 lg:col-span-8 lg:p-10">
+      <EnquiryForm client:visible copy={section.form} />
+    </div>
+  </div>
+</section>

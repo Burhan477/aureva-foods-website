@@ -1,61 +1,82 @@
 ---
 import { Picture } from "astro:assets";
+import { Building2, Layers, ListChecks, MessagesSquare } from "lucide-react";
 
 import aboutImage from "../../../assets/images/sections/home-about.jpg";
-import { about } from "../../../data/home";
+import { type AboutPoint, about } from "../../../data/home";
 import Button from "../../ui/Button.astro";
 
 /**
- * Home "About Aureva Foods" (SITE_STRUCTURE.md §4.1 section 2, M3.2).
+ * Home "About Aureva Foods" (SITE_STRUCTURE.md §4.1, sections 2, 7 and 9,
+ * merged by D-24).
  *
- * Text + image split (DESIGN_SYSTEM.md §6.2): stacked with the image first
- * below lg, 5 / 7 columns from lg. Alternate background so it separates
- * from the Ivory hero (§11). The copy and image reveal once (AD-05); both
- * stay visible without JavaScript and under reduced motion.
+ * Image + text split on the alternate background: the photo sits in the
+ * left 5 columns from lg (first below lg), the copy and four short points
+ * in a 2 × 2 list on the right. Icons sit on a light emerald tile (§13).
+ * The points are not interactive, so they have no hover state. Content
+ * reveals once (AD-05) and stays visible without JavaScript and under
+ * reduced motion.
  */
+
+const icons: Record<AboutPoint["id"], typeof Layers> = {
+  portfolio: Layers,
+  discovery: ListChecks,
+  b2b: Building2,
+  enquiries: MessagesSquare,
+};
 ---
 
 <section aria-labelledby="about-title" class="bg-bg-alt py-section">
   <div class="container-wide grid items-center gap-10 lg:grid-cols-12 lg:gap-16">
-    <div class="lg:order-last lg:col-span-7" data-reveal>
-      <!-- Offset outline frame: decorative, from lg only -->
-      <div class="relative lg:mr-4 lg:mb-4">
-        <div
-          class="absolute inset-0 hidden translate-x-4 translate-y-4 rounded-lg border border-olive/25 lg:block"
-          aria-hidden="true"
-        ></div>
-        <div class="relative aspect-4/3 overflow-hidden rounded-lg bg-ivory lg:aspect-5/4">
-          <Picture
-            src={aboutImage}
-            alt={about.imageAlt}
-            formats={["avif", "webp"]}
-            fallbackFormat="jpg"
-            widths={[480, 800, 1200, aboutImage.width]}
-            sizes="(min-width: 1344px) 724px, (min-width: 1024px) 54vw, 100vw"
-            class="absolute inset-0 size-full object-cover"
-          />
-        </div>
-      </div>
+    <div
+      class="relative aspect-4/3 overflow-hidden rounded-2xl bg-mist lg:col-span-5 lg:aspect-4/5"
+      data-reveal
+    >
+      <Picture
+        src={aboutImage}
+        alt={about.imageAlt}
+        formats={["avif", "webp"]}
+        fallbackFormat="jpg"
+        widths={[480, 800, 1200, aboutImage.width]}
+        sizes="(min-width: 1344px) 512px, (min-width: 1024px) 40vw, 100vw"
+        class="absolute inset-0 size-full object-cover"
+      />
     </div>
 
-    <div class="lg:col-span-5" data-reveal>
-      <p class="flex items-center gap-3 text-eyebrow font-semibold text-olive uppercase">
-        <span class="h-px w-8 bg-olive" aria-hidden="true"></span>
-        {about.eyebrow}
-      </p>
+    <div class="lg:col-span-7" data-reveal>
+      <p class="text-eyebrow font-semibold text-primary">{about.eyebrow}</p>
 
-      <h2 id="about-title" class="mt-5 font-display text-h2 text-heading">
+      <h2
+        id="about-title"
+        class="mt-4 font-display text-h2 text-balance text-heading"
+      >
         {about.title}
       </h2>
 
-      <p class="mt-6 max-w-[68ch] text-lead text-text">{about.intro}</p>
+      <p class="mt-5 max-w-[56ch] text-lead text-text-muted">{about.intro}</p>
 
-      <p class="mt-5 max-w-[68ch] border-l-2 border-saffron pl-5 text-text-muted">
-        {about.closing}
-      </p>
+      <ul class="mt-10 grid gap-x-8 gap-y-8 sm:grid-cols-2">
+        {about.points.map((point) => {
+          const Icon = icons[point.id];
+          return (
+            <li class="flex gap-4">
+              <span
+                class="flex size-10 shrink-0 items-center justify-center rounded-md bg-primary/10 text-primary"
+                aria-hidden="true"
+              >
+                <Icon className="size-5" strokeWidth={1.75} />
+              </span>
+              <div>
+                <h3 class="font-semibold text-ink">{point.title}</h3>
+                <p class="mt-1 text-small text-text-muted">{point.text}</p>
+              </div>
+            </li>
+          );
+        })}
+      </ul>
 
-      <div class="mt-8">
-        <Button href={about.cta.href} size="lg" class="w-full sm:w-auto">
+      <div class="mt-10">
+        <Button href={about.cta.href} variant="secondary" size="lg">
           {about.cta.label}
         </Button>
       </div>

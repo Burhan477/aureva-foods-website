@@ -32,6 +32,32 @@ export interface Credential {
   type: string;
 }
 
+/** Operating hours shown on the Contact page, worded as they may appear */
+export interface BusinessHours {
+  /** For example "Monday to Saturday" */
+  days: string;
+  /** For example "9:30 am to 6:30 pm" */
+  time: string;
+  /** For example "IST (UTC+5:30)" */
+  timeZone: string;
+}
+
+/** Business address shown on the Contact page (C-19) */
+export interface BusinessAddress {
+  /** Street lines, as they should be printed */
+  lines: string[];
+  city: string;
+  region?: string;
+  postalCode?: string;
+  country: string;
+  /** What the address is, for example "Registered office" or "Warehouse" */
+  type: string;
+  /** True only when the owner confirms visitors may attend this address */
+  visitorsWelcome: boolean;
+  /** Approved public map or directions link, if any */
+  directionsUrl?: string;
+}
+
 export interface SiteSettings {
   name: Setting<string>;
   legalName: Setting<string | null>;
@@ -39,12 +65,29 @@ export interface SiteSettings {
   whatsapp: {
     /** Digits only, with country code, no "+" (wa.me format) */
     number: Setting<string | null>;
-    /** Approved templates (COMPONENT_INVENTORY.md §8, D-20) */
-    messages: { general: string; product: string };
+    /**
+     * Approved templates (COMPONENT_INVENTORY.md §8): general and product
+     * (D-20); contactEnquiry for the Contact page WhatsApp Enquiry
+     * section (owner brief, 2026-10-26); spicesEnquiry for the Spices
+     * page B2B Supply Enquiries section (owner brief, 2026-10-26,
+     * PENDING APPROVAL); dehydratedEnquiry for the Dehydrated Products
+     * page B2B Supply Enquiries section (owner brief, 2026-10-26,
+     * PENDING APPROVAL)
+     */
+    messages: {
+      general: string;
+      product: string;
+      contactEnquiry: string;
+      spicesEnquiry: string;
+      dehydratedEnquiry: string;
+    };
   };
   email: Setting<string | null>;
   phone: Setting<string | null>;
+  hours: Setting<BusinessHours | null>;
+  /** Partner company name, exactly as it may appear on the site */
   partner: Setting<string | null>;
+  address: Setting<BusinessAddress | null>;
   social: Setting<SocialLink[]>;
   credentials: Setting<Credential>[];
 }
@@ -71,14 +114,20 @@ export const site: SiteSettings = {
 
   whatsapp: {
     number: {
-      value: null,
-      status: "BLOCKED",
-      note: "C-01, C-02: supplied phone +91875895300 has 9 digits after +91; WhatsApp number not confirmed",
+      value: "918758953000",
+      status: "CONFIRMED",
+      note: "C-02: supplied by the owner, 2026-10-26",
     },
     messages: {
       general: "Hello Aureva Foods, I would like to make a business enquiry.",
       product:
         "Hello Aureva Foods, I would like to enquire about {Product Name}.",
+      contactEnquiry:
+        "Hello Aureva Foods, I would like to enquire about your products. Please share the available options and relevant product details.",
+      spicesEnquiry:
+        "Hello Aureva Foods, I would like to enquire about your spice products for business supply. Please share availability and quotation details.",
+      dehydratedEnquiry:
+        "Hello Aureva Foods, I would like to enquire about your dehydrated onion, garlic and vegetable powder products for business supply. Please share availability and quotation details.",
     },
   },
 
@@ -89,15 +138,27 @@ export const site: SiteSettings = {
   },
 
   phone: {
+    value: "+91 87589 53000",
+    status: "CONFIRMED",
+    note: "C-01: owner confirmed, 2026-10-26, that the WhatsApp number is also the phone number",
+  },
+
+  hours: {
     value: null,
     status: "BLOCKED",
-    note: "C-01: supplied number appears incomplete",
+    note: "Not supplied: owner to give operating days, hours and time zone (no open item yet)",
   },
 
   partner: {
+    value: "Dar Al Nibras Foodstuff Trading LLC",
+    status: "BLOCKED",
+    note: "C-04: name as in S-01 (S-02 writes 'DARALNIBRAS FOODSTUFF TRADIN LLC'); legal name, relationship and approved wording unconfirmed",
+  },
+
+  address: {
     value: null,
     status: "BLOCKED",
-    note: "C-04: legal name, relationship and approved wording unconfirmed",
+    note: "C-19: no address supplied; S-01 lists the section as 'if applicable'",
   },
 
   social: {

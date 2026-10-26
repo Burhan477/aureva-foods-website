@@ -4,30 +4,17 @@ import { ClipboardList, Files, HandPlatter, Handshake } from "lucide-react";
 
 import dehydratedImage from "../../../assets/images/categories/dehydrated-products.jpg";
 import { type QualityPrinciple, quality as section } from "../../../data/about";
-import Button from "../../ui/Button.astro";
-import PendingContent from "../../ui/PendingContent.astro";
 import ComplianceList from "../ComplianceList.astro";
 
 /**
- * About Us "Quality Standards & Certifications" (SITE_STRUCTURE.md §4.2
- * section 5, M5.1). BLOCKED (C-05, C-06); see data/about.ts.
+ * About Us "Quality Standards & Certifications", shown as "Our Commitment
+ * to Quality" (SITE_STRUCTURE.md §4.2 section 5, C-05).
  *
- * Text + image split (DESIGN_SYSTEM.md §6.2), 6 / 6 from lg with the image
- * on the left, alternating with Processing; stacked text first below lg,
- * as in the sections above. Then the four principles as white cards:
- * 1 column, 2 from sm, 4 from lg. Icons are neutral document, handling
- * and conversation marks, never ticks, shields or badges that could read
- * as a certification (BRAND_GUIDELINES.md §8), as in the Home Quality &
- * Compliance section. Default Ivory background after the alternate
- * Processing section (§11).
- *
- * ComplianceList shows credentials only once CONFIRMED in site.ts (C-05),
- * so the public page has no credential grid yet. The CTA renders only when
- * its destination exists; until then, development builds show a pending
- * marker instead. The photo is the Dehydrated category image: ingredients
- * only, with no laboratory, facility or people (ASSET_GUIDELINES.md §6).
- * Everything reveals once (§14) and stays visible without JavaScript and
- * under reduced motion.
+ * Image + text split on the alternate background: the photo in the left
+ * 5 columns from lg, the intro and four principles (2 × 2, icon on a light
+ * emerald tile) on the right. Icons are neutral document marks, never
+ * ticks, shields or badges that could read as a certification. Verified
+ * credentials come from site.ts through ComplianceList. Reveals once (§14).
  */
 
 const icons: Record<QualityPrinciple["id"], typeof Files> = {
@@ -38,94 +25,58 @@ const icons: Record<QualityPrinciple["id"], typeof Files> = {
 };
 ---
 
-<section aria-labelledby="quality-title" class="bg-bg py-section">
-  <div class="container-wide">
-    <div class="grid items-center gap-10 lg:grid-cols-12 lg:gap-16">
-      <div class="lg:col-span-6" data-reveal>
-        <p class="flex items-center gap-3 text-eyebrow font-semibold text-olive uppercase">
-          <span class="h-px w-8 bg-olive" aria-hidden="true"></span>
-          {section.eyebrow}
-        </p>
-
-        <h2
-          id="quality-title"
-          class="mt-5 font-display text-h2 text-balance text-heading"
-        >
-          {section.title}
-        </h2>
-
-        {section.paragraphs.map((paragraph, index) => (
-          <p
-            class:list={[
-              "max-w-[68ch]",
-              index === 0 ? "mt-6 text-lead text-text" : "mt-5 text-text-muted",
-            ]}
-          >
-            {paragraph}
-          </p>
-        ))}
-      </div>
-
-      <div class="lg:order-first lg:col-span-6" data-reveal>
-        <!-- Offset outline frame: decorative, from lg only -->
-        <div class="relative lg:mr-4 lg:mb-4">
-          <div
-            class="absolute inset-0 hidden translate-x-4 translate-y-4 rounded-lg border border-olive/25 lg:block"
-            aria-hidden="true"
-          ></div>
-          <!-- The 16:9 source fills a 4:3 frame at about 1.33 times its width -->
-          <div class="relative aspect-4/3 overflow-hidden rounded-lg bg-ivory-deep">
-            <Picture
-              src={dehydratedImage}
-              alt={section.imageAlt}
-              formats={["avif", "webp"]}
-              fallbackFormat="jpg"
-              widths={[480, 800, 1200, dehydratedImage.width]}
-              sizes="(min-width: 1344px) 790px, (min-width: 1024px) 60vw, 134vw"
-              class="absolute inset-0 size-full object-cover"
-            />
-          </div>
-        </div>
-      </div>
+<section aria-labelledby="quality-title" class="bg-bg-alt py-section">
+  <div class="container-wide grid items-center gap-10 lg:grid-cols-12 lg:gap-16">
+    <div
+      class="relative aspect-4/3 overflow-hidden rounded-2xl bg-mist lg:col-span-5 lg:aspect-4/5"
+      data-reveal
+    >
+      <!-- The 16:9 source fills the frame at about 1.33 times its width -->
+      <Picture
+        src={dehydratedImage}
+        alt={section.imageAlt}
+        formats={["avif", "webp"]}
+        fallbackFormat="jpg"
+        widths={[480, 800, 1200, dehydratedImage.width]}
+        sizes="(min-width: 1344px) 900px, (min-width: 1024px) 70vw, 134vw"
+        class="absolute inset-0 size-full object-cover"
+      />
     </div>
 
-    <ul class="mt-12 grid gap-6 sm:grid-cols-2 lg:mt-16 lg:grid-cols-4 lg:gap-8">
-      {section.principles.map((principle, index) => {
-        const Icon = icons[principle.id];
-        return (
-          <li
-            class="flex flex-col rounded-lg border border-line bg-surface p-6 lg:p-8"
-            data-reveal
-            style={`transition-delay: calc(var(--reveal-stagger) * ${index})`}
-          >
-            <span
-              class="flex size-12 items-center justify-center rounded-md bg-bg-alt text-olive"
-              aria-hidden="true"
-            >
-              <Icon className="size-6" strokeWidth={1.75} aria-hidden="true" />
-            </span>
+    <div class="lg:col-span-7" data-reveal>
+      <p class="text-eyebrow font-semibold text-primary">{section.eyebrow}</p>
 
-            <h3 class="mt-6 text-h3 font-semibold text-charcoal">
-              {principle.title}
-            </h3>
+      <h2
+        id="quality-title"
+        class="mt-4 font-display text-h2 text-balance text-heading"
+      >
+        {section.title}
+      </h2>
 
-            <p class="mt-3 text-text">{principle.text}</p>
-          </li>
-        );
-      })}
-    </ul>
+      <p class="mt-5 max-w-[56ch] text-lead text-text-muted">{section.intro}</p>
 
-    <ComplianceList class="mt-12 lg:mt-16" />
+      <ul class="mt-10 grid gap-8 sm:grid-cols-2">
+        {section.principles.map((principle) => {
+          const Icon = icons[principle.id];
+          return (
+            <li class="flex gap-4">
+              <span
+                class="flex size-10 shrink-0 items-center justify-center rounded-md bg-primary/10 text-primary"
+                aria-hidden="true"
+              >
+                <Icon className="size-5" strokeWidth={1.75} />
+              </span>
+              <div>
+                <h3 class="font-semibold text-ink">{principle.title}</h3>
+                <p class="mt-1 text-small text-text-muted">{principle.text}</p>
+              </div>
+            </li>
+          );
+        })}
+      </ul>
 
-    {section.cta.href ? (
-      <div class="mt-12 lg:mt-16" data-reveal>
-        <Button href={section.cta.href} size="lg" class="w-full sm:w-auto">
-          {section.cta.label}
-        </Button>
-      </div>
-    ) : (
-      <PendingContent item="M5.3" note={section.cta.pendingNote} class="mt-4" />
-    )}
+      <ComplianceList class="mt-10" />
+    </div>
   </div>
 </section>
 

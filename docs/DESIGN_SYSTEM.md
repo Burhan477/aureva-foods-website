@@ -23,99 +23,96 @@ Brand rules (what a colour means, where display type may be used) stay in [BRAND
 
 ## 3. Colour tokens
 
-### 3.1 Brand colours (approved, D-01, D-09)
+Values from D-24 (2026-10-26), which supersedes the D-01 palette and the D-19 derived shades. Contrast measured with the WCAG 2.x formula.
 
-| Token | Value | Tailwind utility examples |
-|---|---|---|
-| `--color-ivory` | `#F5F2E9` | `bg-ivory`, `text-ivory` |
-| `--color-white` | `#FFFFFF` | `bg-white` |
-| `--color-olive` | `#2F4638` | `bg-olive`, `text-olive`, `border-olive` |
-| `--color-charcoal` | `#252A26` | `text-charcoal` |
-| `--color-saffron` | `#F4C430` | `bg-saffron` |
-| `--color-terracotta` | `#B96F4A` | `border-terracotta` |
-| `--color-leaf` | `#2E7D32` | `text-leaf`, `bg-leaf` |
+### 3.1 Primitive colours
 
-### 3.2 Derived working shades (approved, D-19)
+| Token | Value | Use | Contrast checked |
+|---|---|---|---|
+| `--color-white` | `#FFFFFF` | Page background, cards, fields | — |
+| `--color-snow` | `#FAFAF8` | Alternate section background | Ink on it 17.3; Muted on it 4.62 |
+| `--color-mist` | `#F4F4F5` | Image placeholders, hover fills; text on Noir | On Noir 15.67. Never behind Muted text (4.40) |
+| `--color-ink` | `#18181B` | Text and headings | On White 17.7 |
+| `--color-muted` | `#71717A` | Secondary text | On White 4.83; on Snow 4.62 |
+| `--color-line` | `#E4E4E7` | Decorative dividers and card borders only | Not used for essential boundaries |
+| `--color-field-border` | `#86868F` | Form field borders (essential UI) | On White 3.61; on Snow 3.45 |
+| `--color-noir` | `#181C19` | Footer and contained dark panels | — |
+| `--color-emerald-deep` | `#047857` | Primary buttons and links on light | White on it 5.48; on White 5.48 |
+| `--color-emerald-darker` | `#065F46` | Primary hover | White on it 7.68 |
+| `--color-emerald` | `#10B981` | Marks; primary buttons on Noir (Ink text) | Ink on it 6.98; on Noir 6.79. Never white text (2.54) |
+| `--color-emerald-light` | `#34D399` | Primary hover on Noir | Ink on it 9.22 |
+| `--color-orange` / `-deep` | `#F97316` / `#C2410C` | Spices marks / text | Deep on White 5.18; base is marks only (2.8) |
+| `--color-saffron` / `-deep` | `#F4C430` / `#DBB22F` | Dehydrated marks | Marks only on light; Ink on Saffron 10.79 |
+| `--color-teal` / `-deep` | `#14B8A6` / `#0F766E` | Fresh marks / text | Deep on White 5.47; base is marks only (2.49) |
+| `--color-error` | `#B91C1C` | Error text and error field borders | On White 6.47; on Snow 6.19 |
 
-Mixed from the approved colours; no new hues. Approved by the owner on 2026-10-25 (D-19).
+Success messages use Emerald 700. Errors and success are never shown by colour alone; each has an icon and text.
 
-| Token | Value | Derived from | Use | Contrast checked |
-|---|---|---|---|---|
-| `--color-olive-deep` | `#26382D` | Olive 80% + black | Hover and pressed state of olive buttons | White on it 12.46; Ivory on it 11.13 |
-| `--color-saffron-deep` | `#DBB22F` | Saffron 88% + Charcoal | Hover state of saffron buttons | Charcoal on it 7.25 |
-| `--color-ivory-deep` | `#E5E4DB` | Ivory 92% + Olive | Alternate section background | Charcoal on it 11.44; Olive on it 8.01 |
-| `--color-muted` | `#5F625D` | Charcoal 72% + Ivory | Secondary text, captions, help text | On Ivory 5.53; on White 6.19 |
-| `--color-line` | `#D8D6CE` | Charcoal 14% + Ivory | Decorative dividers and card borders only | Not used for essential boundaries |
-| `--color-field-border` | `#878A88` | Charcoal 55% + White | Form field borders (essential UI) | On White 3.49; on Ivory 3.12 |
-| `--color-error` | `#8D5A3F` | Terracotta 70% + Charcoal | Error text and error field borders | On White 5.73; on Ivory 5.12 |
+### 3.2 Semantic tokens
 
-Success messages use Leaf Green (5.13 on White). Errors and success are never shown by colour alone; each has an icon and text.
-
-### 3.3 Semantic tokens
-
-Components use these names, not the raw colours, so a later palette change happens in one place.
+Components use these names, so a later palette change happens in one place.
 
 | Semantic token | Maps to | Purpose |
 |---|---|---|
-| `--color-bg` | ivory | Page background |
-| `--color-bg-alt` | ivory-deep | Alternate section background |
+| `--color-bg` | white | Page background |
+| `--color-bg-alt` | snow | Alternate section background |
 | `--color-surface` | white | Cards, fields, panels |
-| `--color-inverse` | olive | Dark sections (Business Enquiry CTA), footer |
-| `--color-text` | charcoal | Body text |
+| `--color-inverse` | noir | Footer, contained dark panels |
+| `--color-text` | ink | Body text |
 | `--color-text-muted` | muted | Secondary text |
-| `--color-text-inverse` | ivory | Text on olive or charcoal |
-| `--color-heading` | olive | h1 and h2 on light backgrounds |
-| `--color-primary` / `--color-primary-hover` | olive / olive-deep | Primary buttons and links |
-| `--color-accent` / `--color-accent-hover` | saffron / saffron-deep | Accent buttons, highlights (with dark text) |
-| `--color-category` | set per category (§3.4) | Category marks |
-| `--color-focus` | olive on light, saffron on dark | Focus ring |
+| `--color-text-inverse` | mist | Text on Noir |
+| `--color-heading` | ink | Headings |
+| `--color-primary` / `--color-primary-hover` | emerald-deep / emerald-darker | Primary buttons and links |
+| `--color-accent` / `--color-accent-hover` | emerald / emerald-light | Primary buttons and marks on Noir (Ink text) |
+| `--color-category` | set per category (§3.3) | Category marks |
+| `--color-focus` | emerald-deep on light, emerald on Noir | Focus ring |
 
-### 3.4 Category accent
+### 3.3 Category accent
 
-`--color-category` is set on the category container; components read it and never name a category colour directly.
+`--color-category` is set on the category container; components read it and never name a category colour directly. Accents are marks only (rules, short bars, card top edges, icon tint); text uses the `-deep` shade. One accent per component.
 
-| Category | `--color-category` | Allowed use (BRAND_GUIDELINES.md §3.3) |
-|---|---|---|
-| Spices | terracotta | Rules, borders, icon tint, large text only |
-| Dehydrated Products | saffron | Fills and marks only, with dark text |
-| Fresh Fruits & Vegetables | leaf | Rules, icon tint, text |
+| Category | `--color-category` |
+|---|---|
+| Spices | orange |
+| Dehydrated Products | saffron (saffron-deep for marks on white) |
+| Fresh Fruits & Vegetables | teal |
 
-### 3.5 Removing Tailwind's default palette
+### 3.4 Removing Tailwind's default palette
 
 The `@theme` block resets Tailwind's built-in colours (`--color-*: initial;`) before defining ours, so unapproved colours such as `bg-blue-500` do not exist and cannot be used by mistake.
 
 ## 4. Typography
 
-### 4.1 Families (D-01, D-08)
+### 4.1 Families (D-24)
 
 | Token | Stack |
 |---|---|
-| `--font-display` | "DM Serif Display", Georgia, "Times New Roman", serif |
 | `--font-sans` | "Inter", system-ui, "Segoe UI", Roboto, Arial, sans-serif |
+| `--font-display` | Same as `--font-sans`; the token is kept so h1/h2 styling stays in one place |
 
-Loaded with Astro's fonts feature (AD-10). Weights: DM Serif Display 400; Inter 400, 500, 600.
+Loaded with Astro's fonts feature (AD-10). Weights: Inter 400, 500, 600. DM Serif Display is no longer loaded.
 
 ### 4.2 Type scale
 
 Sizes are fluid between 360 px and 1280 px viewports using `clamp()`. Values in rem (1 rem = 16 px).
 
-| Token | Size (min → max) | Line height | Family / weight | Use |
+| Token | Size (min → max) | Line height | Weight / tracking | Use |
 |---|---|---|---|---|
-| `text-display` | 2.5 → 4 rem (40 → 64 px) | 1.08 | Display 400 | Home hero `h1` only |
-| `text-h1` | 2.25 → 3.25 rem (36 → 52 px) | 1.1 | Display 400 | Page `h1` |
-| `text-h2` | 1.75 → 2.5 rem (28 → 40 px) | 1.15 | Display 400 | Section `h2` |
-| `text-h3` | 1.25 → 1.5 rem (20 → 24 px) | 1.3 | Sans 600 | Card titles, sub-sections |
-| `text-h4` | 1.125 rem (18 px) | 1.4 | Sans 600 | Minor headings, footer group titles |
-| `text-lead` | 1.125 → 1.25 rem (18 → 20 px) | 1.6 | Sans 400 | Section introductions |
-| `text-body` | 1 → 1.0625 rem (16 → 17 px) | 1.65 | Sans 400 | Body text |
-| `text-small` | 0.875 rem (14 px) | 1.5 | Sans 400/500 | Captions, help text, legal notes |
-| `text-eyebrow` | 0.8125 rem (13 px) | 1.3 | Sans 600, uppercase, letter spacing 0.12 em | Labels above `h2` |
+| `text-display` | 2.625 → 4 rem (42 → 64 px) | 1.05 | 600 / −0.03 em | Home hero `h1` only |
+| `text-h1` | 2.375 → 3.5 rem (38 → 56 px) | 1.08 | 600 / −0.03 em | Page `h1` |
+| `text-h2` | 1.875 → 2.75 rem (30 → 44 px) | 1.15 | 600 / −0.025 em | Section `h2` |
+| `text-h3` | 1.25 → 1.625 rem (20 → 26 px) | 1.3 | 600 / −0.015 em | Card titles, sub-sections |
+| `text-h4` | 1.125 rem (18 px) | 1.4 | 600 | Minor headings, footer group titles |
+| `text-lead` | 1.125 → 1.25 rem (18 → 20 px) | 1.6 | 400 | Section introductions |
+| `text-body` | 1 → 1.0625 rem (16 → 17 px) | 1.65 | 400 | Body text |
+| `text-small` | 0.875 rem (14 px) | 1.5 | 400/500 | Captions, help text, card descriptions |
+| `text-eyebrow` | 0.8125 rem (13 px) | 1.3 | 600, sentence case | Optional short label above an `h2` |
 
 Rules:
 
-- Display letter spacing −0.01 em; body letter spacing normal.
-- Paragraph width at most 68 characters (`max-w-[68ch]`).
-- No text smaller than 14 px, except the legal copyright line (13 px allowed).
+- Section intros are one sentence, at most about 60 characters per line (`max-w-[60ch]`).
+- Eyebrows are sentence case with no decorative rule; use one only when it adds context the heading does not.
+- No text smaller than 14 px, except the eyebrow and the legal copyright line (13 px).
 - Headings never skip a level (AD-15).
 
 ## 5. Spacing
@@ -166,12 +163,13 @@ Test widths (QA_CHECKLIST.md): 360, 390, 768, 1024, 1280, 1440 and 1920 px.
 | Token | Value | Use |
 |---|---|---|
 | `--radius-sm` | 4 px | Badges, small tags |
-| `--radius-md` | 6 px | Buttons, form fields |
-| `--radius-lg` | 10 px | Cards, image frames, panels |
+| `--radius-md` | 8 px | Buttons, form fields, icon tiles |
+| `--radius-lg` | 12 px | Cards, panels, small image frames |
+| `rounded-2xl` | 16 px | Large photo frames and contained dark panels |
 | `--radius-full` | 9999 px | Floating WhatsApp button only |
 | `--shadow-card` | none | Cards at rest use a `--color-line` border instead |
-| `--shadow-card-hover` | 0 12px 28px -16px rgb(37 42 38 / 0.28) | Card hover lift (D-06) |
-| `--shadow-float` | 0 8px 24px -8px rgb(37 42 38 / 0.35) | Floating WhatsApp button, open dropdown |
+| `--shadow-card-hover` | 0 16px 32px -20px rgb(24 24 27 / 0.22) | Card hover lift (D-06) |
+| `--shadow-float` | 0 12px 32px -12px rgb(24 24 27 / 0.22) | Floating WhatsApp button, open dropdown, scrolled header |
 
 ## 9. Buttons
 
@@ -179,9 +177,9 @@ Test widths (QA_CHECKLIST.md): 360, 390, 768, 1024, 1280, 1440 and 1920 px.
 
 | Variant | Light background | Dark (olive) background | Typical use |
 |---|---|---|---|
-| Primary | Olive fill, White text; hover olive-deep | Saffron fill, Charcoal text; hover saffron-deep | WhatsApp Us |
-| Secondary | Transparent, 1.5 px Olive border, Olive text; hover ivory-deep fill | Transparent, 1.5 px Ivory border, Ivory text; hover Ivory 10% fill | Request a Quote |
-| Text link | Olive text, underline on hover and focus | Ivory text, underline | Inline and "View Spices" links |
+| Primary | Emerald 700 fill, White text; hover Emerald 800 | Emerald 500 fill, Ink text; hover Emerald 400 | WhatsApp Us |
+| Secondary | White fill, 1 px Ink 20% border, Ink text; hover Ink 40% border and Snow fill | Transparent, 1 px Mist 35% border, White text; hover White 10% fill | Request a Quote |
+| Text link | Emerald 700 text, underline on hover and focus | Mist text, underline | Inline and "View Spices" links |
 
 The two CTAs (BRAND_GUIDELINES.md §11) always appear as Primary (WhatsApp Us) and Secondary (Request a Quote) when shown together.
 
@@ -214,13 +212,14 @@ The two CTAs (BRAND_GUIDELINES.md §11) always appear as Primary (WhatsApp Us) a
 
 | Surface | Background | Text | Notes |
 |---|---|---|---|
-| Default section | ivory | charcoal; headings olive | Most sections |
-| Alternate section | ivory-deep | charcoal; headings olive | Used to separate adjacent sections; never two alternates in a row |
-| Card | white with `--color-line` border | charcoal | radius-lg |
-| Inverse band | olive | ivory; accents saffron | Business Enquiry CTA, footer |
-| Header | ivory with bottom `--color-line` | charcoal; active item olive | Becomes sticky with a subtle shadow after scrolling |
+| Default section | white | ink; muted for intros | Most sections |
+| Alternate section | snow | ink | Separates adjacent sections; never two alternates in a row |
+| Card | white with `--color-line` border | ink | radius-lg; image first |
+| Dark panel | noir, inside the container, `rounded-2xl` | mist; accents emerald | Business Enquiry CTA, Contact WhatsApp panel. Contained, so it never merges with the footer |
+| Footer | noir, full bleed | mist | The only full-bleed dark band |
+| Header | white 95% with blur and bottom `--color-line` | ink; active item emerald 700 | Sticky; subtle shadow after scrolling |
 
-Section rhythm: alternate default and alternate backgrounds; the Business Enquiry CTA is always an inverse band and always the last section before the footer.
+Section rhythm: alternate default and alternate backgrounds; the Business Enquiry CTA panel is the last section before the footer. No image washes, decorative offset frames or illustrations (D-24), except the Home hero: its photo fills the section with a white fade on the text side (owner request, 2026-10-26).
 
 ## 12. Images in layout
 
@@ -320,3 +319,4 @@ For orientation only; the actual file is written in M1.4 after approval.
 |---|---|---|
 | 0.1 | 2026-10-25 | First draft: tokens, type scale, spacing, layout, buttons, forms, surfaces, motion |
 | 0.1 | 2026-10-25 | Approved by owner, including the derived shades (D-19, C-33 resolved) |
+| 0.2 | 2026-10-26 | D-24 theme modernisation: §3 colours, §4 typography, §8 radii and shadows, §9.1 buttons, §11 surfaces |

@@ -32,11 +32,10 @@ const icons: Record<QualityPoint["id"], typeof Files> = {
 const ctaClasses = "w-full text-center whitespace-normal! sm:w-auto";
 ---
 
-<section aria-labelledby="quality-title" class="bg-bg-alt py-section">
+<section aria-labelledby="quality-title" class="bg-bg py-section">
   <div class="container-wide grid gap-10 lg:grid-cols-12 lg:grid-rows-[auto_1fr] lg:gap-x-16 lg:gap-y-10">
     <div class="lg:col-span-5" data-reveal>
-      <p class="flex items-center gap-3 text-eyebrow font-semibold text-olive uppercase">
-        <span class="h-px w-8 bg-olive" aria-hidden="true"></span>
+      <p class="flex items-center gap-3 text-eyebrow font-semibold text-primary">
         {section.eyebrow}
       </p>
 
@@ -61,7 +60,7 @@ const ctaClasses = "w-full text-center whitespace-normal! sm:w-auto";
               style={`transition-delay: calc(var(--reveal-stagger) * ${index})`}
             >
               <span
-                class="flex size-12 shrink-0 items-center justify-center rounded-md bg-bg-alt text-olive"
+                class="flex size-12 shrink-0 items-center justify-center rounded-md bg-bg-alt text-primary"
                 aria-hidden="true"
               >
                 <Icon
@@ -72,9 +71,7 @@ const ctaClasses = "w-full text-center whitespace-normal! sm:w-auto";
               </span>
 
               <div>
-                <h3 class="text-h3 font-semibold text-charcoal">
-                  {point.title}
-                </h3>
+                <h3 class="text-h3 font-semibold text-ink">{point.title}</h3>
                 <p class="mt-2 max-w-[60ch] text-text">{point.text}</p>
               </div>
             </li>

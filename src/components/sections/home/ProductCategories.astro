@@ -2,14 +2,15 @@
 import { productCategoriesSection as section } from "../../../data/home";
 import { productCategories } from "../../../data/navigation";
 import CategoryCard from "../../product/CategoryCard.astro";
+import SectionHeader from "../../ui/SectionHeader.astro";
 
 /**
  * Home "Our Product Categories" (SITE_STRUCTURE.md §4.1 section 3, M3.3).
  *
- * Default Ivory background between the alternate About section and the
- * next one (DESIGN_SYSTEM.md §11); white cards carry the contrast. Heading
- * block left-aligned, with the intro beside it from lg. Cards: 1 column,
- * 3 from md (§6.2). Cards reveal once with an 80 ms stagger (§14) and stay
+ * Alternate background straight after the hero (DESIGN_SYSTEM.md §11);
+ * white cards carry the contrast. Cards show the category, one line and a
+ * link; the full product lists live on each category page (D-24).
+ * Cards: 1 column, 3 from md (§6.2). Cards reveal once with an 80 ms stagger (§14) and stay
  * visible without JavaScript and under reduced motion.
  */
 
@@ -19,27 +20,14 @@ const imagePositions: Partial<Record<string, string>> = {
 };
 ---
 
-<section aria-labelledby="categories-title" class="bg-bg py-section">
+<section aria-labelledby="categories-title" class="bg-bg-alt py-section">
   <div class="container-wide">
-    <div class="grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-16" data-reveal>
-      <div class="lg:col-span-7">
-        <p class="flex items-center gap-3 text-eyebrow font-semibold text-olive uppercase">
-          <span class="h-px w-8 bg-olive" aria-hidden="true"></span>
-          {section.eyebrow}
-        </p>
-
-        <h2
-          id="categories-title"
-          class="mt-5 font-display text-h2 text-heading"
-        >
-          {section.title}
-        </h2>
-      </div>
-
-      <p class="max-w-[68ch] text-lead text-text lg:col-span-5">
-        {section.intro}
-      </p>
-    </div>
+    <SectionHeader
+      id="categories-title"
+      eyebrow={section.eyebrow}
+      title={section.title}
+      intro={section.intro}
+    />
 
     <ul class="mt-12 grid gap-6 md:grid-cols-3 lg:mt-16 lg:gap-8">
       {productCategories.map((category, index) => {
@@ -52,8 +40,6 @@ const imagePositions: Partial<Record<string, string>> = {
             <CategoryCard
               category={category}
               description={copy.description}
-              examples={copy.examples}
-              examplesLabel={section.examplesLabel}
               ctaLabel={copy.ctaLabel}
               imagePosition={imagePositions[category.id]}
             />

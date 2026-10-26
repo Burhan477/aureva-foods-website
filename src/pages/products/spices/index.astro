@@ -1,0 +1,35 @@
+---
+import EnquiryCTA from "../../../components/sections/EnquiryCTA.astro";
+import Faqs from "../../../components/sections/spices/Faqs.astro";
+import Intro from "../../../components/sections/spices/Intro.astro";
+import Quality from "../../../components/sections/spices/Quality.astro";
+import Showcase from "../../../components/sections/spices/Showcase.astro";
+import Specifications from "../../../components/sections/spices/Specifications.astro";
+import { site } from "../../../data/site";
+import { enquiryCta } from "../../../data/spices";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+
+// Spices (SITE_STRUCTURE.md §4.4), sections 1 to 7 in the order of the
+// owner's briefs (2026-10-26), each PENDING APPROVAL. Title and
+// description are the SEO_AND_PERFORMANCE.md §3.2 drafts (SUGGESTION),
+// approved page by page in M6.3.
+---
+
+<BaseLayout
+  title="Indian Spices: Powders & Whole Spices | Aureva Foods"
+  description="Turmeric, chilli, cumin, cardamom, ginger and fenugreek powders, whole coriander and cumin, garlic powder and fennel seeds from India. Request a quote."
+>
+  <main id="main">
+    <Intro />
+    <Showcase />
+    <Specifications />
+    <Quality />
+    <Faqs />
+    <EnquiryCTA
+      id={enquiryCta.id}
+      content={enquiryCta}
+
+      whatsappMessage={site.whatsapp.messages.spicesEnquiry}
+    />
+  </main>
+</BaseLayout>

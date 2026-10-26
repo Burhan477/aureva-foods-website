@@ -1,0 +1,83 @@
+---
+import { Picture } from "astro:assets";
+
+import spicesImage from "../../../assets/images/categories/spices.jpg";
+import { intro as section } from "../../../data/spices";
+import Breadcrumbs from "../../ui/Breadcrumbs.astro";
+import Button from "../../ui/Button.astro";
+
+/**
+ * Spices "Page Introduction" (SITE_STRUCTURE.md §4.4 section 1).
+ *
+ * The page `h1`, with the breadcrumb trail as its eyebrow (C-32). Text +
+ * image split (DESIGN_SYSTEM.md §6.2): 6 / 6 columns from lg, text on the
+ * left. Below lg it stacks with the text first. Terracotta, the Spices
+ * accent (D-09), is used for marks and the frame only, never for text.
+ *
+ * Request a Quote is Charcoal here on the owner's instruction
+ * (2026-10-26), by pointing the Button's primary colour tokens at
+ * Charcoal for this row only; hover moves to Deep Olive. Explore Our
+ * Spices jumps to the Spice Product Showcase (section 2).
+ *
+ * The image is the LCP element from lg: eager, high priority, and never
+ * hidden by a reveal animation (§14). No client JavaScript.
+ */
+---
+
+<section
+  aria-labelledby="spices-intro-title"
+  class="bg-bg pt-section-tight pb-section"
+>
+  <div class="container-wide grid items-center gap-10 lg:grid-cols-12 lg:gap-16">
+    <div class="lg:col-span-6">
+      <div class="flex items-center gap-3">
+        <Breadcrumbs items={section.breadcrumbs} />
+      </div>
+
+      <h1
+        id="spices-intro-title"
+        class="mt-5 font-display text-h1 text-balance text-heading"
+      >
+        {section.title}
+      </h1>
+
+      <p class="mt-6 max-w-[68ch] text-lead text-text">{section.text}</p>
+
+      <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+        <Button
+          href={section.primaryCta.href}
+          size="lg"
+          class="w-full sm:w-auto"
+        >
+          {section.primaryCta.label}
+        </Button>
+        <Button
+          href={section.secondaryCta.href}
+          variant="secondary"
+          size="lg"
+          class="w-full sm:w-auto"
+        >
+          {section.secondaryCta.label}
+        </Button>
+      </div>
+    </div>
+
+    <div class="lg:col-span-6">
+      <div class="relative">
+        <div class="relative aspect-4/3 overflow-hidden rounded-2xl bg-mist lg:aspect-5/4">
+          <Picture
+            src={spicesImage}
+            alt={section.imageAlt}
+            formats={["avif", "webp"]}
+            fallbackFormat="jpg"
+            widths={[480, 800, 1200, spicesImage.width]}
+            sizes="(min-width: 1344px) 592px, (min-width: 1024px) 45vw, 100vw"
+            loading="eager"
+            fetchpriority="high"
+            class="absolute inset-0 size-full object-cover"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,86 @@
+---
+import { getCollection } from "astro:content";
+
+import { fruits as section } from "../../../data/fresh-fruits-vegetables";
+import ProductCard from "../../product/ProductCard.astro";
+import Button from "../../ui/Button.astro";
+import SectionHeader from "../../ui/SectionHeader.astro";
+
+/**
+ * Fresh Fruits & Vegetables "Fresh Fruits" (SITE_STRUCTURE.md §4.6
+ * section 3). DRAFT-TEMP; see data/fresh-fruits-vegetables.ts.
+ *
+ * The products in the "Fresh Fruits" group of products.json (§5.3), in
+ * catalogue order, as shared ProductCards with the brief's descriptions.
+ * Ivory band after the alternate Fresh Vegetables section
+ * (DESIGN_SYSTEM.md §11), with Leaf Green, the Fresh accent, on the
+ * eyebrow rule and card marks (§3.4).
+ *
+ * Same header and grid as the Dehydrated Onion Products section: heading
+ * left and text right from lg; cards 1 column on phones, 2 from md, 3
+ * from lg (§6.2); buttons below the grid, the standard Primary and
+ * Secondary (§9.1).
+ *
+ * Card images are lazy. Card hover (lift and image zoom) comes from
+ * ProductCard and is skipped under reduced motion. Content reveals once
+ * (§14) and stays visible without JavaScript and under reduced motion.
+ */
+
+const products = (await getCollection("products"))
+  .filter(({ data }) => data.group === "Fresh Fruits")
+  .sort((a, b) => a.data.order - b.data.order)
+  .map(({ id, data }) => {
+    const copy = section.products[id];
+    if (!copy) throw new Error(`[fresh] No fruit card copy for "${id}"`);
+    return { data, ...copy };
+  });
+
+/** Card widths per breakpoint, matching the grid classes below */
+const imageSizes =
+  "(min-width: 1344px) 405px, (min-width: 1024px) 30vw, (min-width: 768px) 46vw, 100vw";
+---
+
+<section
+  id={section.id}
+  aria-labelledby="fresh-fruits-title"
+  class="bg-bg py-section"
+  style="--color-category: var(--color-teal)"
+>
+  <div class="container-wide">
+    <SectionHeader
+      id="fresh-fruits-title"
+      eyebrow={section.eyebrow}
+      title={section.title}
+      intro={section.intro}
+    />
+
+    <ul
+      class="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2 lg:mt-12 lg:grid-cols-3 lg:gap-8"
+      data-reveal
+    >
+      {products.map(({ data, description }) => (
+        <li>
+          <ProductCard
+            product={data}
+            sizes={imageSizes}
+            label={section.cardLabel}
+            description={description}
+          />
+        </li>
+      ))}
+    </ul>
+
+    <div
+      class="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap lg:mt-12"
+      data-reveal
+    >
+      <Button href={section.primaryCta.href} size="lg" class="w-full sm:w-auto">
+        {section.primaryCta.label}
+      </Button>
+    </div>
+  </div>
+</section>
+
+<script>
+  import "../../../scripts/reveal";
+</script>

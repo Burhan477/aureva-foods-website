@@ -1,0 +1,169 @@
+---
+import { Check, MessagesSquare } from "lucide-react";
+
+import { specifications as section } from "../../../data/spices";
+import Button from "../../ui/Button.astro";
+import SectionHeader from "../../ui/SectionHeader.astro";
+
+/**
+ * Spices "Product Range & Specifications" (SITE_STRUCTURE.md §4.4
+ * section 3).
+ *
+ * Ivory band after the alternate showcase (DESIGN_SYSTEM.md §11), with
+ * the Spices accent on rules and markers (§3.4). Three parts:
+ *
+ * - The two product groups as text lists, not cards, so the section does
+ *   not repeat the showcase grid. Spices come from products.json with the
+ *   forms in `showcase.products`. Each group has its own photo, neither
+ *   used elsewhere on this page, cropped with object-position and a fixed
+ *   zoom towards that group's ingredients.
+ * - The Buyer Specification Overview as a real table (COMPONENT_INVENTORY.md
+ *   §5, SpecificationTable). Each row is labelled "From our catalogue" or
+ *   "Confirmed on enquiry" with an icon and text, not colour alone. Below
+ *   sm the status moves into the details cell, so the table fits a phone
+ *   without scrolling sideways; its frame still scrolls if it ever must.
+ * - The B2B Enquiry Process in a Deep Olive panel with Saffron step
+ *   numbers (§3.1: accent text on Deep Olive) and the dark-tone Request a
+ *   Quote button, focus ring in Saffron as in EnquiryCTA. The visible
+ *   numbers are decorative; the `ol` carries the order.
+ *
+ * Blocks reveal once (§14) and stay visible under reduced motion. No
+ * hover effects: nothing here is a link except the CTA.
+ */
+
+const statusClasses = {
+  catalogue: "bg-primary/10 text-primary",
+  enquiry: "border border-line bg-bg text-text-muted",
+};
+---
+
+<section
+  id={section.id}
+  aria-labelledby="spice-specs-title"
+  class="bg-bg py-section"
+  style="--color-category: var(--color-orange)"
+>
+  <div class="container-wide">
+    <SectionHeader
+      id="spice-specs-title"
+      eyebrow={section.eyebrow}
+      title={section.title}
+      intro={section.intro}
+    />
+
+    <div class="mt-10 grid gap-12 lg:mt-12 lg:grid-cols-12 lg:gap-12 xl:gap-16">
+      <div class="lg:col-span-7" data-reveal>
+        <h3 id="spice-spec-table-title" class="text-h3 font-semibold text-ink">
+          {section.table.title}
+        </h3>
+        <p id="spice-spec-table-note" class="mt-3 max-w-[60ch] text-text-muted">
+          {section.table.note}
+        </p>
+
+        <div class="mt-6 overflow-x-auto rounded-lg border border-line bg-surface">
+          <table
+            aria-labelledby="spice-spec-table-title"
+            aria-describedby="spice-spec-table-note"
+            class="w-full border-collapse text-left"
+          >
+            <thead class="border-b border-line bg-mist/50">
+              <tr class="text-eyebrow font-semibold text-text-muted">
+                <th scope="col" class="w-2/5 px-4 py-3 sm:w-[30%] sm:px-5">
+                  {section.table.columns.label}
+                </th>
+                <th scope="col" class="px-4 py-3 sm:px-5">
+                  {section.table.columns.value}
+                </th>
+                <th scope="col" class="hidden px-5 py-3 sm:table-cell">
+                  {section.table.columns.status}
+                </th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-line">
+              {section.table.rows.map((row) => {
+                const Icon =
+                  row.status === "catalogue" ? Check : MessagesSquare;
+                const badge = [
+                  "inline-flex items-center gap-1.5 rounded-sm px-2 py-1 text-small font-medium whitespace-nowrap",
+                  statusClasses[row.status],
+                ];
+                return (
+                  <tr>
+                    <th
+                      scope="row"
+                      class="px-4 py-4 align-top font-semibold text-ink sm:px-5"
+                    >
+                      {row.label}
+                    </th>
+                    <td class="px-4 py-4 align-top text-text sm:px-5">
+                      {row.value}
+                      <span class="mt-2 block sm:hidden">
+                        <span class:list={badge}>
+                          <Icon
+                            className="size-3.5"
+                            strokeWidth={2}
+                            aria-hidden="true"
+                          />
+                          {section.table.statusLabels[row.status]}
+                        </span>
+                      </span>
+                    </td>
+                    <td class="hidden px-5 py-4 align-top sm:table-cell">
+                      <span class:list={badge}>
+                        <Icon
+                          className="size-3.5"
+                          strokeWidth={2}
+                          aria-hidden="true"
+                        />
+                        {section.table.statusLabels[row.status]}
+                      </span>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="lg:col-span-5" data-reveal>
+        <!-- Stays in view beside the longer table from lg -->
+        <div class="rounded-lg bg-inverse p-6 lg:sticky lg:top-[calc(var(--header-height)+2rem)] text-text-inverse [--color-focus:var(--color-accent)] sm:p-8 lg:p-10">
+          <h3 class="text-h3 font-semibold text-mist">
+            {section.process.title}
+          </h3>
+
+          <ol class="mt-6 divide-y divide-mist/15">
+            {section.process.steps.map((step, index) => (
+              <li class="grid grid-cols-[3rem_1fr] gap-x-4 py-6 last:pb-0">
+                <span
+                  class="font-display text-h2 leading-none text-accent"
+                  aria-hidden="true"
+                >
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <div>
+                  <h4 class="text-h4 font-semibold text-mist">{step.title}</h4>
+                  <p class="mt-2 text-mist/85">{step.text}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+
+          <Button
+            href={section.process.cta.href}
+            tone="dark"
+            size="lg"
+            class="mt-8 w-full sm:w-auto"
+          >
+            {section.process.cta.label}
+          </Button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import "../../../scripts/reveal";
+</script>

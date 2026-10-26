@@ -1,0 +1,107 @@
+---
+import { Picture } from "astro:assets";
+import { ClipboardList, CookingPot, Package } from "lucide-react";
+
+import garlicImage from "../../../assets/images/sections/dehydrated-garlic.jpg";
+import {
+  type GarlicPoint,
+  garlic as section,
+} from "../../../data/dehydrated-products";
+import Button from "../../ui/Button.astro";
+
+/**
+ * Dehydrated Products "Dehydrated Garlic" (SITE_STRUCTURE.md §4.5
+ * section 3). DRAFT-TEMP; see data/dehydrated-products.ts.
+ *
+ * Ivory band after the alternate Dehydrated Onion Products section
+ * (DESIGN_SYSTEM.md §11). Image + text split (§6.2), mirrored from the
+ * Page Introduction: image on the left in 5 columns, text in 7 from lg.
+ * Below lg it stacks with the text first. The image is 4:3 on phones
+ * and tablets and square (uncropped) from lg.
+ *
+ * The three supporting points are a divided list with neutral icons
+ * (no facility or process implied). Saffron, the Dehydrated accent
+ * (D-09), is used for the eyebrow rule only, never for text.
+ *
+ * Buttons are the standard Primary and Secondary (§9.1); both go to the
+ * enquiry form. The image is lazy. Content reveals once (§14) and stays
+ * visible without JavaScript and under reduced motion.
+ */
+
+const icons: Record<GarlicPoint["id"], typeof Package> = {
+  applications: CookingPot,
+  packaging: Package,
+  specifications: ClipboardList,
+};
+---
+
+<section
+  id={section.id}
+  aria-labelledby="dehydrated-garlic-title"
+  class="bg-bg py-section"
+  style="--color-category: var(--color-saffron-deep)"
+>
+  <div class="container-wide grid gap-10 lg:grid-cols-12 lg:items-center lg:gap-16">
+    <div class="lg:col-span-7 lg:col-start-6 lg:row-start-1" data-reveal>
+      <p class="flex items-center gap-3 text-eyebrow font-semibold text-primary">
+        {section.eyebrow}
+      </p>
+
+      <h2
+        id="dehydrated-garlic-title"
+        class="mt-5 font-display text-h2 text-balance text-heading"
+      >
+        {section.title}
+      </h2>
+
+      <p class="mt-6 max-w-[68ch] text-lead text-text">{section.intro}</p>
+
+      <ul class="mt-8 divide-y divide-line border-y border-line">
+        {section.points.map((point) => {
+          const Icon = icons[point.id];
+          return (
+            <li class="grid grid-cols-[1.5rem_1fr] gap-x-4 py-5">
+              <Icon
+                className="mt-0.5 size-6 text-primary"
+                strokeWidth={1.75}
+                aria-hidden="true"
+              />
+              <div>
+                <h3 class="text-h4 font-semibold text-ink">{point.title}</h3>
+                <p class="mt-1 max-w-[60ch] text-text-muted">{point.text}</p>
+              </div>
+            </li>
+          );
+        })}
+      </ul>
+
+      <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+        <Button
+          href={section.primaryCta.href}
+          size="lg"
+          class="w-full sm:w-auto"
+        >
+          {section.primaryCta.label}
+        </Button>
+      </div>
+    </div>
+
+    <div class="lg:col-span-5 lg:col-start-1 lg:row-start-1" data-reveal>
+      <div class="relative aspect-4/3 overflow-hidden rounded-2xl bg-mist lg:aspect-square">
+        <Picture
+          src={garlicImage}
+          alt={section.imageAlt}
+          formats={["avif", "webp"]}
+          fallbackFormat="jpg"
+          widths={[480, 800, garlicImage.width]}
+          sizes="(min-width: 1344px) 496px, (min-width: 1024px) 36vw, 100vw"
+          class="absolute inset-0 size-full object-cover"
+        />
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import "../../../scripts/reveal";
+</script>

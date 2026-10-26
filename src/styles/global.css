@@ -1,64 +1,79 @@
 @import "tailwindcss";
 
 /*
- * Design tokens (DESIGN_SYSTEM.md, D-01, D-19).
+ * Design tokens (DESIGN_SYSTEM.md, D-24; supersedes the D-01 palette).
  * Tailwind's default colours and font sizes are removed so only approved
  * values exist (DESIGN_SYSTEM.md §3.5).
  */
 @theme {
   --color-*: initial;
 
-  /* Brand colours (§3.1) */
-  --color-ivory: #f5f2e9;
+  /* Neutrals (§3.1, D-24) */
   --color-white: #ffffff;
-  --color-olive: #2f4638;
-  --color-charcoal: #252a26;
-  --color-saffron: #f4c430;
-  --color-terracotta: #b96f4a;
-  --color-leaf: #2e7d32;
+  --color-snow: #fafaf8;
+  --color-mist: #f4f4f5;
+  --color-ink: #18181b;
+  --color-muted: #71717a;
+  --color-line: #e4e4e7;
+  --color-field-border: #86868f;
+  --color-noir: #181c19;
 
-  /* Derived working shades (§3.2) */
-  --color-olive-deep: #26382d;
+  /* Action colour (§3.1): the 700 shade carries white text (5.48), the
+     500 shade is for marks, and for buttons on noir with ink text (6.98) */
+  --color-emerald: #10b981;
+  --color-emerald-light: #34d399;
+  --color-emerald-deep: #047857;
+  --color-emerald-darker: #065f46;
+
+  /* Category accents (§3.4): marks only; the -deep shades are for text */
+  --color-orange: #f97316;
+  --color-orange-deep: #c2410c;
+  --color-saffron: #f4c430;
   --color-saffron-deep: #dbb22f;
-  --color-ivory-deep: #e5e4db;
-  --color-muted: #5f625d;
-  --color-line: #d8d6ce;
-  --color-field-border: #878a88;
-  --color-error: #8d5a3f;
+  --color-teal: #14b8a6;
+  --color-teal-deep: #0f766e;
+
+  --color-error: #b91c1c;
 
   /* Semantic tokens (§3.3) */
-  --color-bg: var(--color-ivory);
-  --color-bg-alt: var(--color-ivory-deep);
+  --color-bg: var(--color-white);
+  --color-bg-alt: var(--color-snow);
   --color-surface: var(--color-white);
-  --color-inverse: var(--color-olive);
-  --color-text: var(--color-charcoal);
+  --color-inverse: var(--color-noir);
+  --color-text: var(--color-ink);
   --color-text-muted: var(--color-muted);
-  --color-text-inverse: var(--color-ivory);
-  --color-heading: var(--color-olive);
-  --color-primary: var(--color-olive);
-  --color-primary-hover: var(--color-olive-deep);
-  --color-accent: var(--color-saffron);
-  --color-accent-hover: var(--color-saffron-deep);
+  --color-text-inverse: var(--color-mist);
+  --color-heading: var(--color-ink);
+  --color-primary: var(--color-emerald-deep);
+  --color-primary-hover: var(--color-emerald-darker);
+  /* Primary on noir (§9.1) */
+  --color-accent: var(--color-emerald);
+  --color-accent-hover: var(--color-emerald-light);
   /* Overridden per category container (§3.4) and on dark surfaces (focus) */
-  --color-category: var(--color-olive);
-  --color-focus: var(--color-olive);
+  --color-category: var(--color-emerald);
+  --color-focus: var(--color-emerald-deep);
 
   /* Typography (§4); families come from the Astro fonts config (AD-10) */
   --font-sans: var(--font-inter);
-  --font-display: var(--font-dm-serif-display);
+  /* Headings use Inter too (D-24); the token keeps h1/h2 styling in one place */
+  --font-display: var(--font-inter);
 
   --text-*: initial;
-  --text-display: clamp(2.5rem, 1.913rem + 2.609vw, 4rem);
-  --text-display--line-height: 1.08;
-  --text-display--letter-spacing: -0.01em;
-  --text-h1: clamp(2.25rem, 1.859rem + 1.739vw, 3.25rem);
-  --text-h1--line-height: 1.1;
-  --text-h1--letter-spacing: -0.01em;
-  --text-h2: clamp(1.75rem, 1.457rem + 1.304vw, 2.5rem);
+  --text-display: clamp(2.625rem, 2.046rem + 2.574vw, 4rem);
+  --text-display--line-height: 1.05;
+  --text-display--letter-spacing: -0.03em;
+  --text-display--font-weight: 600;
+  --text-h1: clamp(2.375rem, 1.902rem + 2.105vw, 3.5rem);
+  --text-h1--line-height: 1.08;
+  --text-h1--letter-spacing: -0.03em;
+  --text-h1--font-weight: 600;
+  --text-h2: clamp(1.875rem, 1.507rem + 1.637vw, 2.75rem);
   --text-h2--line-height: 1.15;
-  --text-h2--letter-spacing: -0.01em;
-  --text-h3: clamp(1.25rem, 1.152rem + 0.435vw, 1.5rem);
+  --text-h2--letter-spacing: -0.025em;
+  --text-h2--font-weight: 600;
+  --text-h3: clamp(1.25rem, 1.092rem + 0.702vw, 1.625rem);
   --text-h3--line-height: 1.3;
+  --text-h3--letter-spacing: -0.015em;
   --text-h4: 1.125rem;
   --text-h4--line-height: 1.4;
   --text-lead: clamp(1.125rem, 1.076rem + 0.217vw, 1.25rem);
@@ -69,7 +84,7 @@
   --text-small--line-height: 1.5;
   --text-eyebrow: 0.8125rem;
   --text-eyebrow--line-height: 1.3;
-  --text-eyebrow--letter-spacing: 0.12em;
+  --text-eyebrow--letter-spacing: 0.01em;
   /* Button and navigation label size (§9.2: 15 px) */
   --text-button: 0.9375rem;
   --text-button--line-height: 1.2;
@@ -84,10 +99,10 @@
 
   /* Shape and elevation (§8) */
   --radius-sm: 4px;
-  --radius-md: 6px;
-  --radius-lg: 10px;
-  --shadow-card-hover: 0 12px 28px -16px rgb(37 42 38 / 0.28);
-  --shadow-float: 0 8px 24px -8px rgb(37 42 38 / 0.35);
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --shadow-card-hover: 0 16px 32px -20px rgb(24 24 27 / 0.22);
+  --shadow-float: 0 12px 32px -12px rgb(24 24 27 / 0.22);
 
   /* Motion (§14) */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);

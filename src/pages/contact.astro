@@ -1,0 +1,28 @@
+---
+import AddressLocation from "../components/sections/contact/AddressLocation.astro";
+import ContactDetails from "../components/sections/contact/ContactDetails.astro";
+import EnquirySection from "../components/sections/contact/EnquirySection.astro";
+import Intro from "../components/sections/contact/Intro.astro";
+import PartnerInfo from "../components/sections/contact/PartnerInfo.astro";
+import WhatsAppEnquiry from "../components/sections/contact/WhatsAppEnquiry.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+// Contact Us (SITE_STRUCTURE.md §4.7), sections 1 to 6. Sections 2, 5 and
+// 6 render in production only once their details are CONFIRMED in
+// site.ts. Title and description are the SEO_AND_PERFORMANCE.md §3.2
+// drafts (SUGGESTION), approved page by page in M6.3.
+---
+
+<BaseLayout
+  title="Contact Us | Aureva Foods"
+  description="Contact Aureva Foods for business enquiries and quotations. Message us on WhatsApp or send an enquiry about spices, dehydrated products or fresh produce."
+>
+  <main id="main">
+    <Intro />
+    <ContactDetails />
+    <EnquirySection />
+    <WhatsAppEnquiry />
+    <PartnerInfo />
+    <AddressLocation />
+  </main>
+</BaseLayout>

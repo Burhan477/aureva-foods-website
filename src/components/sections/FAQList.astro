@@ -1,0 +1,52 @@
+---
+import { Plus } from "lucide-react";
+
+/**
+ * FAQList (COMPONENT_INVENTORY.md §6): questions and answers as native
+ * `<details>` / `<summary>`, with no JavaScript. Browsers expose each
+ * summary as a button with its expanded state, Tab, Enter and Space work
+ * as usual, and find-in-page opens a matching answer. Items open
+ * independently (multi-open), the native default.
+ *
+ * Questions are not headings: content inside a summary loses its heading
+ * role in some screen readers, so the list is labelled by the section
+ * heading instead. Hairline dividers only; the plus turns to a cross when
+ * open, and the global reduced-motion rule makes that turn instant.
+ */
+interface Props {
+  items: { question: string; answer: string }[];
+  /** Id of the heading that names the list */
+  labelledBy?: string;
+  class?: string;
+}
+
+const { items, labelledBy, class: className } = Astro.props;
+---
+
+<ul
+  aria-labelledby={labelledBy}
+  class:list={["border-t border-line", className]}
+>
+  {items.map((item) => (
+    <li class="border-b border-line">
+      <details class="group">
+        <!-- Inset by the same amount it bleeds out, so the focus ring
+             clears the text while the text stays on the divider edge -->
+        <summary class="-mx-3 flex cursor-pointer list-none items-start justify-between gap-6 rounded-md px-3 py-5 text-h4 font-semibold text-ink transition-colors duration-(--duration-fast) ease-out hover:text-primary [&::-webkit-details-marker]:hidden">
+          <span>{item.question}</span>
+          <span
+            class="mt-px flex size-7 shrink-0 items-center justify-center rounded-full border border-line bg-surface text-primary transition-colors duration-(--duration-fast) ease-out group-open:border-primary group-open:bg-primary group-open:text-white"
+            aria-hidden="true"
+          >
+            <Plus
+              className="size-4 transition-transform duration-(--duration-base) ease-out group-open:rotate-45"
+              strokeWidth={2}
+              aria-hidden="true"
+            />
+          </span>
+        </summary>
+        <p class="max-w-[68ch] pb-6 text-text sm:pr-13">{item.answer}</p>
+      </details>
+    </li>
+  ))}
+</ul>

@@ -1,0 +1,90 @@
+---
+import { getCollection } from "astro:content";
+
+import { vegetables as section } from "../../../data/fresh-fruits-vegetables";
+import ProductCard from "../../product/ProductCard.astro";
+import Button from "../../ui/Button.astro";
+
+/**
+ * Fresh Fruits & Vegetables "Fresh Vegetables" (SITE_STRUCTURE.md §4.6
+ * section 2). DRAFT-TEMP; see data/fresh-fruits-vegetables.ts.
+ *
+ * The products in the "Fresh Vegetables" group of products.json (§5.3),
+ * in catalogue order, as shared ProductCards. Alternate Ivory band after
+ * the Ivory introduction (DESIGN_SYSTEM.md §11), with Leaf Green, the
+ * Fresh accent, on the eyebrow rule and card marks (§3.4).
+ *
+ * From lg the heading, text and buttons sit in 5 columns on the left and
+ * the two cards in 7 on the right. Below lg it stacks: heading and text,
+ * cards (2 columns from sm), then buttons. The cards hold nothing
+ * focusable, so the tab order matches both layouts.
+ *
+ * Buttons are the standard Primary and Secondary (§9.1). Card images are
+ * lazy. Content reveals once (§14) and stays visible without JavaScript
+ * and under reduced motion.
+ *
+ * The section `id` is the target of the Page Introduction's "Explore Our
+ * Products" link.
+ */
+
+const products = (await getCollection("products"))
+  .filter(({ data }) => data.group === "Fresh Vegetables")
+  .sort((a, b) => a.data.order - b.data.order)
+  .map(({ data }) => data);
+
+/** Card widths per breakpoint, matching the grid classes below */
+const imageSizes =
+  "(min-width: 1344px) 348px, (min-width: 1024px) 25vw, (min-width: 640px) 46vw, 100vw";
+---
+
+<section
+  id={section.id}
+  aria-labelledby="fresh-vegetables-title"
+  class="bg-bg-alt py-section"
+  style="--color-category: var(--color-teal)"
+>
+  <div class="container-wide grid gap-10 lg:grid-cols-12 lg:gap-x-16 lg:gap-y-8">
+    <div class="lg:col-span-5" data-reveal>
+      <p class="flex items-center gap-3 text-eyebrow font-semibold text-primary">
+        {section.eyebrow}
+      </p>
+
+      <h2
+        id="fresh-vegetables-title"
+        class="mt-5 font-display text-h2 text-balance text-heading"
+      >
+        {section.title}
+      </h2>
+
+      <p class="mt-6 max-w-[68ch] text-lead text-text">{section.intro}</p>
+    </div>
+
+    <ul
+      class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:col-span-7 lg:col-start-6 lg:row-span-2 lg:row-start-1 lg:self-center"
+      data-reveal
+    >
+      {products.map((product) => (
+        <li>
+          <ProductCard
+            product={product}
+            sizes={imageSizes}
+            label={section.cardLabel}
+          />
+        </li>
+      ))}
+    </ul>
+
+    <div
+      class="flex flex-col gap-3 sm:flex-row sm:flex-wrap lg:col-span-5 lg:self-start"
+      data-reveal
+    >
+      <Button href={section.primaryCta.href} size="lg" class="w-full sm:w-auto">
+        {section.primaryCta.label}
+      </Button>
+    </div>
+  </div>
+</section>
+
+<script>
+  import "../../../scripts/reveal";
+</script>

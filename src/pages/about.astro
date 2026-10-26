@@ -5,7 +5,6 @@ import GlobalMarkets from "../components/sections/about/GlobalMarkets.astro";
 import Processing from "../components/sections/about/Processing.astro";
 import ProductRange from "../components/sections/about/ProductRange.astro";
 import Quality from "../components/sections/about/Quality.astro";
-import WhoWeAre from "../components/sections/about/WhoWeAre.astro";
 import EnquiryCTA from "../components/sections/EnquiryCTA.astro";
 import { enquiryCta } from "../data/about";
 import BaseLayout from "../layouts/BaseLayout.astro";
@@ -21,14 +20,13 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 >
   <main id="main">
     <CompanyIntro />
-    <WhoWeAre />
     <ProductRange />
     <Processing />
     <Quality />
     <GlobalMarkets />
     <EnquiryCTA
       content={enquiryCta}
-      tone="charcoal"
+
       image={{ src: spicesImage, alt: enquiryCta.imageAlt }}
     />
   </main>

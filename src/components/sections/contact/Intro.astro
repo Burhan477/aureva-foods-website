@@ -1,0 +1,100 @@
+---
+import { Picture } from "astro:assets";
+
+import introImage from "../../../assets/images/categories/dehydrated-products.jpg";
+import { intro as section } from "../../../data/contact";
+import Button from "../../ui/Button.astro";
+import PendingContent from "../../ui/PendingContent.astro";
+import WhatsAppButton from "../../ui/WhatsAppButton.astro";
+import { isWhatsAppActive } from "../../../lib/whatsapp";
+
+/**
+ * Contact Us "Contact Introduction" (SITE_STRUCTURE.md §4.7 section 1).
+ *
+ * The page `h1`. Text + image split (DESIGN_SYSTEM.md §6.2): 6 / 6 columns
+ * from lg, text on the left; below lg it stacks with the text first. The
+ * enquiry topics follow the introduction, then the owner's CTA pair:
+ * Make a Business Enquiry (Primary, to the form anchor) and Chat on
+ * WhatsApp (Secondary). Buttons are full width on phones. A Saffron block
+ * offsets the photo from lg; Saffron is used as a fill only
+ * (BRAND_GUIDELINES.md §3.3).
+ *
+ * The image is the LCP element from lg: eager and high priority. Only
+ * content starting below the viewport animates (§14), so this section is
+ * visible without JavaScript and under reduced motion.
+ */
+---
+
+<section
+  aria-labelledby="contact-intro-title"
+  class="bg-bg pt-section-tight pb-section"
+>
+  <div class="container-wide grid items-center gap-10 lg:grid-cols-12 lg:gap-16">
+    <div class="lg:col-span-6" data-reveal>
+      <p class="flex items-center gap-3 text-eyebrow font-semibold text-primary">
+        {section.eyebrow}
+      </p>
+
+      <h1
+        id="contact-intro-title"
+        class="mt-5 font-display text-h1 text-balance text-heading"
+      >
+        {section.title}
+      </h1>
+
+      <p class="mt-6 max-w-[60ch] text-lead text-text">{section.text}</p>
+
+      <ul
+        aria-label={section.topicsLabel}
+        class="mt-6 flex flex-wrap gap-2 text-small"
+      >
+        {section.topics.map((topic) => (
+          <li class="rounded-full border border-line text-ink px-3 py-1">
+            {topic}
+          </li>
+        ))}
+      </ul>
+
+      <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-4">
+        <Button href={section.enquiryCta.href} size="lg">
+          {section.enquiryCta.label}
+        </Button>
+        <WhatsAppButton
+          variant="secondary"
+          size="lg"
+          label={section.whatsAppLabel}
+        />
+      </div>
+
+      {!isWhatsAppActive && (
+        <PendingContent
+          item="M5.3, C-01, C-02"
+          note={section.pendingNote}
+          class="mt-6 text-text-muted"
+        />
+      )}
+    </div>
+
+    <div class="lg:col-span-6" data-reveal>
+      <div class="relative">
+        <div class="relative aspect-video overflow-hidden rounded-2xl bg-mist lg:aspect-4/3">
+          <Picture
+            src={introImage}
+            alt={section.imageAlt}
+            formats={["avif", "webp"]}
+            fallbackFormat="jpg"
+            widths={[480, 800, 1200, introImage.width]}
+            sizes="(min-width: 1344px) 588px, (min-width: 1024px) 45vw, 100vw"
+            loading="eager"
+            fetchpriority="high"
+            class="absolute inset-0 size-full object-cover object-[45%_50%]"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import "../../../scripts/reveal";
+</script>

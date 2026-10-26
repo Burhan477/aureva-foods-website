@@ -4,7 +4,7 @@
  * to its panel has no gap.
  */
 export const desktopNavItem =
-  "group/link flex h-full items-center gap-1 px-3 text-button font-medium text-charcoal transition-colors duration-(--duration-fast) ease-out hover:text-olive focus-visible:outline-none aria-expanded:text-olive aria-[current=page]:text-olive data-current:text-olive xl:px-4";
+  "group/link flex h-full items-center gap-1 px-3 text-button font-medium text-ink transition-colors duration-(--duration-fast) ease-out hover:text-primary focus-visible:outline-none aria-expanded:text-primary aria-[current=page]:text-primary data-current:text-primary xl:px-4";
 
 /** Label inside a desktop item; carries the focus ring so it hugs the text, not the full header height */
 export const desktopNavLabel =
@@ -12,4 +12,4 @@ export const desktopNavLabel =
 
 /** Olive underline: shown for the current page, grows in on hover */
 export const desktopNavUnderline =
-  "pointer-events-none absolute inset-x-0 -bottom-1.5 h-0.5 origin-left scale-x-0 rounded-full bg-olive transition-transform duration-(--duration-base) ease-out group-hover/link:scale-x-100 group-aria-[current=page]/link:scale-x-100 group-data-current/link:scale-x-100";
+  "pointer-events-none absolute inset-x-0 -bottom-1.5 h-0.5 origin-left scale-x-0 rounded-full bg-primary transition-transform duration-(--duration-base) ease-out group-hover/link:scale-x-100 group-aria-[current=page]/link:scale-x-100 group-data-current/link:scale-x-100";

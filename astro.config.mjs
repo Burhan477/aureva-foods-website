@@ -9,7 +9,7 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
   integrations: [react()],
 
-  // Self-hosted at build time (AD-10); weights per BRAND_GUIDELINES.md §4
+  // Self-hosted at build time (AD-10); Inter is the only family (D-24)
   fonts: [
     {
       provider: fontProviders.google(),
@@ -19,15 +19,6 @@ export default defineConfig({
       styles: ["normal"],
       subsets: ["latin"],
       fallbacks: ["system-ui", "Segoe UI", "Roboto", "Arial", "sans-serif"],
-    },
-    {
-      provider: fontProviders.google(),
-      name: "DM Serif Display",
-      cssVariable: "--font-dm-serif-display",
-      weights: [400],
-      styles: ["normal"],
-      subsets: ["latin"],
-      fallbacks: ["Georgia", "Times New Roman", "serif"],
     },
   ],
 

@@ -1,0 +1,84 @@
+---
+import { Picture } from "astro:assets";
+
+import freshImage from "../../../assets/images/categories/fresh-fruits-vegetables.jpg";
+import { intro as section } from "../../../data/fresh-fruits-vegetables";
+import Breadcrumbs from "../../ui/Breadcrumbs.astro";
+import Button from "../../ui/Button.astro";
+import WhatsAppButton from "../../ui/WhatsAppButton.astro";
+
+/**
+ * Fresh Fruits & Vegetables "Page Introduction" (SITE_STRUCTURE.md §4.6
+ * section 1), following the approved Spices and Dehydrated introductions.
+ *
+ * The page `h1`, with the breadcrumb trail as its eyebrow (C-32). Text +
+ * image split (DESIGN_SYSTEM.md §6.2): 6 / 6 columns from lg, text on the
+ * left. Below lg it stacks with the text first. Leaf Green, the Fresh
+ * accent (BRAND_GUIDELINES.md §3.3), marks the eyebrow rule and the frame.
+ *
+ * The primary CTA is WhatsApp (owner brief, 2026-10-26), Charcoal as on
+ * the other category introductions; hover moves to Deep Olive. It renders
+ * inactive while the number is not CONFIRMED (C-01, C-02). Explore Our
+ * Products jumps to Fresh Vegetables (section 2).
+ *
+ * The image is the LCP element from lg: eager, high priority, and never
+ * hidden by a reveal animation (§14). No client JavaScript.
+ */
+---
+
+<section
+  id={section.id}
+  aria-labelledby="fresh-intro-title"
+  class="bg-bg pt-section-tight pb-section"
+>
+  <div class="container-wide grid items-center gap-10 lg:grid-cols-12 lg:gap-16">
+    <div class="lg:col-span-6">
+      <div class="flex items-center gap-3">
+        <Breadcrumbs items={section.breadcrumbs} />
+      </div>
+
+      <h1
+        id="fresh-intro-title"
+        class="mt-5 font-display text-h1 text-balance text-heading"
+      >
+        {section.title}
+      </h1>
+
+      <p class="mt-6 max-w-[68ch] text-lead text-text">{section.text}</p>
+
+      <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+        <WhatsAppButton
+          label={section.whatsappLabel}
+          size="lg"
+          class="w-full sm:w-auto"
+        />
+        <Button
+          href={section.secondaryCta.href}
+          variant="secondary"
+          size="lg"
+          class="w-full sm:w-auto"
+        >
+          {section.secondaryCta.label}
+        </Button>
+      </div>
+    </div>
+
+    <div class="lg:col-span-6">
+      <div class="relative">
+        <div class="relative aspect-4/3 overflow-hidden rounded-2xl bg-mist lg:aspect-5/4">
+          <Picture
+            src={freshImage}
+            alt={section.imageAlt}
+            formats={["avif", "webp"]}
+            fallbackFormat="jpg"
+            widths={[480, 800, 1200, freshImage.width]}
+            sizes="(min-width: 1344px) 592px, (min-width: 1024px) 45vw, 100vw"
+            loading="eager"
+            fetchpriority="high"
+            class="absolute inset-0 size-full object-cover object-left"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

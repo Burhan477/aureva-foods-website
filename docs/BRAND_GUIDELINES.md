@@ -30,69 +30,46 @@ The palette and fonts come from decision D-01 ("Natural mix", 2026-10-25). Every
 
 ## 3. Colour
 
-### 3.1 Palette and roles (D-01)
+### 3.1 Palette and roles (D-24)
 
-| Colour | Hex | Role | Allowed | Not allowed |
-|---|---|---|---|---|
-| Soft Ivory | `#F5F2E9` | Main page background | Page and section backgrounds; text on Deep Olive or Charcoal | — |
-| White | `#FFFFFF` | Surfaces | Cards, form fields, content panels | Large page backgrounds (ivory carries the natural warmth) |
-| Deep Olive | `#2F4638` | Primary brand colour | Header, footer, primary buttons, key headings, links, dark sections | — |
-| Charcoal | `#252A26` | Text | Body text, secondary headings, icons | — |
-| Saffron Gold | `#F4C430` | Signature accent | Fills behind Charcoal or Deep Olive text (badges, highlights, accent buttons); accent text and lines on Deep Olive or Charcoal; small decorative marks | **Any text, icon or essential control on Ivory or White** (fails contrast) |
-| Terracotta | `#B96F4A` | Spices accent | Category marks, rules, borders, large text (≥ 24px, or ≥ 18.66px bold) | Body text, small labels, white or charcoal text on a Terracotta fill |
-| Leaf Green | `#2E7D32` | Fresh Fruits & Vegetables accent | Category marks, text at any size on Ivory or White, fills behind White text | Combining with Deep Olive in the same element (two competing greens) |
+D-24 (2026-10-26) replaces the D-01 "Natural mix" palette: white and off-white dominate, emerald is the only action colour, and Noir is used selectively.
 
-**Dropped:** Sage `#89947B` (2.85:1 on ivory; fails even the 3:1 non-text minimum).
-
-### 3.2 Contrast reference
-
-Measured with the WCAG 2.x formula on 2026-10-25. AA requires 4.5:1 for normal text and 3:1 for large text and non-text UI.
-
-| Foreground on background | Ratio | Normal text | Large text / UI |
+| Colour | Hex | Role | Not allowed |
 |---|---|---|---|
-| Charcoal on Ivory | 13.05 | Pass | Pass |
-| Charcoal on White | 14.61 | Pass | Pass |
-| Deep Olive on Ivory | 9.13 | Pass | Pass |
-| Deep Olive on White | 10.22 | Pass | Pass |
-| Ivory or White on Deep Olive | 9.13 / 10.22 | Pass | Pass |
-| Ivory on Charcoal | 13.05 | Pass | Pass |
-| Saffron Gold on Deep Olive | 6.22 | Pass | Pass |
-| Saffron Gold on Charcoal | 8.89 | Pass | Pass |
-| Charcoal on Saffron Gold | 8.89 | Pass | Pass |
-| Deep Olive on Saffron Gold | 6.22 | Pass | Pass |
-| Leaf Green on White | 5.13 | Pass | Pass |
-| Leaf Green on Ivory | 4.58 | Pass (narrow margin) | Pass |
-| White on Leaf Green | 5.13 | Pass | Pass |
-| Terracotta on White | 3.86 | **Fail** | Pass |
-| Terracotta on Ivory | 3.45 | **Fail** | Pass |
-| White on Terracotta | 3.86 | **Fail** | Pass |
-| Charcoal on Terracotta | 3.78 | **Fail** | Pass |
-| Saffron Gold on White | 1.64 | **Fail** | **Fail** |
-| Saffron Gold on Ivory | 1.47 | **Fail** | **Fail** |
+| White / Snow | `#FFFFFF` / `#FAFAF8` | Backgrounds, cards | — |
+| Ink | `#18181B` | Headings and body text | — |
+| Muted | `#71717A` | Supporting text | On Mist (4.40) |
+| Emerald 700 | `#047857` | Primary buttons, links, active states | — |
+| Emerald 500 | `#10B981` | Marks; buttons on Noir with Ink text | White text on it (2.54) |
+| Noir | `#181C19` | Footer and contained dark panels | Full-bleed bands other than the footer |
+| Orange | `#F97316` | Spices accent, marks only (`#C2410C` for text) | Text in the base shade (2.8) |
+| Saffron | `#F4C430` | Dehydrated Products accent, marks only | Text or icons on light surfaces |
+| Teal | `#14B8A6` | Fresh Fruits & Vegetables accent, marks only (`#0F766E` for text) | Text in the base shade (2.49) |
+
+Full contrast values are in [DESIGN_SYSTEM.md](DESIGN_SYSTEM.md) §3.1.
+
+### 3.2 Usage rules
+
+- White and off-white dominate; Noir is used for the footer and the closing enquiry panel only.
+- Emerald is the only action colour; accents never compete with the primary CTA.
+- One accent per component; never all accents together.
+- No gradients, glows, washes over photos, decorative blobs or illustrations. Exception: the Home hero photo fades into the page on the text side (owner request, 2026-10-26).
+- Colour never carries meaning alone.
 
 ### 3.3 Category accents
 
-Accents identify a category; they never replace the core palette. Cards, typography, image treatment, spacing and CTA patterns stay identical across categories (S-04 §6).
+Accents identify a category; they never replace the core palette. Cards, typography, image treatment, spacing and CTA patterns stay identical across categories (S-04 §6). Accents cover small areas only: a card's top edge, a short rule, an icon tint.
 
-| Category | Accent | Use |
-|---|---|---|
-| Spices | Terracotta | Category label rule, card top border, icon tint, large headings only |
-| Dehydrated Products | Saffron Gold (D-09) | Fills and marks only, with Charcoal or Deep Olive text |
-| Fresh Fruits & Vegetables | Leaf Green | Category label, rule, icon tint, text |
-
-Accents cover small areas only. No full-section accent backgrounds.
-
-## 4. Typography (D-01, D-08)
+## 4. Typography (D-24)
 
 | Role | Typeface | Used for | Weights |
 |---|---|---|---|
-| Display | DM Serif Display | Page titles (h1) and section headings (h2) only; the temporary wordmark (§5) | 400 (the family's only weight); italic not used |
-| Text and UI | Inter | h3 and below, body copy, navigation, buttons, forms, labels, product content, tables | 400, 500, 600 (700 only if a later decision needs it) |
+| Headings | Inter | h1 and h2 at 600 with tight tracking; h3 and below at 600 | 600 |
+| Text and UI | Inter | Body copy, navigation, buttons, forms, labels, tables | 400, 500 |
 
-- Fallbacks: DM Serif Display → Georgia, "Times New Roman", serif. Inter → system-ui, "Segoe UI", Roboto, Arial, sans-serif.
-- Display type is used sparingly: never for body text, buttons, navigation, labels or long headings that wrap past three lines on mobile.
-- Page and section headings, CTA labels (§11) and product names (§9) use Title Case, matching S-01. Body text and descriptive subheadings use sentence case. No all-caps body text; small uppercase labels (eyebrows) may use Inter 500–600 with added letter spacing.
-- Font loading, subsetting and layout-shift prevention are architecture decisions ([ARCHITECTURE_DECISIONS.md](ARCHITECTURE_DECISIONS.md)); the type scale is in [DESIGN_SYSTEM.md](DESIGN_SYSTEM.md).
+- One family keeps the look enterprise-minimal and saves a font download; DM Serif Display (D-01, D-08) is no longer used.
+- Page and section headings, CTA labels (§11) and product names (§9) use Title Case. Body text and descriptive subheadings use sentence case. Small labels above headings are sentence case, not uppercase.
+- Font loading and layout-shift prevention are architecture decisions ([ARCHITECTURE_DECISIONS.md](ARCHITECTURE_DECISIONS.md)); the type scale is in [DESIGN_SYSTEM.md](DESIGN_SYSTEM.md).
 
 ## 5. Logo
 
@@ -102,9 +79,9 @@ Until the supplied logo is approved for use, the temporary wordmark below remain
 
 **Temporary wordmark (TEMPORARY ASSUMPTION, D-08):**
 
-- Text "AUREVA FOODS" in DM Serif Display.
-- Deep Olive on Ivory or White; Ivory on Deep Olive or Charcoal.
-- No icon, no tagline, no effects, no Saffron Gold on light backgrounds.
+- Text "AUREVA FOODS" in Inter 600 (D-24).
+- Ink on White; Mist on Noir.
+- No tagline, no effects.
 - Same position and size in the header and footer, so the real logo can replace it without layout changes.
 
 When the logo is approved, this section is replaced with: approved files and formats, colour versions, clear space, minimum size, placement, and misuse examples.
@@ -219,3 +196,4 @@ Motion is restrained and functional: short fades, small upward reveals, gentle i
 | 0.1 | 2026-10-25 | First draft: D-01 palette and fonts, D-08 choices, credentials and restricted wording |
 | 0.1 | 2026-10-25 | Approved by owner; Dehydrated accent confirmed as D-09 (C-25 resolved) |
 | 0.2 | 2026-10-25 | §5 and §13 updated: AI-generated logo supplied, approval pending (C-13); no rule changes |
+| 0.3 | 2026-10-26 | D-24 theme modernisation: §3 palette and rules, §4 typography (Inter only), §5 wordmark colours |

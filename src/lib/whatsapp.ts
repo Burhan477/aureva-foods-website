@@ -25,8 +25,12 @@ export function getWhatsAppMessage(productName?: string): string {
     : messages.general;
 }
 
-export function getWhatsAppHref(productName?: string): string | null {
+/** `message`, when given, replaces the general or product template */
+export function getWhatsAppHref(
+  productName?: string,
+  message = getWhatsAppMessage(productName),
+): string | null {
   if (!confirmedNumber) return null;
-  const text = encodeURIComponent(getWhatsAppMessage(productName));
+  const text = encodeURIComponent(message);
   return `https://wa.me/${confirmedNumber}?text=${text}`;
 }

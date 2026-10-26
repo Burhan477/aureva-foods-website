@@ -1,0 +1,60 @@
+---
+import { productCategories } from "../../../data/navigation";
+import { categoriesSection as section } from "../../../data/products-overview";
+import CategoryCard from "../../product/CategoryCard.astro";
+import SectionHeader from "../../ui/SectionHeader.astro";
+
+/**
+ * Products Overview "Explore Our Categories" (SITE_STRUCTURE.md §4.3).
+ *
+ * Alternate background after the Ivory hero (DESIGN_SYSTEM.md §11); white
+ * cards carry the contrast. Heading block left-aligned, with the intro
+ * beside it from lg. Cards reuse CategoryCard: 1 column, 3 from md (§6.2),
+ * linking to the approved category routes (D-10). No product lists on the
+ * cards: the portfolio below shows every product. Cards reveal once with
+ * an 80 ms stagger (§14) and stay visible without JavaScript and under
+ * reduced motion.
+ */
+
+/** Crop focus per image: the fresh produce photo leans left, away from the off-catalogue tomatoes */
+const imagePositions: Partial<Record<string, string>> = {
+  "fresh-fruits-vegetables": "35% 50%",
+};
+---
+
+<section
+  aria-labelledby="explore-categories-title"
+  class="bg-bg-alt py-section"
+>
+  <div class="container-wide">
+    <SectionHeader
+      id="explore-categories-title"
+      eyebrow={section.eyebrow}
+      title={section.title}
+      intro={section.intro}
+    />
+
+    <ul class="mt-12 grid gap-6 md:grid-cols-3 lg:mt-16 lg:gap-8">
+      {productCategories.map((category, index) => {
+        const copy = section.cards[category.id];
+        return (
+          <li
+            data-reveal
+            style={`transition-delay: calc(var(--reveal-stagger) * ${index})`}
+          >
+            <CategoryCard
+              category={category}
+              description={copy.description}
+              ctaLabel={copy.ctaLabel}
+              imagePosition={imagePositions[category.id]}
+            />
+          </li>
+        );
+      })}
+    </ul>
+  </div>
+</section>
+
+<script>
+  import "../../../scripts/reveal";
+</script>

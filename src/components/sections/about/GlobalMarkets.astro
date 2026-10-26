@@ -5,28 +5,19 @@ import {
   type BuyerSegment,
   globalMarkets as section,
 } from "../../../data/about";
-import Button from "../../ui/Button.astro";
-import Globe from "../../ui/Globe.astro";
 import PendingContent from "../../ui/PendingContent.astro";
+import SectionHeader from "../../ui/SectionHeader.astro";
 
 /**
- * About Us "Global Markets" (SITE_STRUCTURE.md §4.2 section 6, M5.1).
- * BLOCKED (C-07); see data/about.ts.
+ * About Us "Global Markets", shown as "Who We Work With"
+ * (SITE_STRUCTURE.md §4.2 section 6, C-07).
  *
- * No photograph: unlike the photo splits above, the introduction sits
- * beside the decorative globe (ui/Globe.astro), which has no land, pins or
- * labels and so shows no markets. The globe is a small emblem above the
- * text below lg and fills the right 5 columns from lg, as on Home.
- * Confirmed markets, when there are any, list under the text. Then the
- * four buyer segments as white cards (1 column, 2 from sm, 4 from lg) with
- * Leaf Green icons, and a CTA panel with a Leaf Green edge. Leaf Green is
- * used for icons and rules only: it is 4.0:1 on Ivory Deep, too low for
- * small text (BRAND_GUIDELINES.md §3). Alternate background after the
- * Ivory Quality section (DESIGN_SYSTEM.md §11).
- *
- * The CTA renders inactive until it has a real destination, as on Home.
- * Everything reveals once (§14) and stays visible without JavaScript and
- * under reduced motion.
+ * Markets served are not confirmed (C-07), so the section names buyer
+ * types only; confirmed markets appear as a list once `markets` is filled
+ * in data/about.ts. Heading block, then the four buyer types in a row
+ * (1 column, 2 from sm, 4 from lg) with an icon each. The closing enquiry
+ * card and the globe were removed under D-24, because the page's enquiry
+ * CTA follows directly. Reveals once (§14).
  */
 
 const icons: Record<BuyerSegment["id"], typeof Store> = {
@@ -35,131 +26,61 @@ const icons: Record<BuyerSegment["id"], typeof Store> = {
   manufacturers: Factory,
   wholesalers: Store,
 };
-
-const ctaClasses = "w-full text-center whitespace-normal! sm:w-auto";
 ---
 
-<section aria-labelledby="global-markets-title" class="bg-bg-alt py-section">
+<section aria-labelledby="global-markets-title" class="bg-bg py-section">
   <div class="container-wide">
-    <div class="grid items-center gap-10 lg:grid-cols-12 lg:gap-16">
-      <div class="lg:order-last lg:col-span-5" data-reveal>
-        <Globe
-          haloClass="fill-ivory/70"
-          class="w-36 sm:w-44 lg:mx-auto lg:w-full lg:max-w-108"
-        />
-      </div>
+    <SectionHeader
+      id="global-markets-title"
+      eyebrow={section.eyebrow}
+      title={section.title}
+      intro={section.intro}
+    />
 
-      <div class="lg:col-span-7" data-reveal>
-        <p class="flex items-center gap-3 text-eyebrow font-semibold text-olive uppercase">
-          <span class="h-px w-8 bg-olive" aria-hidden="true"></span>
-          {section.eyebrow}
-        </p>
-
-        <h2
-          id="global-markets-title"
-          class="mt-5 font-display text-h2 text-balance text-heading"
-        >
-          {section.title}
-        </h2>
-
-        {section.paragraphs.map((paragraph, index) => (
-          <p
-            class:list={[
-              "max-w-[68ch]",
-              index === 0 ? "mt-6 text-lead text-text" : "mt-5 text-text-muted",
-            ]}
-          >
-            {paragraph}
-          </p>
-        ))}
-
-        {section.markets.length > 0 ? (
-          <div class="mt-8">
-            <p
-              id="global-markets-list"
-              class="text-small font-semibold text-text-muted"
-            >
-              {section.marketsLabel}
-            </p>
-            <ul
-              aria-labelledby="global-markets-list"
-              class="mt-3 flex flex-wrap gap-2"
-            >
-              {section.markets.map((market) => (
-                <li class="rounded-sm border border-line bg-surface px-3 py-1.5 text-small text-charcoal">
-                  {market}
-                </li>
-              ))}
-            </ul>
-          </div>
-        ) : (
-          <PendingContent
-            item="C-07"
-            note="Markets served are not confirmed, so no country, region or map is shown. Add confirmed markets to globalMarkets.markets in data/about.ts once the owner says which may be named publicly."
-            class="mt-8"
-          />
-        )}
-      </div>
-    </div>
-
-    <ul class="mt-12 grid gap-6 sm:grid-cols-2 lg:mt-16 lg:grid-cols-4 lg:gap-8">
+    <ul class="mt-12 grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:mt-14 lg:grid-cols-4">
       {section.segments.map((segment, index) => {
         const Icon = icons[segment.id];
         return (
           <li
-            class="flex flex-col rounded-lg border border-line bg-surface p-6 lg:p-8"
+            class="border-t border-line pt-6"
             data-reveal
             style={`transition-delay: calc(var(--reveal-stagger) * ${index})`}
           >
             <span
-              class="flex size-12 items-center justify-center rounded-md bg-ivory-deep text-leaf"
+              class="flex size-10 items-center justify-center rounded-md bg-primary/10 text-primary"
               aria-hidden="true"
             >
-              <Icon className="size-6" strokeWidth={1.75} aria-hidden="true" />
+              <Icon className="size-5" strokeWidth={1.75} />
             </span>
-
-            <h3 class="mt-6 text-h3 font-semibold text-charcoal">
-              {segment.title}
-            </h3>
-
-            <p class="mt-3 text-text">{segment.text}</p>
+            <h3 class="mt-5 text-h4 font-semibold text-ink">{segment.title}</h3>
+            <p class="mt-2 text-small text-text-muted">{segment.text}</p>
           </li>
         );
       })}
     </ul>
 
-    <div
-      class="mt-12 rounded-lg border border-l-4 border-line border-l-leaf bg-surface p-6 sm:p-8 lg:mt-16 lg:flex lg:items-center lg:justify-between lg:gap-12 lg:p-10"
-      data-reveal
-    >
-      <div>
-        <h3 class="text-h3 font-semibold text-charcoal">{section.cta.title}</h3>
-        <p class="mt-3 max-w-[60ch] text-text">{section.cta.text}</p>
+    {section.markets.length > 0 ? (
+      <div class="mt-12" data-reveal>
+        <p id="global-markets-list" class="text-small font-semibold text-ink">
+          {section.marketsLabel}
+        </p>
+        <ul
+          aria-labelledby="global-markets-list"
+          class="mt-3 flex flex-wrap gap-2"
+        >
+          {section.markets.map((market) => (
+            <li class="rounded-full border border-line px-3 py-1 text-small text-ink">
+              {market}
+            </li>
+          ))}
+        </ul>
       </div>
-
-      <div class="mt-6 shrink-0 lg:mt-0">
-        {section.cta.href ? (
-          <Button href={section.cta.href} size="lg" class={ctaClasses}>
-            {section.cta.label}
-          </Button>
-        ) : (
-          <button
-            type="button"
-            aria-disabled="true"
-            class:list={[
-              "inline-flex min-h-13 cursor-not-allowed items-center justify-center rounded-md bg-primary px-7 py-3 text-body font-semibold text-white opacity-60",
-              ctaClasses,
-            ]}
-          >
-            {section.cta.label}
-            <span class="sr-only">(not available yet)</span>
-          </button>
-        )}
-      </div>
-    </div>
-
-    {!section.cta.href && (
-      <PendingContent item="M5.3" note={section.cta.pendingNote} class="mt-4" />
+    ) : (
+      <PendingContent
+        item="C-07"
+        note="Markets served are not confirmed, so no country, region or map is shown. Add confirmed markets to globalMarkets.markets in data/about.ts once the owner says which may be named publicly."
+        class="mt-12"
+      />
     )}
   </div>
 </section>

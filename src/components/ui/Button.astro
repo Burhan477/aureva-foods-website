@@ -24,16 +24,17 @@ const {
 const variants = {
   primary: {
     light: "bg-primary text-white hover:bg-primary-hover",
-    dark: "bg-accent text-charcoal hover:bg-accent-hover",
+    dark: "bg-accent text-ink hover:bg-accent-hover",
   },
   secondary: {
-    light: "border-[1.5px] border-olive text-olive hover:bg-ivory-deep",
-    dark: "border-[1.5px] border-ivory text-ivory hover:bg-ivory/10",
+    light:
+      "border border-ink/20 bg-surface text-ink hover:border-ink/40 hover:bg-snow",
+    dark: "border border-mist/35 text-white hover:border-mist/60 hover:bg-white/10",
   },
 };
 
 const classes = [
-  "inline-flex shrink-0 items-center justify-center gap-2 rounded-md font-semibold whitespace-nowrap transition-colors duration-(--duration-fast) ease-out",
+  "inline-flex shrink-0 items-center justify-center gap-2 rounded-md font-semibold whitespace-nowrap transition-colors duration-(--duration-fast) ease-out active:brightness-95",
   size === "md" ? "min-h-11 px-5 text-button" : "min-h-13 px-7 text-body",
   variants[variant][tone],
   className,

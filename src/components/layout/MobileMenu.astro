@@ -28,7 +28,7 @@ const { pathname } = Astro.props;
 const inProducts = isCurrentPath(pathname, productsLink.href);
 
 const rowLink =
-  "flex min-h-14 items-center text-h4 font-medium text-charcoal transition-colors duration-(--duration-fast) hover:text-olive aria-[current=page]:font-semibold aria-[current=page]:text-olive";
+  "flex min-h-14 items-center text-h4 font-medium text-ink transition-colors duration-(--duration-fast) hover:text-primary aria-[current=page]:font-semibold aria-[current=page]:text-primary";
 ---
 
 <div
@@ -67,7 +67,7 @@ const rowLink =
       <li>
         <button
           type="button"
-          class="group flex min-h-14 w-full items-center justify-between text-h4 font-medium text-charcoal transition-colors duration-(--duration-fast) hover:text-olive aria-expanded:text-olive data-current:font-semibold data-current:text-olive"
+          class="group flex min-h-14 w-full items-center justify-between text-h4 font-medium text-ink transition-colors duration-(--duration-fast) hover:text-primary aria-expanded:text-primary data-current:font-semibold data-current:text-primary"
           aria-expanded={inProducts ? "true" : "false"}
           aria-controls="mobile-products"
           data-current={inProducts || undefined}
@@ -87,7 +87,7 @@ const rowLink =
                 class="group/card relative flex items-center gap-4 rounded-lg border border-line bg-surface p-3 has-[a:focus-visible]:outline-2 has-[a:focus-visible]:outline-offset-2 has-[a:focus-visible]:outline-focus sm:flex-col sm:items-stretch sm:gap-3"
                 style={`--color-category: var(--color-${category.accent})`}
               >
-                <div class="aspect-3/2 w-24 shrink-0 overflow-hidden rounded-md bg-ivory-deep sm:w-full">
+                <div class="aspect-3/2 w-24 shrink-0 overflow-hidden rounded-md bg-mist sm:w-full">
                   <Image
                     src={category.image}
                     alt={category.imageAlt}
@@ -102,7 +102,7 @@ const rowLink =
                 <div class="min-w-0 border-l-2 border-category pl-3 sm:border-t-2 sm:border-l-0 sm:pt-2 sm:pl-0">
                   <a
                     href={category.href}
-                    class="font-semibold text-charcoal after:absolute after:inset-0 after:content-[''] focus-visible:outline-none group-hover/card:text-olive"
+                    class="font-semibold text-ink after:absolute after:inset-0 after:content-[''] focus-visible:outline-none group-hover/card:text-primary"
                     aria-current={
                       isExactPath(pathname, category.href) ? "page" : undefined
                     }
@@ -118,7 +118,7 @@ const rowLink =
           </ul>
           <a
             href={allProductsLink.href}
-            class="mt-3 inline-flex min-h-11 items-center gap-2 text-button font-semibold text-olive hover:underline hover:underline-offset-4"
+            class="mt-3 inline-flex min-h-11 items-center gap-2 text-button font-semibold text-primary hover:underline hover:underline-offset-4"
             aria-current={
               isExactPath(pathname, allProductsLink.href) ? "page" : undefined
             }

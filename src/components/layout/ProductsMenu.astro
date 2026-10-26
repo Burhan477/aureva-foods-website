@@ -16,11 +16,13 @@ import {
 } from "./navClasses";
 
 /**
- * Desktop Products mega menu (lg and up): a disclosure button with an
- * image-card panel. Opens on hover (mouse), click, Enter or Space; closes
- * on pointer leave, Escape, outside click or focus leaving
- * (src/scripts/navigation.ts). Without JavaScript the trigger is a link
- * to the Products Overview page.
+ * Desktop Products mega menu (lg and up). "Products" is always a link to
+ * the Products Overview page (owner instruction, 2026-10-26); the chevron
+ * beside it is a separate disclosure button for the image-card panel.
+ * The panel opens on hover (mouse), or on a click, Enter or Space on the
+ * chevron; it closes on pointer leave, Escape, outside click or focus
+ * leaving (src/scripts/navigation.ts). Without JavaScript the chevron
+ * stays hidden and only the link shows.
  */
 interface Props {
   pathname: string;
@@ -34,9 +36,9 @@ const onOverview = isExactPath(pathname, allProductsLink.href);
 <li class="group/menu flex" data-products-menu>
   <a
     href={productsLink.href}
-    class={desktopNavItem}
+    class={`${desktopNavItem} pr-0 xl:pr-0`}
+    aria-current={onOverview ? "page" : undefined}
     data-current={inProducts || undefined}
-    data-products-fallback
   >
     <span class={desktopNavLabel}>
       {productsLink.label}
@@ -44,9 +46,12 @@ const onOverview = isExactPath(pathname, allProductsLink.href);
     </span>
   </a>
 
+  <!-- 44 px wide (DESIGN_SYSTEM.md §16); its side padding stands in for
+       the link's right padding -->
   <button
     type="button"
-    class={desktopNavItem}
+    class={`${desktopNavItem} w-11 justify-center px-0 xl:px-0`}
+    aria-label="Products menu"
     aria-expanded="false"
     aria-controls="products-menu"
     data-current={inProducts || undefined}
@@ -54,14 +59,12 @@ const onOverview = isExactPath(pathname, allProductsLink.href);
     hidden
   >
     <span class={desktopNavLabel}>
-      {productsLink.label}
-      <span class={desktopNavUnderline} aria-hidden="true"></span>
+      <ChevronDown
+        className="size-4 transition-transform duration-(--duration-base) ease-out group-aria-expanded/link:rotate-180"
+        strokeWidth={1.75}
+        aria-hidden="true"
+      />
     </span>
-    <ChevronDown
-      className="size-4 transition-transform duration-(--duration-base) ease-out group-aria-expanded/link:rotate-180"
-      strokeWidth={1.75}
-      aria-hidden="true"
-    />
   </button>
 
   <!-- Visibility switches at once on open (links are focusable immediately)
@@ -73,11 +76,9 @@ const onOverview = isExactPath(pathname, allProductsLink.href);
   >
     <div class="grid grid-cols-12 gap-6 rounded-lg border border-line bg-surface p-6 shadow-float xl:gap-8 xl:p-8">
       <div class="col-span-3 flex flex-col">
-        <p class="text-eyebrow font-semibold text-olive uppercase">
-          Our products
-        </p>
+        <p class="text-eyebrow font-semibold text-primary">Our products</p>
         <!-- Draft copy, PENDING APPROVAL -->
-        <p class="mt-3 text-h4 font-semibold text-charcoal">
+        <p class="mt-3 text-h4 font-semibold text-ink">
           Three categories for B2B buyers
         </p>
         <p class="mt-2 text-small text-muted">
@@ -85,7 +86,7 @@ const onOverview = isExactPath(pathname, allProductsLink.href);
         </p>
         <a
           href={allProductsLink.href}
-          class="group/all mt-auto inline-flex min-h-11 items-center gap-2 self-start pt-6 text-button font-semibold text-olive hover:underline hover:underline-offset-4"
+          class="group/all mt-auto inline-flex min-h-11 items-center gap-2 self-start pt-6 text-button font-semibold text-primary hover:underline hover:underline-offset-4"
           aria-current={onOverview ? "page" : undefined}
         >
           {allProductsLink.label}
@@ -103,7 +104,7 @@ const onOverview = isExactPath(pathname, allProductsLink.href);
             class="group/card relative flex flex-col rounded-md has-[a:focus-visible]:outline-2 has-[a:focus-visible]:outline-offset-4 has-[a:focus-visible]:outline-focus"
             style={`--color-category: var(--color-${category.accent})`}
           >
-            <div class="aspect-3/2 overflow-hidden rounded-md bg-ivory-deep">
+            <div class="aspect-3/2 overflow-hidden rounded-md bg-mist">
               <Image
                 src={category.image}
                 alt={category.imageAlt}
@@ -121,7 +122,7 @@ const onOverview = isExactPath(pathname, allProductsLink.href);
             />
             <a
               href={category.href}
-              class="mt-3 text-h4 font-semibold text-charcoal transition-colors duration-(--duration-fast) after:absolute after:inset-0 after:content-[''] focus-visible:outline-none group-hover/card:text-olive"
+              class="mt-3 text-h4 font-semibold text-ink transition-colors duration-(--duration-fast) after:absolute after:inset-0 after:content-[''] focus-visible:outline-none group-hover/card:text-primary"
               aria-current={
                 isExactPath(pathname, category.href) ? "page" : undefined
               }
@@ -130,7 +131,7 @@ const onOverview = isExactPath(pathname, allProductsLink.href);
             </a>
             <p class="mt-1 text-small text-muted">{category.description}</p>
             <span
-              class="mt-auto inline-flex items-center gap-1.5 pt-3 text-small font-semibold text-olive"
+              class="mt-auto inline-flex items-center gap-1.5 pt-3 text-small font-semibold text-primary"
               aria-hidden="true"
             >
               View range

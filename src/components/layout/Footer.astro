@@ -35,9 +35,9 @@ const linkClass =
 
 <footer
   id="site-footer"
-  class="bg-inverse text-text-inverse [--color-focus:var(--color-saffron)]"
+  class="bg-inverse text-text-inverse [--color-focus:var(--color-accent)]"
 >
-  <div class="container-wide py-section-tight">
+  <div class="container-wide pt-section-tight pb-8">
     <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-12 lg:gap-8">
       <div class="sm:col-span-2 lg:col-span-4">
         <a
@@ -143,14 +143,14 @@ const linkClass =
         )}
 
         <PendingContent
-          item="C-01 to C-04, C-20, C-29"
-          note="WhatsApp number, email, phone, partner company and social links appear here once confirmed. Copyright uses the trading name until the legal name is supplied."
+          item="C-03, C-04, C-20, C-29"
+          note="Email, partner company and social links appear here once confirmed. Copyright uses the trading name until the legal name is supplied."
           class="mt-5"
         />
       </div>
     </div>
 
-    <div class="mt-12 flex flex-col-reverse gap-2 border-t border-ivory/20 pt-6 sm:flex-row sm:items-center sm:justify-between">
+    <div class="mt-12 flex flex-col-reverse gap-2 border-t border-mist/20 pt-6 sm:flex-row sm:items-center sm:justify-between">
       <p class="text-legal">{copyright}</p>
       <ul class="flex flex-wrap gap-x-6 text-small">
         {legalNav.map((link) => (

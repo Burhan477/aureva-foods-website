@@ -7,38 +7,64 @@ import WhatsAppIcon from "./WhatsAppIcon.astro";
  * Primary CTA "WhatsApp Us" (BRAND_GUIDELINES.md §11, AD-11).
  * While the number is not CONFIRMED it renders as an inactive button,
  * not a link (DESIGN_SYSTEM.md §9.2, QA-80).
+ *
+ * `label`, `variant` and `message` exist for owner-approved exceptions,
+ * such as the Contact Introduction's Secondary "Chat on WhatsApp"
+ * (2026-10-26); the defaults render the standard Primary "WhatsApp Us"
+ * with the general or product template.
  */
 interface Props {
+  variant?: "primary" | "secondary";
   /** Background the button sits on (DESIGN_SYSTEM.md §9.1) */
   tone?: "light" | "dark";
   size?: "md" | "lg";
+  label?: string;
   /** Fills the product message template (COMPONENT_INVENTORY.md §8) */
   productName?: string;
+  /** An approved template from site.ts, used instead of general/product */
+  message?: string;
   class?: string;
 }
 
 const {
+  variant = "primary",
   tone = "light",
   size = "md",
+  label = "WhatsApp Us",
   productName,
+  message,
   class: className,
 } = Astro.props;
 
-const href = getWhatsAppHref(productName);
-const label = "WhatsApp Us";
+const href = getWhatsAppHref(productName, message);
 const pendingNote = import.meta.env.DEV
   ? `WhatsApp number pending (${site.whatsapp.number.note})`
   : undefined;
 
+// Same colours as Button (§9.1); hover only when the link is live
+const variants = {
+  primary: {
+    light: ["bg-primary text-white", "hover:bg-primary-hover"],
+    dark: ["bg-accent text-ink", "hover:bg-accent-hover"],
+  },
+  secondary: {
+    light: [
+      "border border-ink/20 bg-surface text-ink",
+      "hover:border-ink/40 hover:bg-snow",
+    ],
+    dark: [
+      "border border-mist/35 text-white",
+      "hover:border-mist/60 hover:bg-white/10",
+    ],
+  },
+};
+const [colours, hover] = variants[variant][tone];
+
 const classes = [
-  "inline-flex shrink-0 items-center justify-center gap-2 rounded-md font-semibold whitespace-nowrap transition-colors duration-(--duration-fast) ease-out",
+  "inline-flex shrink-0 items-center justify-center gap-2 rounded-md font-semibold whitespace-nowrap transition-colors duration-(--duration-fast) ease-out active:brightness-95",
   size === "md" ? "min-h-11 px-5 text-button" : "min-h-13 px-7 text-body",
-  tone === "light" ? "bg-primary text-white" : "bg-accent text-charcoal",
-  href
-    ? tone === "light"
-      ? "hover:bg-primary-hover"
-      : "hover:bg-accent-hover"
-    : "cursor-not-allowed opacity-60",
+  colours,
+  href ? hover : "cursor-not-allowed opacity-60",
   className,
 ];
 ---

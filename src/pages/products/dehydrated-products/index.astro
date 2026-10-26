@@ -1,0 +1,35 @@
+---
+import EnquiryCTA from "../../../components/sections/EnquiryCTA.astro";
+import Garlic from "../../../components/sections/dehydrated/Garlic.astro";
+import Intro from "../../../components/sections/dehydrated/Intro.astro";
+import OnionProducts from "../../../components/sections/dehydrated/OnionProducts.astro";
+import Powders from "../../../components/sections/dehydrated/Powders.astro";
+import Specifications from "../../../components/sections/dehydrated/Specifications.astro";
+import { enquiryCta } from "../../../data/dehydrated-products";
+import { site } from "../../../data/site";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+
+// Dehydrated Products (SITE_STRUCTURE.md §4.5), sections 1 to 7 in the
+// order of the owner's briefs (2026-10-26), each PENDING APPROVAL. Title
+// and description are the SEO_AND_PERFORMANCE.md §3.2 drafts
+// (SUGGESTION), approved page by page in M6.3.
+---
+
+<BaseLayout
+  title="Dehydrated Onion, Garlic & Vegetable Powders | Aureva Foods"
+  description="Dehydrated white, pink and fried onion, garlic, and powders including beetroot, lemon, tamarind, mint and spinach from India. Request a quote."
+>
+  <main id="main">
+    <Intro />
+    <OnionProducts />
+    <Garlic />
+    <Powders />
+    <Specifications />
+    <EnquiryCTA
+      id={enquiryCta.id}
+      content={enquiryCta}
+
+      whatsappMessage={site.whatsapp.messages.dehydratedEnquiry}
+    />
+  </main>
+</BaseLayout>

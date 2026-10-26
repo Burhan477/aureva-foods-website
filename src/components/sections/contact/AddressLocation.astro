@@ -1,0 +1,148 @@
+---
+import { ArrowUpRight, MapPin } from "lucide-react";
+
+import { addressLocation as section } from "../../../data/contact";
+import { confirmed, site } from "../../../data/site";
+import PendingContent from "../../ui/PendingContent.astro";
+
+/**
+ * Contact Us "Business Address & Location" (SITE_STRUCTURE.md §4.7
+ * section 6). BLOCKED (C-19); see data/contact.ts.
+ *
+ * Production renders the section only once `site.address` is CONFIRMED
+ * ("omitted if no address", §4.7); development shows the layout with
+ * pending markers. Alternate Ivory band before the footer (DESIGN_SYSTEM.md
+ * §11). Two columns from lg: heading, copy, the postal address and any
+ * confirmed email and phone on the left; a location panel on the right
+ * with the address type and, when approved, a directions link. Stacked
+ * below lg. No map embed or mapping library (AD-16): a pin is never
+ * placed, only a link to the approved directions URL. "Visit" wording
+ * appears only when the owner confirms visitors may attend. Content
+ * reveals once (§14).
+ */
+
+const isDev = import.meta.env.DEV;
+const address = confirmed(site.address);
+const email = confirmed(site.email);
+const phone = confirmed(site.phone);
+
+const locality = address
+  ? [
+      address.city,
+      [address.region, address.postalCode].filter(Boolean).join(" "),
+    ]
+      .filter(Boolean)
+      .join(", ")
+  : "";
+const eyebrow = address?.visitorsWelcome
+  ? section.eyebrow
+  : section.eyebrowNoVisits;
+
+const linkClass =
+  "inline-flex min-h-11 items-center font-semibold text-primary underline decoration-primary/40 underline-offset-4 hover:decoration-primary";
+---
+
+{(isDev || address) && (
+  <section aria-labelledby="address-title" class="bg-bg-alt py-section">
+    <div class="container-wide grid gap-10 lg:grid-cols-2 lg:gap-16">
+      <div data-reveal>
+        <p class="flex items-center gap-3 text-eyebrow font-semibold text-primary">
+          {eyebrow}
+        </p>
+
+        <h2
+          id="address-title"
+          class="mt-5 font-display text-h2 text-balance text-heading"
+        >
+          {section.title}
+        </h2>
+
+        <p class="mt-6 max-w-[60ch] text-lead text-text">{section.text}</p>
+
+        {address ? (
+          <address class="mt-8 text-body text-text not-italic">
+            {address.lines.map((line) => (
+              <span class="block">{line}</span>
+            ))}
+            {locality && <span class="block">{locality}</span>}
+            <span class="block">{address.country}</span>
+          </address>
+        ) : (
+          <PendingContent
+            item="C-19"
+            note={section.pendingNote}
+            class="mt-8 text-text-muted"
+          />
+        )}
+
+        {(email || phone) && (
+          <ul class="mt-6">
+            {email && (
+              <li>
+                <a href={`mailto:${email}`} class={linkClass}>
+                  {email}
+                </a>
+              </li>
+            )}
+            {phone && (
+              <li>
+                <a
+                  href={`tel:${phone.replace(/[^\d+]/g, "")}`}
+                  class={linkClass}
+                >
+                  {phone}
+                </a>
+              </li>
+            )}
+          </ul>
+        )}
+      </div>
+
+      <div
+        class="flex flex-col justify-center rounded-lg border border-line bg-surface p-6 sm:p-8 lg:p-10"
+        data-reveal
+      >
+        <span
+          class="flex size-12 items-center justify-center rounded-md bg-primary/10 text-primary"
+          aria-hidden="true"
+        >
+          <MapPin className="size-6" strokeWidth={1.75} aria-hidden="true" />
+        </span>
+
+        {address && (
+          <>
+            <p class="mt-6 text-small font-medium text-text-muted">
+              {address.type}
+            </p>
+            <p class="mt-1 text-h3 font-semibold text-ink">
+              {[address.city, address.country].join(", ")}
+            </p>
+          </>
+        )}
+
+        {address?.directionsUrl ? (
+          <a
+            href={address.directionsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class={`mt-4 gap-2 ${linkClass}`}
+          >
+            {section.directionsLabel}
+            <ArrowUpRight className="size-4" aria-hidden="true" />
+            <span class="sr-only">(opens in a new tab)</span>
+          </a>
+        ) : (
+          <PendingContent
+            item="C-19, AD-16"
+            note={section.locationPendingNote}
+            class="mt-6 text-text-muted"
+          />
+        )}
+      </div>
+    </div>
+  </section>
+)}
+
+<script>
+  import "../../../scripts/reveal";
+</script>

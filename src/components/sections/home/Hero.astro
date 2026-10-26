@@ -6,12 +6,13 @@ import { hero } from "../../../data/home";
 import Button from "../../ui/Button.astro";
 
 /**
- * Home hero (COMPONENT_INVENTORY.md §6, M3.1).
+ * Home hero (COMPONENT_INVENTORY.md §6, M3.1; layout restored at the
+ * owner's request, 2026-10-26, with the D-24 colours).
  *
  * The owner-supplied photo is the section background. Below xl it sits
  * under the text, cropped to the ingredients and fading up into the page
  * background. From xl there is room beside the ingredients, so it fills
- * the section with an Ivory wash on the text side; the copy never sits on
+ * the section with a white wash on the text side; the copy never sits on
  * the busy part of the photo (DESIGN_SYSTEM.md §12).
  *
  * The image is the LCP element: eager, high priority, and never hidden
@@ -26,20 +27,15 @@ import Button from "../../ui/Button.astro";
   <div class="container-wide pt-12 sm:pt-16 xl:py-section-tight">
     <!-- Wide enough for each heading line to stay on one line from xl -->
     <div class="max-w-xl xl:max-w-160">
-      <p class="flex items-center gap-3 text-eyebrow font-semibold text-olive uppercase">
-        <span class="h-px w-8 bg-olive" aria-hidden="true"></span>
-        {hero.eyebrow}
-      </p>
+      <p class="text-eyebrow font-semibold text-primary">{hero.eyebrow}</p>
 
-      <h1 id="hero-title" class="mt-5 font-display text-display text-heading">
+      <h1 id="hero-title" class="mt-4 font-display text-display text-heading">
         {hero.title.map((line) => (
           <span class="block">{line} </span>
         ))}
       </h1>
 
-      <p class="mt-6 max-w-[68ch] text-lead text-text xl:max-w-136">
-        {hero.intro}
-      </p>
+      <p class="mt-6 max-w-[46ch] text-lead text-text">{hero.intro}</p>
 
       <div class="mt-8 flex flex-wrap gap-3">
         <Button href={hero.primaryCta.href} size="lg">

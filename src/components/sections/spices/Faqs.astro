@@ -1,0 +1,50 @@
+---
+import { faqs as section } from "../../../data/spices";
+import FAQList from "../FAQList.astro";
+
+/**
+ * Spices "FAQs" (SITE_STRUCTURE.md §4.4 section 6). DRAFT-TEMP (C-12);
+ * see data/spices.ts.
+ *
+ * Alternate Ivory band after the Ivory enquiries section
+ * (DESIGN_SYSTEM.md §11). From lg the heading block sits in 4 columns and
+ * stays in view beside the questions in 8, as in the Contact enquiry
+ * form; below lg they stack. The questions are the shared FAQList
+ * (native details / summary, no JavaScript). Both blocks reveal once
+ * (§14) and stay visible under reduced motion.
+ */
+---
+
+<section
+  id={section.id}
+  aria-labelledby="spice-faqs-title"
+  class="bg-bg-alt py-section"
+  style="--color-category: var(--color-orange)"
+>
+  <div class="container-wide grid gap-10 lg:grid-cols-12 lg:gap-16">
+    <div class="lg:col-span-4" data-reveal>
+      <div class="lg:sticky lg:top-[calc(var(--header-height)+2rem)]">
+        <p class="flex items-center gap-3 text-eyebrow font-semibold text-primary">
+          {section.eyebrow}
+        </p>
+
+        <h2
+          id="spice-faqs-title"
+          class="mt-5 font-display text-h2 text-balance text-heading"
+        >
+          {section.title}
+        </h2>
+
+        <p class="mt-6 max-w-[48ch] text-lead text-text">{section.intro}</p>
+      </div>
+    </div>
+
+    <div class="lg:col-span-8" data-reveal>
+      <FAQList items={section.items} labelledBy="spice-faqs-title" />
+    </div>
+  </div>
+</section>
+
+<script>
+  import "../../../scripts/reveal";
+</script>

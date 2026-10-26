@@ -22,7 +22,7 @@ export interface ProductCategory extends NavLink {
   image: ImageMetadata;
   imageAlt: string;
   /** Category accent token (BRAND_GUIDELINES.md §3.3, D-09) */
-  accent: "terracotta" | "saffron" | "leaf";
+  accent: "orange" | "saffron" | "teal";
 }
 
 export const homeLink: NavLink = { label: "Home", href: "/" };
@@ -55,7 +55,7 @@ export const productCategories: ProductCategory[] = [
     image: spicesImage,
     imageAlt:
       "Bowls of turmeric, chilli and other ground spices with coriander seeds, cumin, cardamom pods, dried red chillies, ginger and garlic",
-    accent: "terracotta",
+    accent: "orange",
   },
   {
     id: "dehydrated-products",
@@ -76,7 +76,7 @@ export const productCategories: ProductCategory[] = [
     image: freshImage,
     imageAlt:
       "Red onions, green chillies, bananas, pomegranates and mangoes on a wooden table",
-    accent: "leaf",
+    accent: "teal",
   },
 ];
 

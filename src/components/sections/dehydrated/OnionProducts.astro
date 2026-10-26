@@ -1,0 +1,98 @@
+---
+import { getCollection } from "astro:content";
+import { ArrowRight } from "lucide-react";
+
+import { onionProducts as section } from "../../../data/dehydrated-products";
+import ProductCard from "../../product/ProductCard.astro";
+import SectionHeader from "../../ui/SectionHeader.astro";
+
+/**
+ * Dehydrated Products "Dehydrated Onion Products" (SITE_STRUCTURE.md
+ * §4.5 section 2), following the Spices Product Showcase.
+ *
+ * The three products in the "Dehydrated Onion Products" group of
+ * products.json (§5.2), in catalogue order, each with its category label,
+ * provisional description and a Request a Quote link
+ * (data/dehydrated-products.ts). Alternate Ivory band after the Ivory
+ * introduction (DESIGN_SYSTEM.md §11), with the Dehydrated accent,
+ * Saffron (D-09), on the eyebrow rule and card marks only (§3.4).
+ * Product grid: 1 column on phones, 2 from md, 3 from lg (§6.2).
+ *
+ * Card images are lazy. The heading and grid reveal once (§14) and stay
+ * visible under reduced motion. No filters: three products need none.
+ *
+ * The section `id` is the target of the Page Introduction's "Explore
+ * Products" link.
+ */
+
+const onions = (await getCollection("products"))
+  .filter(({ data }) => data.group === "Dehydrated Onion Products")
+  .sort((a, b) => a.data.order - b.data.order)
+  .map(({ id, data }) => {
+    const copy = section.products[id];
+    if (!copy) throw new Error(`[dehydrated] No onion card copy for "${id}"`);
+    return { data, ...copy };
+  });
+
+/** Card widths per breakpoint, matching the grid classes below */
+const imageSizes =
+  "(min-width: 1344px) 405px, (min-width: 1024px) 30vw, (min-width: 768px) 46vw, 100vw";
+
+// The last word and the arrow wrap together, so the arrow never sits alone
+const splitAt = section.cta.label.lastIndexOf(" ") + 1;
+const ctaLead = section.cta.label.slice(0, splitAt);
+const ctaLastWord = section.cta.label.slice(splitAt);
+---
+
+<section
+  id={section.id}
+  aria-labelledby="onion-products-title"
+  class="bg-bg-alt py-section"
+  style="--color-category: var(--color-saffron-deep)"
+>
+  <div class="container-wide">
+    <SectionHeader
+      id="onion-products-title"
+      eyebrow={section.eyebrow}
+      title={section.title}
+      intro={section.intro}
+    />
+
+    <ul
+      class="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2 lg:mt-12 lg:grid-cols-3 lg:gap-8"
+      data-reveal
+    >
+      {onions.map(({ data, category, description }) => (
+        <li>
+          <ProductCard
+            product={data}
+            sizes={imageSizes}
+            label={category}
+            description={description}
+          >
+            <!-- Negative margins keep the 44 px target without extra space -->
+            <a
+              href={section.cta.href}
+              class="-my-3 inline-block min-h-11 py-3 text-button font-semibold text-primary underline-offset-4 hover:underline focus-visible:underline"
+            >
+              {ctaLead}
+              <span class="whitespace-nowrap">
+                {ctaLastWord}
+                <span class="sr-only"> for {data.name}</span>
+                <ArrowRight
+                  className="ml-1.5 inline size-4 align-[-0.1875em]"
+                  strokeWidth={1.75}
+                  aria-hidden="true"
+                />
+              </span>
+            </a>
+          </ProductCard>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<script>
+  import "../../../scripts/reveal";
+</script>

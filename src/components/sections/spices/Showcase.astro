@@ -1,0 +1,145 @@
+---
+import { getCollection } from "astro:content";
+import { ArrowRight } from "lucide-react";
+
+import { showcase as section } from "../../../data/spices";
+import ProductCard from "../../product/ProductCard.astro";
+import SectionHeader from "../../ui/SectionHeader.astro";
+
+/**
+ * Spices "Spice Product Showcase" (SITE_STRUCTURE.md §4.4 section 2).
+ *
+ * All ten spices from products.json (D-14) in catalogue order, each with
+ * its form label, provisional description and a Request a Quote link
+ * (data/spices.ts). Alternate Ivory band after the Ivory introduction
+ * (DESIGN_SYSTEM.md §11), with the Spices accent, Terracotta, on the
+ * eyebrow rule and card marks (§3.4). Product grid: 1 column below
+ * 360 px, 2 on phones, 3 from sm, 4 from lg (§6.2).
+ *
+ * Without JavaScript every spice shows and the filter bar stays hidden;
+ * src/scripts/filters.ts then adds All Spices / Spice Powders / Whole
+ * Spices toggles. Card images are lazy. The heading and grid reveal once
+ * (§14) and stay visible under reduced motion.
+ *
+ * The section `id` is the target of the Page Introduction's "Explore Our
+ * Spices" link.
+ */
+
+const spices = (await getCollection("products"))
+  .filter(({ data }) => data.category === "spices")
+  .sort((a, b) => a.data.order - b.data.order)
+  .map(({ id, data }) => {
+    const copy = section.products[id];
+    if (!copy) throw new Error(`[spices] No showcase copy for "${id}"`);
+    return { data, ...copy };
+  });
+
+const counts = {
+  all: spices.length,
+  powder: spices.filter(({ form }) => form === "powder").length,
+  whole: spices.filter(({ form }) => form === "whole").length,
+};
+
+/** Card widths per breakpoint, matching the grid classes below */
+const imageSizes =
+  "(min-width: 1344px) 296px, (min-width: 1024px) 22vw, (min-width: 640px) 30vw, (min-width: 360px) 46vw, 100vw";
+
+const status = section.statusLabel
+  .replace("{count}", String(spices.length))
+  .replace("{total}", String(spices.length));
+
+// The last word and the arrow wrap together, so the arrow never sits alone
+const splitAt = section.cta.label.lastIndexOf(" ") + 1;
+const ctaLead = section.cta.label.slice(0, splitAt);
+const ctaLastWord = section.cta.label.slice(splitAt);
+---
+
+<section
+  id={section.id}
+  aria-labelledby="spice-showcase-title"
+  class="bg-bg-alt py-section"
+  style="--color-category: var(--color-orange)"
+>
+  <div class="container-wide">
+    <SectionHeader
+      id="spice-showcase-title"
+      eyebrow={section.eyebrow}
+      title={section.title}
+      intro={section.intro}
+    />
+
+    <div class="mt-10 lg:mt-12" data-filter data-reveal>
+      <div
+        class="mb-8 flex flex-wrap items-center justify-between gap-x-6 gap-y-4"
+        data-filter-bar
+        hidden
+      >
+        <div
+          role="group"
+          aria-label={section.filtersLabel}
+          class="flex flex-wrap gap-2"
+        >
+          {section.filters.map((filter) => (
+            <button
+              type="button"
+              aria-pressed={filter.value === "all" ? "true" : "false"}
+              class="inline-flex min-h-11 items-center gap-2 rounded-full border border-line bg-surface px-4 text-button font-medium text-ink transition-colors duration-(--duration-fast) ease-out hover:border-ink/40 aria-pressed:border-ink aria-pressed:bg-ink aria-pressed:text-white"
+              data-filter-button
+              data-filter-value={filter.value}
+            >
+              {filter.label}
+              <span class="text-small font-medium opacity-80">
+                {counts[filter.value]}
+                <span class="sr-only"> spices</span>
+              </span>
+            </button>
+          ))}
+        </div>
+
+        <p
+          role="status"
+          class="text-small text-text-muted"
+          data-filter-status
+          data-template={section.statusLabel}
+        >
+          {status}
+        </p>
+      </div>
+
+      <ul class="grid grid-cols-1 gap-4 min-[22.5rem]:grid-cols-2 sm:grid-cols-3 sm:gap-6 lg:grid-cols-4 lg:gap-8">
+        {spices.map(({ data, form, description }) => (
+          <li data-filter-item data-filter-value={form}>
+            <ProductCard
+              product={data}
+              sizes={imageSizes}
+              label={section.formLabels[form]}
+              description={description}
+            >
+              <!-- Negative margins keep the 44 px target without extra space -->
+              <a
+                href={section.cta.href}
+                class="-my-3 inline-block min-h-11 py-3 text-button font-semibold text-primary underline-offset-4 hover:underline focus-visible:underline"
+              >
+                {ctaLead}
+                <span class="whitespace-nowrap">
+                  {ctaLastWord}
+                  <span class="sr-only"> for {data.name}</span>
+                  <ArrowRight
+                    className="ml-1.5 inline size-4 align-[-0.1875em]"
+                    strokeWidth={1.75}
+                    aria-hidden="true"
+                  />
+                </span>
+              </a>
+            </ProductCard>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<script>
+  import "../../../scripts/reveal";
+  import "../../../scripts/filters";
+</script>

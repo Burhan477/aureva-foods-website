@@ -62,6 +62,21 @@ S-01 lists "Footer" as the last home section; it is one global footer shared by 
 
 ## 4. Page section order
 
+### 4.0 Changes under D-24 (2026-10-26)
+
+The theme modernisation merged or removed sections that repeated the same message. The tables below keep the S-01 list for reference; the built pages differ as follows.
+
+| Page | Change |
+|---|---|
+| Home | Order: Hero, Our Product Categories, Featured Spices, Dehydrated Products Showcase, Fresh Fruits & Vegetables Showcase, About Aureva Foods, Quality & Compliance, Business Enquiry CTA. About, Why Aureva Foods and Global Presence are merged into one About section; the globe is removed; category cards no longer list products |
+| About Us | Who We Are is folded into the Company Introduction. Global Markets is shown as "Who We Work With" (buyer types; markets stay unconfirmed, C-07), without its closing card. Product Range cards no longer list products |
+| Products Overview | Why Choose Aureva Foods removed (it repeated Home and About) |
+| Spices | B2B Supply Enquiries section removed; the range cards in Product Range & Specifications and the 4-step workflow in Quality are removed (they repeated the grid and the enquiry process) |
+| Dehydrated Products | B2B Supply Enquiries section and the A/B/C group summary removed; Garlic keeps one CTA |
+| Fresh Fruits & Vegetables | B2B Supply Enquiries section removed; one CTA per product group |
+| Contact Us | Unchanged order; the WhatsApp section is a contained dark panel |
+
+
 Section names are those in S-01. "Display heading" is given only where the visible heading must differ from the S-01 name. "Depends on" lists open items that block or limit the section; every section also follows master plan §5.
 
 **Section readiness key:** READY = can be drafted from confirmed sources. DRAFT-TEMP = can be drafted with labelled TEMPORARY ASSUMPTIONS (D-05). BLOCKED = needs owner input before it can be finished.
@@ -103,6 +118,8 @@ Section names are those in S-01. "Display heading" is given only where the visib
 | 3 | Dehydrated Products | Category summary, sample items, link | C-10 | READY |
 | 4 | Fresh Fruits & Vegetables | Category summary, sample items, link | — | READY |
 | 5 | Business Enquiry CTA | WhatsApp Us and Request a Quote | C-02 | READY |
+
+Built 2026-10-26 in the order of the owner's brief, PENDING APPROVAL: Hero (Page Introduction), Explore Our Categories, Product Portfolio (S-01 sections 2–4, all 27 products in category tabs), Why Choose Aureva Foods (added by the brief), Business Enquiry CTA.
 
 ### 4.4 Spices (`/products/spices/`) — SEO priority 1
 
@@ -277,3 +294,4 @@ Home's Footer is counted under §3.2, not here. BLOCKED sections can still be bu
 | 0.1 | 2026-10-25 | First draft from S-01 and S-02: routes, navigation, section order, product catalogue, CTA placement, SEO priority |
 | 0.1 | 2026-10-25 | Approved by owner; D-10 to D-14 recorded |
 | 0.1 | 2026-10-25 | Reference update only: "analytics decision" now points to C-30 |
+| 0.2 | 2026-10-26 | §4.0 added: section changes under D-24 |

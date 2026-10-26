@@ -24,13 +24,11 @@ const credentials = site.credentials
 
 {credentials.length > 0 ? (
   <div class={className}>
-    <h3 class="text-h4 font-semibold text-charcoal">
-      Registrations & Licences
-    </h3>
+    <h3 class="text-h4 font-semibold text-ink">Registrations & Licences</h3>
     <ul class="mt-4 grid gap-3 sm:grid-cols-2">
       {credentials.map((credential) => (
         <li class="rounded-md border border-line bg-surface px-5 py-4">
-          <p class="font-semibold text-charcoal">{credential.name}</p>
+          <p class="font-semibold text-ink">{credential.name}</p>
           <p class="mt-1 text-small text-text-muted">{credential.type}</p>
         </li>
       ))}

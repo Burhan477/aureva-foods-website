@@ -1,0 +1,113 @@
+---
+import { Picture } from "astro:assets";
+import {
+  ClipboardList,
+  Package,
+  SlidersHorizontal,
+  Sprout,
+} from "lucide-react";
+
+import sectionImage from "../../../assets/images/hero/products-overview.png";
+import { type QualityBlock, quality as section } from "../../../data/spices";
+
+/**
+ * Spices "Quality & Processing" (SITE_STRUCTURE.md §4.4 section 4).
+ * BLOCKED (C-05, C-06, C-08); see data/spices.ts.
+ *
+ * Alternate Ivory band after the Ivory specifications (DESIGN_SYSTEM.md
+ * §11), with the Spices accent on rules and timeline nodes (§3.4). Three
+ * parts:
+ *
+ * - Text + image split, 6 / 6 from lg, text first when stacked. The photo
+ *   is the Products Overview banner, the only spice image not already on
+ *   this page, cropped (3:2, fixed zoom) to the ginger root and cinnamon
+ *   on linen: ingredients only, no facility, equipment or people
+ *   (ASSET_GUIDELINES.md §6).
+ * - The four blocks as white cards: 1 column, 2 from sm, 4 from lg. Icons
+ *   are neutral marks, never ticks, shields or badges that could read as
+ *   a certification (BRAND_GUIDELINES.md §8), as in About Us Quality.
+ * - The proposed workflow as a timeline: a vertical line on phones and
+ *   tablets, a horizontal one from lg. It sits in its own panel with a
+ *   "Proposed buyer workflow" label and note, so it reads as a guide for
+ *   buyers rather than a description of internal operations. Visible
+ *   step numbers are decorative; the `ol` carries the order.
+ *
+ * Everything reveals once (§14) and stays visible without JavaScript and
+ * under reduced motion. Nothing here is interactive.
+ */
+
+const icons: Record<QualityBlock["id"], typeof Sprout> = {
+  sourcing: Sprout,
+  processing: SlidersHorizontal,
+  specifications: ClipboardList,
+  documentation: Package,
+};
+---
+
+<section
+  id={section.id}
+  aria-labelledby="spice-quality-title"
+  class="bg-bg-alt py-section"
+  style="--color-category: var(--color-orange)"
+>
+  <div class="container-wide">
+    <div class="grid items-center gap-10 lg:grid-cols-12 lg:gap-16">
+      <div class="lg:col-span-6" data-reveal>
+        <p class="flex items-center gap-3 text-eyebrow font-semibold text-primary">
+          {section.eyebrow}
+        </p>
+
+        <h2
+          id="spice-quality-title"
+          class="mt-5 font-display text-h2 text-balance text-heading"
+        >
+          {section.title}
+        </h2>
+
+        <p class="mt-6 max-w-[68ch] text-lead text-text">{section.intro}</p>
+      </div>
+
+      <div class="lg:col-span-6" data-reveal>
+        <div class="relative">
+          <div class="relative aspect-3/2 overflow-hidden rounded-2xl bg-mist">
+            <!-- The 2.09:1 source fills the frame's height; the zoom keeps
+                 the ginger and cinnamon and drops the fruit around them -->
+            <Picture
+              src={sectionImage}
+              alt={section.imageAlt}
+              formats={["avif", "webp"]}
+              fallbackFormat="jpg"
+              widths={[640, 960, 1280, 1600, sectionImage.width]}
+              sizes="(min-width: 1344px) 1300px, (min-width: 1024px) 96vw, 210vw"
+              class="absolute inset-0 size-full origin-[55%_5%] scale-[2.1] object-cover object-[0%_50%]"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ul class="mt-12 grid gap-6 sm:grid-cols-2 lg:mt-16 lg:grid-cols-4 lg:gap-8">
+      {section.blocks.map((block, index) => {
+        const Icon = icons[block.id];
+        return (
+          <li
+            class="flex flex-col rounded-lg border border-line bg-surface p-6 lg:p-8"
+            data-reveal
+            style={`transition-delay: calc(var(--reveal-stagger) * ${index})`}
+          >
+            <span class="flex size-11 items-center justify-center rounded-md bg-primary/10 text-primary">
+              <Icon className="size-5" strokeWidth={1.75} aria-hidden="true" />
+            </span>
+            <h3 class="mt-5 text-h3 font-semibold text-ink">{block.title}</h3>
+            <span class="mt-3 h-0.5 w-8 bg-category" aria-hidden="true"></span>
+            <p class="mt-4 text-text">{block.text}</p>
+          </li>
+        );
+      })}
+    </ul>
+  </div>
+</section>
+
+<script>
+  import "../../../scripts/reveal";
+</script>

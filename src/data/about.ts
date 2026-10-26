@@ -13,39 +13,12 @@ export const companyIntro = {
   eyebrow: "About Aureva Foods",
   title: "Rooted in Quality. Growing Through Trust.",
   paragraphs: [
-    "Aureva Foods is an emerging food ingredients supplier focused on connecting the richness of agricultural produce with the evolving needs of global businesses. We bring together a diverse range of spices, dehydrated ingredients, and fresh fruits and vegetables to support food manufacturers, importers, distributors, wholesalers, and retailers.",
-    "With a commitment to product quality, careful sourcing, and dependable business relationships, we aim to make ingredient procurement simpler and more reliable for our partners. From everyday culinary essentials to specialised food ingredients, our goal is to deliver products that meet business requirements while building lasting partnerships based on transparency and trust.",
+    "Aureva Foods is a food ingredients supplier bringing together spices, dehydrated ingredients and fresh fruits and vegetables for food manufacturers, importers, distributors and wholesalers.",
+    "We aim to make ingredient sourcing simpler, with clear product information and direct conversations with our team.",
   ],
-  statement: "Quality Ingredients. Reliable Partnerships.",
   /** Image: src/assets/images/sections/home-about.jpg (ASSET_GUIDELINES.md §9.2) */
   imageAlt:
     "Bowls of turmeric powder, whole and ground spices and black peppercorns on a wooden table, with fresh ginger, lemon wedges, cardamom pods and herbs",
-};
-
-/**
- * Who We Are (SITE_STRUCTURE.md §4.2 section 2, M5.1). DRAFT-TEMP,
- * PENDING APPROVAL: owner-supplied provisional copy (2026-10-26), shown as
- * supplied except "prioritizing" → "prioritising" (D-08 spelling). Open
- * points for the owner: "Best" is restricted wording (BRAND_GUIDELINES.md
- * §10.2), "Around the World" implies markets served (C-07), and
- * "responsible sourcing" describes a sourcing practice (C-08).
- */
-export const whoWeAre = {
-  eyebrow: "Who We Are",
-  title: "Bringing Nature's Best to Businesses Around the World.",
-  paragraphs: [
-    "Aureva Foods is built around a simple idea: quality ingredients and dependable partnerships are essential to a successful food business.",
-    "We focus on bringing together a diverse portfolio of spices, dehydrated food ingredients, and fresh fruits and vegetables to serve the needs of businesses across the food supply chain. By understanding our customers' requirements and prioritising consistency, clear communication, and responsible sourcing, we aim to make ingredient procurement a smoother and more dependable experience.",
-    "Our approach combines an appreciation for agricultural produce with a business-first mindset, helping buyers find the ingredients they need to support their products, customers, and growth.",
-  ],
-  statement: "Nature's Goodness. Business-Focused Solutions.",
-  /**
-   * Image: src/assets/images/categories/fresh-fruits-vegetables.jpg
-   * (ASSET_GUIDELINES.md §9.2), cropped so the tomatoes on its right
-   * edge, which are not in the catalogue, stay out of frame
-   */
-  imageAlt:
-    "Red onions, green chillies, bananas, a halved pomegranate and mangoes among fresh herbs on a wooden table",
 };
 
 /** About card copy for one category; name, link and image come from navigation.ts */
@@ -67,31 +40,23 @@ export const productRange: {
   eyebrow: string;
   title: string;
   intro: string;
-  supporting: string;
-  examplesLabel: string;
   cards: Record<ProductCategory["id"], ProductRangeCardCopy>;
 } = {
   eyebrow: "Our Product Range",
-  title: "A Diverse Range of Ingredients for Every Need.",
-  intro:
-    "From essential spices to convenient dehydrated ingredients and fresh agricultural produce, Aureva Foods offers a broad product portfolio designed around the varied requirements of food businesses.",
-  supporting:
-    "Our range brings together ingredients for food manufacturers, importers, distributors, wholesalers, and retailers, giving business buyers a single point of enquiry for multiple product categories.",
-  examplesLabel: "Products",
+  title: "A Diverse Range of Ingredients for Every Need",
+  intro: "Three categories, with one point of contact for all of them.",
   cards: {
     spices: {
       description:
-        "A selection of whole and ground spices for food preparation, processing, and ingredient sourcing.",
+        "Whole and ground spices for food preparation and processing.",
       ctaLabel: "Explore Spices",
     },
     "dehydrated-products": {
-      description:
-        "Convenient dried ingredients and vegetable powders for food businesses seeking versatile ingredient options.",
+      description: "Dried onion, garlic and vegetable and fruit powders.",
       ctaLabel: "Explore Dehydrated Products",
     },
     "fresh-fruits-vegetables": {
-      description:
-        "Fresh produce options for buyers looking to source everyday agricultural essentials.",
+      description: "Fresh vegetables and fruits for business buyers.",
       ctaLabel: "Explore Fresh Produce",
     },
   },
@@ -116,32 +81,29 @@ export const processing: {
   eyebrow: string;
   title: string;
   intro: string;
-  supporting: string;
   capabilities: ProcessingCapability[];
   imageAlt: string;
 } = {
   eyebrow: "Our Processing Approach",
-  title: "From Agricultural Produce to Business-Ready Ingredients.",
+  title: "From Agricultural Produce to Business-Ready Ingredients",
   intro:
-    "Every food business has different ingredient requirements. At Aureva Foods, our approach focuses on understanding buyer specifications and identifying suitable product options across spices, dehydrated ingredients, and fresh agricultural produce.",
-  supporting:
-    "Depending on product requirements and confirmed supplier capabilities, processing and preparation may include cleaning, sorting, size grading, drying, milling, and packaging. Our aim is to help buyers identify appropriate ingredient formats for their intended applications and procurement needs.",
+    "We start from your specification and find a suitable format. Depending on the product and confirmed supplier capabilities, preparation may include these steps.",
   capabilities: [
     {
       title: "Cleaning & Sorting",
-      text: "Preparation of ingredients to remove unwanted material and separate products according to agreed specifications, where supported by the supplier.",
+      text: "Removing unwanted material and separating product to an agreed specification.",
     },
     {
       title: "Drying & Dehydration",
-      text: "Dehydrated ingredient formats such as onion, garlic, and vegetable powders, subject to product availability and confirmed processing arrangements.",
+      text: "Dried formats such as onion, garlic and vegetable powders, subject to availability.",
     },
     {
       title: "Grinding & Powdering",
-      text: "Ground spice and vegetable powder formats suited to buyer requirements, depending on the product and available processing capabilities.",
+      text: "Ground spice and vegetable powders to suit buyer requirements.",
     },
     {
       title: "Packaging & Order Preparation",
-      text: "Explore suitable packaging formats and order quantities based on the product, destination market, and confirmed supplier options.",
+      text: "Packing and order quantities agreed per product and destination.",
     },
   ],
   /**
@@ -176,45 +138,36 @@ export interface QualityPrinciple {
 export const quality: {
   eyebrow: string;
   title: string;
-  paragraphs: string[];
+  intro: string;
   principles: QualityPrinciple[];
-  cta: { label: string; href: string | null; pendingNote: string };
   imageAlt: string;
 } = {
   eyebrow: "Our Commitment to Quality",
-  title: "Quality You Can Build Your Business On.",
-  paragraphs: [
-    "In the food ingredients business, quality and consistency are essential to building lasting relationships. At Aureva Foods, our goal is to help business customers source ingredients that align with their product requirements, intended applications, and applicable market expectations.",
-    "From discussing product specifications to confirming available documentation and packaging requirements, we aim to support a transparent procurement process that helps buyers make informed decisions.",
-    "We recognise the importance of traceability, appropriate handling, and relevant food safety requirements throughout the supply chain.",
-  ],
+  title: "Quality You Can Build Your Business On",
+  intro:
+    "We agree specifications, documentation and handling requirements with each buyer before an order is confirmed.",
   principles: [
     {
       id: "specifications",
       title: "Product Specifications",
-      text: "Discuss product type, form, grade, and buyer requirements before confirming an order.",
+      text: "Agree type, form and grade before an order is confirmed.",
     },
     {
       id: "food-safety",
       title: "Food Safety Awareness",
-      text: "Consider relevant food safety requirements and handling expectations for the selected product and destination market.",
+      text: "Handling requirements for the product and destination market.",
     },
     {
       id: "documentation",
       title: "Documentation & Traceability",
-      text: "Clarify which product documents, batch details, and traceability records are available for a particular order.",
+      text: "Which documents and batch records are available for each order.",
     },
     {
       id: "partnerships",
       title: "Transparent Partnerships",
-      text: "Communicate product specifications, order requirements, and documentation expectations clearly with buyers.",
+      text: "Clear communication on specifications and order terms.",
     },
   ],
-  cta: {
-    label: "Request Product Specifications",
-    href: null,
-    pendingNote: `"Request Product Specifications" is added here, linking to the enquiry form (${contactLink.href}#enquiry-form), once the Contact page is built in M5.3.`,
-  },
   /**
    * Image: src/assets/images/categories/dehydrated-products.jpg
    * (ASSET_GUIDELINES.md §9.2). Generic ingredients only; no laboratory,
@@ -246,56 +199,39 @@ export interface BuyerSegment {
 export const globalMarkets: {
   eyebrow: string;
   title: string;
-  paragraphs: string[];
+  intro: string;
   marketsLabel: string;
   markets: string[];
   segments: BuyerSegment[];
-  cta: {
-    title: string;
-    text: string;
-    label: string;
-    href: string | null;
-    pendingNote: string;
-  };
 } = {
-  eyebrow: "Global Markets",
-  title: "Connecting Quality Ingredients with Global Opportunities.",
-  paragraphs: [
-    "Food businesses need dependable access to ingredients that meet their product specifications, purchasing requirements, and target-market expectations.",
-    "Aureva Foods aims to build connections with importers, distributors, wholesalers, food manufacturers, and other B2B buyers seeking spices, dehydrated ingredients, and fresh agricultural produce. Our focus is on understanding buyer requirements, communicating product details clearly, and exploring suitable sourcing and supply arrangements.",
-    "Whether you are evaluating a new supplier or expanding your ingredient portfolio, we welcome enquiries from businesses interested in exploring opportunities with Aureva Foods.",
-  ],
+  eyebrow: "Who We Work With",
+  title: "Built for Business Buyers",
+  intro:
+    "We welcome enquiries from businesses evaluating a new supplier or expanding their ingredient portfolio.",
   marketsLabel: "Markets served",
   markets: [],
   segments: [
     {
       id: "importers",
       title: "Importers",
-      text: "Explore ingredient sourcing opportunities for import requirements.",
+      text: "Sourcing for import requirements.",
     },
     {
       id: "distributors",
       title: "Distributors",
-      text: "Discuss suitable product portfolios for distribution channels.",
+      text: "Product portfolios for distribution channels.",
     },
     {
       id: "manufacturers",
       title: "Food Manufacturers",
-      text: "Enquire about ingredient formats and product specifications.",
+      text: "Ingredient formats and specifications.",
     },
     {
       id: "wholesalers",
       title: "Wholesalers & Retail Suppliers",
-      text: "Explore product options suited to your business requirements.",
+      text: "Product options for resale.",
     },
   ],
-  cta: {
-    title: "Looking for a Food Ingredients Partner?",
-    text: "Tell us which products you need, your destination market, and your purchasing requirements. Our team can review your enquiry and discuss suitable options.",
-    label: "Discuss Your Requirements",
-    href: null,
-    pendingNote: `Links to the enquiry form (${contactLink.href}#enquiry-form) once the Contact page is built in M5.3; the WhatsApp number is also unconfirmed (C-01, C-02).`,
-  },
 };
 
 /**
@@ -310,19 +246,17 @@ export const globalMarkets: {
  * M5.3, so `href` stays null and the button renders inactive.
  */
 export const enquiryCta: {
-  eyebrow: string;
   title: string;
   intro: string;
   topics: string[];
   topicsLabel: string;
-  quote: { href: string | null; pendingNote: string };
+  quote: { href: string | null; pendingNote?: string };
   /** Image: src/assets/images/categories/spices.jpg (ASSET_GUIDELINES.md §9.2) */
   imageAlt: string;
 } = {
-  eyebrow: "Let's Work Together",
-  title: "Let's Source Better Ingredients, Together.",
+  title: "Let's Source Better Ingredients, Together",
   intro:
-    "Looking for a reliable source of spices, dehydrated ingredients, or fresh fruits and vegetables? Tell us what your business needs, and let's explore the right options for you.",
+    "Tell us what your business needs and we'll explore the right options with you.",
   topics: [
     "Product requirements",
     "Specifications",
@@ -330,10 +264,7 @@ export const enquiryCta: {
     "Bulk orders",
   ],
   topicsLabel: "Enquiry topics",
-  quote: {
-    href: null,
-    pendingNote: `Request a Quote links to the enquiry form (${contactLink.href}#enquiry-form) once the Contact page is built in M5.3. WhatsApp Us stays inactive until the number is confirmed (C-01, C-02).`,
-  },
+  quote: { href: `${contactLink.href}#enquiry-form` },
   imageAlt:
     "Bowls of turmeric, chilli and other ground spices with coriander seeds, cumin, cardamom pods, dried red chillies, ginger and garlic",
 };
