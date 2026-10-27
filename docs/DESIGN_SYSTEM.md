@@ -146,7 +146,7 @@ Containers are centred and use `--space-gutter` side padding, so content never t
 ### 6.2 Grid
 
 - 12-column grid from `lg` (1024 px), 6 columns at `md`, 4 at the smallest size; column gap 16 / 24 / 32 px.
-- Stacked section heading blocks (SectionHeader: label, title, intro) are centred on one axis (owner instruction, 2026-10-27); headings set beside a photo in a two-column section, heroes and the enquiry form stay left-aligned. Since 2026-10-27 (owner UI/UX brief), sections whose heading sat beside a list, cards or FAQs use a centred SectionHeader above that content (Home Quality & Compliance, Fresh Vegetables, Spices FAQs, Contact Information), and button rows under a centred header are centred too. Only headings and one-sentence intros are centred; body text, lists and cards stay left-aligned.
+- Stacked section heading blocks (SectionHeader: label, title, intro) are centred on one axis (owner instruction, 2026-10-27); headings set beside a photo in a two-column section, heroes and the enquiry form stay left-aligned. Since 2026-10-27 (owner UI/UX brief), sections whose heading sat beside a list, cards or FAQs use a centred SectionHeader above that content (Home Quality & Compliance, Fresh Vegetables, Spices FAQs), and button rows under a centred header are centred too. Only headings and one-sentence intros are centred; body text, lists and cards stay left-aligned.
 
 | Pattern | Small (< 640) | `sm`/`md` | `lg`+ |
 |---|---|---|---|

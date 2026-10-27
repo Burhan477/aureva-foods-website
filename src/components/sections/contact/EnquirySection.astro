@@ -1,7 +1,16 @@
 ---
-import { enquiry as section } from "../../../data/contact";
+import { Clock, Mail, Phone } from "lucide-react";
+
+import {
+  type ContactDetailCopy,
+  contactInfo,
+  enquiry as section,
+} from "../../../data/contact";
+import { confirmed, site } from "../../../data/site";
+import { getWhatsAppHref } from "../../../lib/whatsapp";
 import EnquiryForm from "../../islands/EnquiryForm";
 import PendingContent from "../../ui/PendingContent.astro";
+import WhatsAppIcon from "../../ui/WhatsAppIcon.astro";
 
 /**
  * Contact Us "Business Enquiry Form" (SITE_STRUCTURE.md §4.7 section 3).
@@ -9,19 +18,63 @@ import PendingContent from "../../ui/PendingContent.astro";
  * data/contact.ts.
  *
  * The `#enquiry-form` anchor (D-10) is the section, so the heading shows
- * when a CTA jumps here. Ivory band after the alternate Contact
- * Information band (DESIGN_SYSTEM.md §11). From lg the heading block sits
- * in 4 columns and stays in view beside the form, which takes 8 columns
- * in a white card; below lg they stack. The form is the page's only React
- * island (AD-04), hydrated when it scrolls into view; its markup is
- * server-rendered, so the fields show before JavaScript loads.
+ * when a CTA jumps here. Mint band after the white introduction
+ * (DESIGN_SYSTEM.md §11). From lg the heading block sits in 4 columns and
+ * stays in view beside the form, which takes 8 columns in a white card;
+ * below lg they stack. The form is the page's only React island (AD-04),
+ * hydrated when it scrolls into view; its markup is server-rendered, so
+ * the fields show before JavaScript loads.
+ *
+ * The contact details under the heading replace the former Contact
+ * Information section (owner request, 2026-10-27). Values render only
+ * when CONFIRMED in site.ts, as in the Footer: email as `mailto:`, phone
+ * as `tel:`, WhatsApp through the shared link builder (AD-11). Production
+ * leaves out rows without a confirmed value; development shows them with
+ * a PendingContent marker.
  */
+
+const email = confirmed(site.email);
+const phone = confirmed(site.phone);
+const hours = confirmed(site.hours);
+const whatsAppHref = getWhatsAppHref();
+
+interface Detail {
+  value: string;
+  href?: string;
+  external?: boolean;
+}
+
+const values: Record<ContactDetailCopy["id"], Detail | null> = {
+  email: email ? { value: email, href: `mailto:${email}` } : null,
+  phone: phone
+    ? { value: phone, href: `tel:${phone.replace(/[^\d+]/g, "")}` }
+    : null,
+  whatsapp: whatsAppHref
+    ? { value: "Chat on WhatsApp", href: whatsAppHref, external: true }
+    : null,
+  hours: hours
+    ? { value: `${hours.days}, ${hours.time} (${hours.timeZone})` }
+    : null,
+};
+
+const icons: Record<
+  Exclude<ContactDetailCopy["id"], "whatsapp">,
+  typeof Mail
+> = {
+  email: Mail,
+  phone: Phone,
+  hours: Clock,
+};
+
+const details = contactInfo.details.filter(
+  (detail) => import.meta.env.DEV || values[detail.id],
+);
 ---
 
 <section
   id="enquiry-form"
   aria-labelledby="enquiry-form-title"
-  class="bg-bg py-section"
+  class="bg-bg-alt py-section"
 >
   <div class="container-wide grid gap-10 lg:grid-cols-12 lg:gap-16">
     <div class="lg:col-span-4">
@@ -38,6 +91,72 @@ import PendingContent from "../../ui/PendingContent.astro";
         </h2>
 
         <p class="mt-6 max-w-[48ch] text-lead text-text">{section.intro}</p>
+
+        {details.length > 0 && (
+          <div class="mt-8 border-t border-line pt-8">
+            <h3 class="text-h3 font-semibold text-ink">{contactInfo.title}</h3>
+
+            <ul class="mt-5 grid gap-5">
+              {details.map((detail) => {
+                const value = values[detail.id];
+                const Icon = detail.id === "whatsapp" ? null : icons[detail.id];
+                return (
+                  <li class="flex gap-4">
+                    <span
+                      class="flex size-10 shrink-0 items-center justify-center rounded-md bg-primary/10 text-primary"
+                      aria-hidden="true"
+                    >
+                      {Icon ? (
+                        <Icon
+                          className="size-5"
+                          strokeWidth={1.75}
+                          aria-hidden="true"
+                        />
+                      ) : (
+                        <WhatsAppIcon class="size-5" />
+                      )}
+                    </span>
+
+                    <div class="min-w-0">
+                      <p class="text-small font-medium text-text-muted">
+                        {detail.label}
+                      </p>
+                      {value ? (
+                        <p class="font-semibold text-primary wrap-anywhere">
+                          {value.href ? (
+                            <a
+                              href={value.href}
+                              class="inline-flex min-h-11 items-center underline decoration-primary/40 underline-offset-4 hover:decoration-primary"
+                              {...(value.external && {
+                                target: "_blank",
+                                rel: "noopener noreferrer",
+                              })}
+                            >
+                              {value.value}
+                              {value.external && (
+                                <span class="sr-only">
+                                  (opens in a new tab)
+                                </span>
+                              )}
+                            </a>
+                          ) : (
+                            value.value
+                          )}
+                        </p>
+                      ) : (
+                        <PendingContent
+                          item={detail.pendingItem}
+                          note={detail.pendingNote}
+                          class="mt-1 text-text-muted"
+                        />
+                      )}
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        )}
 
         <PendingContent
           item="C-18, C-03, M6.1"

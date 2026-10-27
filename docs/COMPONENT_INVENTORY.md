@@ -52,7 +52,7 @@ Nothing is built yet; every status is NOT BUILT. A component not listed here nee
 | MarketsList | Astro | `components/sections/` | Home, About | M3.9 |
 | FAQList | Astro | `components/sections/` | Spices | M4.2 |
 | EnquiryCTA | Astro | `components/sections/` | End of most pages | M3.10 |
-| ContactDetails | Astro | `components/sections/contact/` | Contact | M5.2 |
+| ContactDetails | — | Removed 2026-10-27 | Contact | Details moved into EnquirySection (owner request) |
 | PartnerInfo | Astro | `components/sections/contact/` | Contact | M5.2 |
 | EnquiryForm | React | `components/islands/` | Contact | M5.3 |
 | LegalProse | Astro | `components/sections/` | Privacy, Terms | M6.1 |
@@ -166,7 +166,7 @@ Nothing is built yet; every status is NOT BUILT. A component not listed here nee
 | MarketsList | Markets served, as a list of names | Shows only markets confirmed under C-07; no world map with pins (would imply presence that is not confirmed) |
 | FAQList | Questions and answers using native `<details>` / `<summary>` | No JavaScript; answers approved per C-12 |
 | EnquiryCTA | Inverse band with heading, one line and both CTAs | Last section before the footer on every page except legal pages |
-| ContactDetails | Email, phone, WhatsApp | CONFIRMED values only (C-01, C-03); email and phone as `mailto:` / `tel:` links |
+| Contact details (in EnquirySection) | Email, phone, WhatsApp, hours beside the enquiry form | CONFIRMED values only (C-01, C-02, C-03); email and phone as `mailto:` / `tel:` links |
 | PartnerInfo | Partner company name and approved wording | C-04 |
 | LegalProse | Long-form text styling for Privacy and Terms | `container-text`; readable headings and lists |
 

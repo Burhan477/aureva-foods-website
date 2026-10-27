@@ -34,58 +34,52 @@ export const intro = {
     "Wooden bowls of dried onion and garlic flakes and beetroot, green and golden powders, with fresh red onions, garlic bulbs, beetroot, mint and dried lemon slices",
 };
 
-/** One Contact Information card; its details come from site.ts */
-export interface ContactCardCopy {
-  id: "email" | "phone" | "hours";
-  title: string;
-  text: string;
+/** One contact detail beside the enquiry form; its value comes from site.ts */
+export interface ContactDetailCopy {
+  id: "email" | "phone" | "whatsapp" | "hours";
+  label: string;
   /** Open item IDs for the PendingContent marker */
   pendingItem: string;
   pendingNote: string;
 }
 
 /**
- * Contact Information (section 2, M5.2). BLOCKED (C-01, C-02, C-03, hours
- * not supplied). Heading, introduction and the email and phone card texts
- * are owner-supplied (2026-10-26), shown as supplied. The Business Hours
- * text is a DRAFT, PENDING APPROVAL: the brief gave an instruction there,
- * not copy.
+ * Contact details listed beside the Business Enquiry Form (owner request,
+ * 2026-10-27), replacing the former Contact Information section 2. Labels
+ * keep the owner-supplied card titles (2026-10-26).
  *
- * Email, phone, WhatsApp and hours are read from site.ts and shown only
- * when CONFIRMED. Production builds leave out any card without a confirmed
- * detail, and the whole section while none has one; development builds
- * show every card with a pending marker.
+ * Values are read from site.ts and shown only when CONFIRMED. Production
+ * builds leave out any row without a confirmed value, and the list while
+ * none has one; development builds show every row, with a pending marker
+ * where the value is missing. Business hours are still not supplied.
  */
 export const contactInfo: {
-  eyebrow: string;
   title: string;
-  intro: string;
-  cards: ContactCardCopy[];
+  details: ContactDetailCopy[];
 } = {
-  eyebrow: "Contact Information",
   title: "Contact Details",
-  intro: "Choose the way that suits you best.",
-  cards: [
+  details: [
     {
       id: "email",
-      title: "Business Email",
-      text: "For enquiries, quotations and correspondence.",
+      label: "Business Email",
       pendingItem: "C-03",
-      pendingNote:
-        "Email address appears here once confirmed (C-03: sales@aurevafoods.com vs SALES@AUREVA.COM).",
+      pendingNote: "Email address appears here once confirmed (C-03).",
     },
     {
       id: "phone",
-      title: "Phone & WhatsApp",
-      text: "For direct questions about products and orders.",
-      pendingItem: "C-01, C-02",
-      pendingNote:
-        "Phone number and WhatsApp link appear here once confirmed (C-01: supplied number appears incomplete; C-02).",
+      label: "Phone",
+      pendingItem: "C-01",
+      pendingNote: "Phone number appears here once confirmed (C-01).",
+    },
+    {
+      id: "whatsapp",
+      label: "WhatsApp",
+      pendingItem: "C-02",
+      pendingNote: "WhatsApp link appears here once confirmed (C-02).",
     },
     {
       id: "hours",
-      title: "Business Hours",
-      text: "When our team is available.",
+      label: "Business Hours",
       pendingItem: "Business hours",
       pendingNote:
         "Operating days, hours and time zone appear here once the owner supplies them; nothing has been supplied yet.",

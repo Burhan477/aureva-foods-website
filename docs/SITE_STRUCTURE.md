@@ -161,8 +161,8 @@ Built 2026-10-26 in the order of the owner's brief, PENDING APPROVAL: Hero (Page
 | # | Section (S-01) | Purpose | Depends on | Readiness |
 |---|---|---|---|---|
 | 1 | Contact Introduction | Invite enquiries | — | READY |
-| 2 | Contact Information | Email, phone | C-01, C-03 | BLOCKED |
-| 3 | Business Enquiry Form | Request a Quote destination (anchor `#enquiry-form`, D-10) | C-03, C-17 | BLOCKED (delivery method) |
+| 2 | Contact Information | Merged into section 3 (owner, 2026-10-27, PENDING REVIEW) | — | — |
+| 3 | Business Enquiry Form | Request a Quote destination (anchor `#enquiry-form`, D-10); email, phone, WhatsApp and hours listed beside the form | C-03, C-17; hours not supplied | BLOCKED (delivery method) |
 | 4 | WhatsApp Enquiry | Direct WhatsApp start | C-01, C-02 | BLOCKED |
 | 5 | Partner Company Information | Dar Al Nibras Foodstuff Trading LLC | C-04 | BLOCKED |
 | 6 | Business Address & Location, if applicable | Address, if one is approved | C-19 | BLOCKED; omitted if no address |
