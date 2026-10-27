@@ -3,59 +3,59 @@ import { Picture } from "astro:assets";
 
 import introImage from "../../../assets/images/categories/dehydrated-products.jpg";
 import { intro as section } from "../../../data/contact";
+import { isWhatsAppActive } from "../../../lib/whatsapp";
 import Button from "../../ui/Button.astro";
 import PendingContent from "../../ui/PendingContent.astro";
 import WhatsAppButton from "../../ui/WhatsAppButton.astro";
-import { isWhatsAppActive } from "../../../lib/whatsapp";
 
 /**
- * Contact Us "Contact Introduction" (SITE_STRUCTURE.md §4.7 section 1).
+ * Contact Us "Contact Introduction" (SITE_STRUCTURE.md §4.7 section 1), the
+ * page `h1`. Same layout as the Home hero (owner request, 2026-10-27): the
+ * photo is the section background. Below xl it sits under the text and
+ * fades up into the page; from xl it fills the section with a white wash
+ * on the text side, so the copy never sits on the busy part of the photo
+ * (DESIGN_SYSTEM.md §12). The enquiry topics follow the introduction, then
+ * the owner's CTA pair: Make a Business Enquiry (Primary, to the form
+ * anchor) and Chat on WhatsApp (Secondary). Buttons are full width on
+ * phones.
  *
- * The page `h1`. Text + image split (DESIGN_SYSTEM.md §6.2): 6 / 6 columns
- * from lg, text on the left; below lg it stacks with the text first. The
- * enquiry topics follow the introduction, then the owner's CTA pair:
- * Make a Business Enquiry (Primary, to the form anchor) and Chat on
- * WhatsApp (Secondary). Buttons are full width on phones. A Saffron block
- * offsets the photo from lg; Saffron is used as a fill only
- * (BRAND_GUIDELINES.md §3.3).
- *
- * The image is the LCP element from lg: eager and high priority. Only
- * content starting below the viewport animates (§14), so this section is
- * visible without JavaScript and under reduced motion.
+ * The image is the LCP element: eager, high priority, and never hidden by
+ * a reveal animation (DESIGN_SYSTEM.md §14). No client JavaScript.
  */
 ---
 
 <section
   aria-labelledby="contact-intro-title"
-  class="bg-bg pt-section-tight pb-section"
+  class="relative isolate flex flex-col overflow-hidden bg-bg xl:min-h-[clamp(34rem,calc(100svh-var(--header-height)),40rem)] xl:justify-center"
 >
-  <div class="container-wide grid items-center gap-10 lg:grid-cols-12 lg:gap-16">
-    <div class="lg:col-span-6" data-reveal>
-      <p class="flex items-center gap-3 text-eyebrow font-semibold text-primary">
-        {section.eyebrow}
-      </p>
+  <div class="container-wide pt-12 sm:pt-16 xl:py-section-tight">
+    <!-- Wide enough for the heading to sit on two lines from xl -->
+    <div class="max-w-xl xl:max-w-152">
+      <p class="text-eyebrow font-semibold text-primary">{section.eyebrow}</p>
 
       <h1
         id="contact-intro-title"
-        class="mt-5 font-display text-h1 text-balance text-heading"
+        class="mt-4 font-display text-h1 text-balance text-heading"
       >
         {section.title}
       </h1>
 
-      <p class="mt-6 max-w-[60ch] text-lead text-text">{section.text}</p>
+      <p class="mt-6 max-w-[52ch] text-lead text-text xl:max-w-[46ch]">
+        {section.text}
+      </p>
 
       <ul
         aria-label={section.topicsLabel}
         class="mt-6 flex flex-wrap gap-2 text-small"
       >
         {section.topics.map((topic) => (
-          <li class="rounded-full border border-line text-ink px-3 py-1">
+          <li class="rounded-full border border-line bg-bg px-3 py-1 text-ink">
             {topic}
           </li>
         ))}
       </ul>
 
-      <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-4">
+      <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
         <Button href={section.enquiryCta.href} size="lg">
           {section.enquiryCta.label}
         </Button>
@@ -74,27 +74,25 @@ import { isWhatsAppActive } from "../../../lib/whatsapp";
         />
       )}
     </div>
+  </div>
 
-    <div class="lg:col-span-6" data-reveal>
-      <div class="relative">
-        <div class="relative aspect-video overflow-hidden rounded-2xl bg-mist lg:aspect-4/3">
-          <Picture
-            src={introImage}
-            alt={section.imageAlt}
-            formats={["avif", "webp"]}
-            fallbackFormat="jpg"
-            widths={[480, 800, 1200, introImage.width]}
-            sizes="(min-width: 1344px) 588px, (min-width: 1024px) 45vw, 100vw"
-            loading="eager"
-            fetchpriority="high"
-            class="absolute inset-0 size-full object-cover object-[45%_50%]"
-          />
-        </div>
-      </div>
-    </div>
+  <div class="relative -z-10 mt-2 aspect-4/3 sm:-mt-4 sm:aspect-video lg:aspect-21/9 xl:absolute xl:inset-0 xl:mt-0 xl:aspect-auto">
+    <Picture
+      src={introImage}
+      alt={section.imageAlt}
+      formats={["avif", "webp"]}
+      fallbackFormat="jpg"
+      widths={[640, 960, 1280, introImage.width]}
+      sizes="100vw"
+      loading="eager"
+      fetchpriority="high"
+      class="absolute inset-0 size-full object-cover object-[50%_50%] xl:object-[80%_50%]"
+    />
+    <!-- Fades the photo into the page: from the top below xl, from the
+         text side from xl -->
+    <div
+      class="absolute inset-0 bg-linear-to-b from-bg to-bg/0 to-40% xl:bg-linear-to-r xl:from-bg xl:from-38% xl:via-bg/85 xl:via-52% xl:to-bg/0 xl:to-75%"
+      aria-hidden="true"
+    ></div>
   </div>
 </section>
-
-<script>
-  import "../../../scripts/reveal";
-</script>
