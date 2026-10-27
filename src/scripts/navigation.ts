@@ -9,6 +9,8 @@
  * fallback links rendered in the markup stay in place.
  */
 
+import { fadeIn } from "./motion";
+
 const desktop = window.matchMedia("(width >= 64rem)");
 const fineHover = window.matchMedia("(hover: hover) and (pointer: fine)");
 
@@ -200,6 +202,7 @@ function initMobileMenu(toggle: HTMLButtonElement): void {
       const open = !isExpanded(productsToggle);
       productsToggle.setAttribute("aria-expanded", String(open));
       productsRegion.hidden = !open;
+      if (open) fadeIn(productsRegion);
     });
   }
 }

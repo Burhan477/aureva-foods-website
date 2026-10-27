@@ -32,13 +32,10 @@ const imagePositions: Partial<Record<string, string>> = {
     />
 
     <ul class="mt-12 grid gap-6 md:grid-cols-3 lg:mt-16 lg:gap-8">
-      {productCategories.map((category, index) => {
+      {productCategories.map((category) => {
         const copy = section.cards[category.id];
         return (
-          <li
-            data-reveal
-            style={`transition-delay: calc(var(--reveal-stagger) * ${index})`}
-          >
+          <li data-reveal>
             <CategoryCard
               category={category}
               description={copy.description}
@@ -51,7 +48,3 @@ const imagePositions: Partial<Record<string, string>> = {
     </ul>
   </div>
 </section>
-
-<script>
-  import "../../../scripts/reveal";
-</script>

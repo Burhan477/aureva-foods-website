@@ -59,12 +59,9 @@ const imageSizes =
       <p class="mt-6 max-w-[68ch] text-lead text-text">{section.intro}</p>
     </div>
 
-    <ul
-      class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:col-span-7 lg:col-start-6 lg:row-span-2 lg:row-start-1 lg:self-center"
-      data-reveal
-    >
+    <ul class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:col-span-7 lg:col-start-6 lg:row-span-2 lg:row-start-1 lg:self-center">
       {products.map((product) => (
-        <li>
+        <li data-reveal>
           <ProductCard
             product={product}
             sizes={imageSizes}
@@ -84,7 +81,3 @@ const imageSizes =
     </div>
   </div>
 </section>
-
-<script>
-  import "../../../scripts/reveal";
-</script>

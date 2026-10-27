@@ -105,7 +105,7 @@ Nothing is built yet; every status is NOT BUILT. A component not listed here nee
 |---|---|---|
 | Container | `width`: wide / text | DESIGN_SYSTEM.md §6.1 |
 | Section | `tone`: default / alt / inverse; `id`; `spacing`: normal / tight | Sets background, padding and the inverse focus colour |
-| SectionHeading | `eyebrow` (optional), `title`, `intro` (optional), `level` (2 by default) | Title uses display type for `h2` only (D-08) |
+| SectionHeading | `eyebrow` (optional), `title`, `intro` (optional), `level` (2 by default) | Title uses display type for `h2` only (D-08). Centred (2026-10-27); an optional action sits centred below |
 | Button | `variant`: primary / secondary / text; `size`: md / lg; `href`; `icon` (optional) | Renders `<a>` when `href` is given, `<button>` otherwise |
 | WhatsAppButton | `productName` (optional), `variant`, `size` | Builds the link with `src/lib/whatsapp.ts` (AD-11). Inactive while the number is BLOCKED |
 | TextLink | `href`, `external` | External links get `rel="noopener noreferrer"` and an "opens in a new tab" hint |
@@ -127,7 +127,7 @@ Nothing is built yet; every status is NOT BUILT. A component not listed here nee
 - **Motion (D-06, S-07):** reveal once; on hover-capable devices image zoom 1.05 and card lift −3 px; nothing essential depends on hover.
 
 ### ProductGrid
-- Responsive grid per DESIGN_SYSTEM.md §6.2 (2 / 3 / 4 columns). Applies the reveal stagger (capped at 6 items).
+- Responsive grid per DESIGN_SYSTEM.md §6.2 (2 / 3 / 4 columns). Each card reveals on its own; cards entering together stagger (capped at 6 items, DESIGN_SYSTEM.md §14).
 
 ### Product carousel (Home Featured Spices, M3.4; Dehydrated Products Showcase, M3.5; Fresh Fruits & Vegetables Showcase, M3.6)
 - Added 2026-10-26 on the owner's instruction; built inside `components/sections/home/FeaturedSpices.astro`, `DehydratedShowcase.astro` and `FreshShowcase.astro` with the shared `src/scripts/carousel.ts` (Astro + script, AD-05). The markup is repeated in all three sections; not yet a separate reusable component (candidate for extraction once the three sections are approved).
@@ -139,7 +139,7 @@ Nothing is built yet; every status is NOT BUILT. A component not listed here nee
 ### Category tabs (Products Overview portfolio)
 - Added 2026-10-26 for the owner's Products Overview brief, PENDING APPROVAL; built inside `components/sections/products/Portfolio.astro` with `src/scripts/tabs.ts` (Astro + script, AD-05).
 - **Without JavaScript:** the three category groups show one after another, each with an `h3`, a product count, a "View {Category}" link and a ProductGrid (products as `h4` through ProductCard's optional `headingLevel`, default 3).
-- **With JavaScript:** a `tablist` ("Product categories") shows one group at a time; WAI-ARIA tabs pattern with automatic activation (click, Left/Right arrows wrapping, Home, End); only the selected tab is in the tab order. Hidden groups' lazy images load when their tab opens. No animation.
+- **With JavaScript:** a `tablist` ("Product categories") shows one group at a time; WAI-ARIA tabs pattern with automatic activation (click, Left/Right arrows wrapping, Home, End); only the selected tab is in the tab order. Hidden groups' lazy images load when their tab opens. The newly selected panel fades in over `--duration-fast`; none under reduced motion.
 
 ### ProductGroup
 - `h2` or `h3` heading plus a ProductGrid; used for the S-01 groups (Dehydrated Onion Products, Dehydrated Garlic, Vegetable & Other Powders, Fresh Vegetables, Fresh Fruits).
@@ -199,6 +199,7 @@ A short line under the button links to the Privacy Policy; no marketing consent 
 
 - Delivery: managed form service (D-16); the service is chosen with hosting (C-18).
 - The form is never described as working until M5.4 is tested with a real submission.
+- **Motion:** the error summary, field errors and notices fade in with a 4 px drop and fade out (Framer Motion, AD-06); none under reduced motion.
 
 ## 8. WhatsApp message templates (approved, D-20)
 

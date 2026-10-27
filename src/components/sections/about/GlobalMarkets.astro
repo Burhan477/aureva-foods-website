@@ -38,14 +38,10 @@ const icons: Record<BuyerSegment["id"], typeof Store> = {
     />
 
     <ul class="mt-12 grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:mt-14 lg:grid-cols-4">
-      {section.segments.map((segment, index) => {
+      {section.segments.map((segment) => {
         const Icon = icons[segment.id];
         return (
-          <li
-            class="border-t border-line pt-6"
-            data-reveal
-            style={`transition-delay: calc(var(--reveal-stagger) * ${index})`}
-          >
+          <li class="border-t border-line pt-6" data-reveal>
             <span
               class="flex size-10 items-center justify-center rounded-md bg-primary/10 text-primary"
               aria-hidden="true"
@@ -84,7 +80,3 @@ const icons: Record<BuyerSegment["id"], typeof Store> = {
     )}
   </div>
 </section>
-
-<script>
-  import "../../../scripts/reveal";
-</script>

@@ -87,13 +87,12 @@ const icons: Record<QualityBlock["id"], typeof Sprout> = {
     </div>
 
     <ul class="mt-12 grid gap-6 sm:grid-cols-2 lg:mt-16 lg:grid-cols-4 lg:gap-8">
-      {section.blocks.map((block, index) => {
+      {section.blocks.map((block) => {
         const Icon = icons[block.id];
         return (
           <li
             class="flex flex-col rounded-lg border border-line bg-surface p-6 lg:p-8"
             data-reveal
-            style={`transition-delay: calc(var(--reveal-stagger) * ${index})`}
           >
             <span class="flex size-11 items-center justify-center rounded-md bg-primary/10 text-primary">
               <Icon className="size-5" strokeWidth={1.75} aria-hidden="true" />
@@ -107,7 +106,3 @@ const icons: Record<QualityBlock["id"], typeof Sprout> = {
     </ul>
   </div>
 </section>
-
-<script>
-  import "../../../scripts/reveal";
-</script>

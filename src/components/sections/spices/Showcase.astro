@@ -18,7 +18,7 @@ import SectionHeader from "../../ui/SectionHeader.astro";
  *
  * Without JavaScript every spice shows and the filter bar stays hidden;
  * src/scripts/filters.ts then adds All Spices / Spice Powders / Whole
- * Spices toggles. Card images are lazy. The heading and grid reveal once
+ * Spices toggles. Card images are lazy. The heading and each card reveal once
  * (§14) and stay visible under reduced motion.
  *
  * The section `id` is the target of the Page Introduction's "Explore Our
@@ -68,10 +68,11 @@ const ctaLastWord = section.cta.label.slice(splitAt);
       intro={section.intro}
     />
 
-    <div class="mt-10 lg:mt-12" data-filter data-reveal>
+    <div class="mt-10 lg:mt-12" data-filter>
       <div
         class="mb-8 flex flex-wrap items-center justify-between gap-x-6 gap-y-4"
         data-filter-bar
+        data-reveal
         hidden
       >
         <div
@@ -108,7 +109,7 @@ const ctaLastWord = section.cta.label.slice(splitAt);
 
       <ul class="grid grid-cols-1 gap-4 min-[22.5rem]:grid-cols-2 sm:grid-cols-3 sm:gap-6 lg:grid-cols-4 lg:gap-8">
         {spices.map(({ data, form, description }) => (
-          <li data-filter-item data-filter-value={form}>
+          <li data-reveal data-filter-item data-filter-value={form}>
             <ProductCard
               product={data}
               sizes={imageSizes}
@@ -118,14 +119,14 @@ const ctaLastWord = section.cta.label.slice(splitAt);
               <!-- Negative margins keep the 44 px target without extra space -->
               <a
                 href={section.cta.href}
-                class="-my-3 inline-block min-h-11 py-3 text-button font-semibold text-primary underline-offset-4 hover:underline focus-visible:underline"
+                class="group/cta -my-3 inline-block min-h-11 py-3 text-button font-semibold text-primary underline-offset-4 hover:underline focus-visible:underline"
               >
                 {ctaLead}
                 <span class="whitespace-nowrap">
                   {ctaLastWord}
                   <span class="sr-only"> for {data.name}</span>
                   <ArrowRight
-                    className="ml-1.5 inline size-4 align-[-0.1875em]"
+                    className="ml-1.5 inline size-4 align-[-0.1875em] transition-transform duration-(--duration-base) ease-out motion-safe:group-hover/cta:translate-x-0.5"
                     strokeWidth={1.75}
                     aria-hidden="true"
                   />
@@ -140,6 +141,5 @@ const ctaLastWord = section.cta.label.slice(splitAt);
 </section>
 
 <script>
-  import "../../../scripts/reveal";
   import "../../../scripts/filters";
 </script>

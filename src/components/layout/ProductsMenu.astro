@@ -91,7 +91,7 @@ const onOverview = isExactPath(pathname, allProductsLink.href);
         >
           {allProductsLink.label}
           <ArrowRight
-            className="size-4 transition-transform duration-(--duration-base) ease-out group-hover/all:translate-x-0.5"
+            className="size-4 transition-transform duration-(--duration-base) ease-out motion-safe:group-hover/all:translate-x-0.5"
             strokeWidth={1.75}
             aria-hidden="true"
           />
@@ -113,7 +113,7 @@ const onOverview = isExactPath(pathname, allProductsLink.href);
                 sizes="(min-width: 80rem) 290px, 22vw"
                 loading="lazy"
                 decoding="async"
-                class="size-full object-cover transition-transform duration-(--duration-base) ease-out group-hover/card:scale-(--hover-zoom)"
+                class="size-full object-cover transition-transform duration-(--duration-base) ease-out motion-safe:group-hover/card:scale-(--hover-zoom)"
               />
             </div>
             <span
@@ -136,7 +136,7 @@ const onOverview = isExactPath(pathname, allProductsLink.href);
             >
               View range
               <ArrowRight
-                className="size-4 transition-transform duration-(--duration-base) ease-out group-hover/card:translate-x-0.5"
+                className="size-4 transition-transform duration-(--duration-base) ease-out motion-safe:group-hover/card:translate-x-0.5"
                 strokeWidth={1.75}
               />
             </span>

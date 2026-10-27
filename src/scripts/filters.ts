@@ -7,11 +7,11 @@
  * `data-filter-value` does not match ("all" shows every item) and updates
  * the polite status line from its `data-template` ("{count}", "{total}").
  * Buttons are native, so Tab, Enter and Space work as usual. Focus stays
- * on the pressed button. Nothing animates.
+ * on the pressed button. Items that were hidden fade in briefly, except
+ * under reduced motion.
  */
 
-// A module, so its names stay out of the global scope shared with other scripts
-export {};
+import { fadeIn } from "./motion";
 
 function setup(root: HTMLElement): void {
   const bar = root.querySelector<HTMLElement>("[data-filter-bar]");
@@ -28,7 +28,10 @@ function setup(root: HTMLElement): void {
     let count = 0;
     for (const item of items) {
       const shown = value === "all" || item.dataset.filterValue === value;
+      const appearing = shown && item.hidden;
       item.hidden = !shown;
+      // The card, not the item: the item may carry the reveal transition
+      if (appearing) fadeIn(item.firstElementChild ?? item);
       if (shown) count += 1;
     }
     for (const button of buttons) {

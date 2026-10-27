@@ -1,9 +1,9 @@
 ---
 /**
  * Section heading block (DESIGN_SYSTEM.md §6.2, D-24): optional short
- * label, h2 and one-sentence intro, stacked and left-aligned. An optional
- * `action` slot (such as a "View all" link) sits at the right edge from
- * lg and below the text on smaller screens. Reveals once (§14).
+ * label, h2 and one-sentence intro, stacked and centred on one axis
+ * (owner instruction, 2026-10-27). An optional `action` slot (such as a
+ * "View all" link) sits centred below the text. Reveals once (§14).
  *
  * `level={1}` makes the heading the page h1 (for a page that opens with
  * this section); it then uses the h1 size and is never hidden by a reveal,
@@ -25,10 +25,7 @@ const hasAction = Astro.slots.has("action");
 ---
 
 <div
-  class:list={[
-    "flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between lg:gap-16",
-    className,
-  ]}
+  class:list={["flex flex-col items-center gap-6 text-center", className]}
   data-reveal={level === 2 || undefined}
 >
   <div class="max-w-3xl">
@@ -46,7 +43,9 @@ const hasAction = Astro.slots.has("action");
       {title}
     </Heading>
     {intro && (
-      <p class="mt-4 max-w-[60ch] text-lead text-text-muted">{intro}</p>
+      <p class="mx-auto mt-4 max-w-[60ch] text-lead text-pretty text-text-muted">
+        {intro}
+      </p>
     )}
   </div>
 

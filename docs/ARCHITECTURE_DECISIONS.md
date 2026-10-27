@@ -76,7 +76,8 @@ The owner approved this document on 2026-10-25 with the recommended option for e
 
 - **Decision:** two small modules in `src/scripts/`, bundled by Astro:
   - `navigation.ts`: Products dropdown and mobile menu open/close, `aria-expanded`, Escape to close, close on outside click, focus return.
-  - `reveal.ts`: one shared `IntersectionObserver` that adds a class to `[data-reveal]` elements once, then stops observing them (D-06).
+  - `reveal.ts`: one shared `IntersectionObserver` that adds a class to `[data-reveal]` elements once, then stops observing them (D-06). Imported once in `BaseLayout`; staggers elements that enter the viewport together.
+  - `motion.ts` (added 2026-10-27): shared `fadeIn` helper for content other scripts show, timed from the CSS tokens.
 - **Rationale:** both behaviours are simple; plain scripts cost far less than a framework island.
 - **Consequences:** content must be fully visible without JavaScript. The hidden starting state for reveals is applied only after the script marks the document as JS-enabled (S-07 §3).
 
@@ -87,7 +88,7 @@ The owner approved this document on 2026-10-25 with the recommended option for e
   - **A (recommended): CSS first.** Hover zoom and lift, focus states and menu transitions use CSS; reveal-once uses `reveal.ts`. Framer Motion is allowed only inside React islands, for example the form's success and error transitions, and is otherwise unused. The package stays installed.
   - **B: Framer Motion for header and cards.** Header and product cards become React islands animated with Framer Motion. This loads React and Framer Motion on every page for effects CSS already handles.
 - **Rationale for A:** meets S-07 exactly, keeps every page except Contact free of React, and keeps the dependency available as the brief requires.
-- **Consequences of A:** if Framer Motion is still unused at M6, the owner may decide whether to keep or remove it (removal needs approval). All motion respects `prefers-reduced-motion`; inside React islands this uses Framer Motion's reduced-motion support.
+- **Consequences of A:** if Framer Motion is still unused at M6, the owner may decide whether to keep or remove it (removal needs approval). **Update 2026-10-27 (owner):** used in the enquiry form for message transitions (`LazyMotion` with `domAnimation` and `m`, about 37 KB gzip on the Contact page only); not used elsewhere. All motion respects `prefers-reduced-motion`; inside React islands this uses Framer Motion's reduced-motion support.
 
 ## 9. AD-07 Styling
 

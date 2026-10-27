@@ -5,10 +5,17 @@
  * elements that start below the viewport, by adding `reveal-ready` to the
  * root, then reveals each one the first time it enters the viewport.
  * Nothing happens under reduced motion or without IntersectionObserver.
+ *
+ * Elements that enter together are staggered in document order; one that
+ * enters alone shows without delay, so stacked items on phones never wait
+ * for their position in a list.
  */
 
 const root = document.documentElement;
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+/** Stagger steps per batch: 6 items, 400 ms at most (§14) */
+const MAX_STEP = 5;
 
 function init(): void {
   if (root.classList.contains("reveal-ready")) return;
@@ -19,10 +26,14 @@ function init(): void {
 
   const observer = new IntersectionObserver(
     (entries) => {
+      let step = 0;
       for (const entry of entries) {
         if (!entry.isIntersecting) continue;
-        entry.target.classList.add("is-revealed");
-        observer.unobserve(entry.target);
+        const element = entry.target as HTMLElement;
+        element.style.setProperty("--reveal-step", String(step));
+        step = Math.min(step + 1, MAX_STEP);
+        element.classList.add("is-revealed");
+        observer.unobserve(element);
       }
     },
     { rootMargin: "0px 0px -10% 0px" },

@@ -1,3 +1,10 @@
+import {
+  AnimatePresence,
+  LazyMotion,
+  domAnimation,
+  m,
+  useReducedMotion,
+} from "framer-motion";
 import { ChevronDown, CircleAlert, Info } from "lucide-react";
 import {
   type ChangeEvent,
@@ -29,6 +36,10 @@ import type { EnquiryFieldCopy, EnquiryFormCopy } from "../../data/contact";
  * The submit button is disabled until hydration, so the server-rendered
  * form can never submit natively and put personal details in a URL.
  * Submissions that fill the hidden spam trap are dropped (QA-75).
+ *
+ * Messages (summary, field errors, notice) fade in with a small drop and
+ * fade out, using Framer Motion (AD-06, D-15); under reduced motion they
+ * appear and go at once. Only opacity and transform animate (§14).
  */
 
 type FieldName = keyof EnquiryFormCopy["fields"];
@@ -104,8 +115,21 @@ function validate(name: FieldName, raw: string): string | undefined {
 
 const noopSubscribe = () => () => {};
 
+/** DESIGN_SYSTEM.md §14: --duration-fast, --ease-out and the 4 px menu drop */
+const messageMotion = {
+  initial: { opacity: 0, y: -4 },
+  animate: { opacity: 1, y: 0 },
+  exit: { opacity: 0 },
+  transition: { duration: 0.15, ease: [0.22, 1, 0.36, 1] },
+} as const;
+
+/** Motion props for a message; none under reduced motion */
+function useMessageMotion() {
+  return useReducedMotion() ? {} : messageMotion;
+}
+
 const fieldClass =
-  "block w-full rounded-md border bg-surface px-4 text-body text-text placeholder:text-text-muted focus:border-primary";
+  "block w-full rounded-md border bg-surface px-4 text-body text-text transition-colors duration-(--duration-fast) ease-out placeholder:text-text-muted focus:border-primary";
 
 interface FieldProps {
   name: FieldName;
@@ -125,6 +149,7 @@ function Field({ name, copy, error, className, children }: FieldProps) {
   const helpId = copy.help ? `${id}-help` : undefined;
   const errorId = error ? `${id}-error` : undefined;
   const describedBy = [helpId, errorId].filter(Boolean).join(" ") || undefined;
+  const messageProps = useMessageMotion();
 
   return (
     <div className={className}>
@@ -147,15 +172,22 @@ function Field({ name, copy, error, className, children }: FieldProps) {
           {copy.help}
         </p>
       )}
-      {error && (
-        <p
-          id={errorId}
-          className="mt-2 flex gap-2 text-small font-medium text-error"
-        >
-          <CircleAlert className="mt-0.5 size-4 shrink-0" aria-hidden="true" />
-          {error}
-        </p>
-      )}
+      <AnimatePresence>
+        {error && (
+          <m.p
+            key="error"
+            id={errorId}
+            className="mt-2 flex gap-2 text-small font-medium text-error"
+            {...messageProps}
+          >
+            <CircleAlert
+              className="mt-0.5 size-4 shrink-0"
+              aria-hidden="true"
+            />
+            {error}
+          </m.p>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
@@ -173,6 +205,7 @@ export default function EnquiryForm({ copy }: Props) {
   const [notConnected, setNotConnected] = useState(false);
   const honeypotRef = useRef<HTMLInputElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
+  const messageProps = useMessageMotion();
 
   // False in the server render, true once hydrated
   const hydrated = useSyncExternalStore(
@@ -276,174 +309,189 @@ export default function EnquiryForm({ copy }: Props) {
   );
 
   return (
-    <form
-      ref={formRef}
-      method="post"
-      noValidate
-      onSubmit={handleSubmit}
-      aria-describedby="enquiry-required-note"
-    >
-      <p id="enquiry-required-note" className="text-small text-text-muted">
-        {copy.requiredNote}
-      </p>
-
-      {/* Mounted from the start so screen readers announce changes */}
-      <div aria-live="polite">
-        {summary && (
-          <p className="mt-6 flex gap-3 rounded-md border border-error bg-surface p-4 font-medium text-error">
-            <CircleAlert
-              className="mt-0.5 size-5 shrink-0"
-              aria-hidden="true"
-            />
-            {summary}
-          </p>
-        )}
-      </div>
-
-      <fieldset className="mt-8">
-        <legend className="text-h4 font-semibold text-primary">
-          {copy.groups.details}
-        </legend>
-        <div className="mt-5 grid gap-6 md:grid-cols-2">
-          <Field name="name" copy={fields.name} error={errors.name}>
-            {(props) => (
-              <input
-                {...props}
-                {...inputProps("name")}
-                type="text"
-                autoComplete="name"
-                required
-                className={`${props.className} min-h-12`}
-              />
-            )}
-          </Field>
-
-          <Field name="company" copy={fields.company} error={errors.company}>
-            {(props) => (
-              <input
-                {...props}
-                {...inputProps("company")}
-                type="text"
-                autoComplete="organization"
-                className={`${props.className} min-h-12`}
-              />
-            )}
-          </Field>
-
-          <Field name="email" copy={fields.email} error={errors.email}>
-            {(props) => (
-              <input
-                {...props}
-                {...inputProps("email")}
-                type="email"
-                autoComplete="email"
-                spellCheck={false}
-                required
-                className={`${props.className} min-h-12`}
-              />
-            )}
-          </Field>
-
-          <Field name="phone" copy={fields.phone} error={errors.phone}>
-            {(props) => (
-              <input
-                {...props}
-                {...inputProps("phone")}
-                type="tel"
-                autoComplete="tel"
-                className={`${props.className} min-h-12`}
-              />
-            )}
-          </Field>
-        </div>
-      </fieldset>
-
-      <fieldset className="mt-10 border-t border-line pt-8">
-        <legend className="float-left w-full text-h4 font-semibold text-primary">
-          {copy.groups.enquiry}
-        </legend>
-        <div className="clear-left grid gap-6 pt-5 md:grid-cols-2">
-          {selectField("enquiryType")}
-          {selectField("category")}
-
-          <Field
-            name="country"
-            copy={fields.country}
-            error={errors.country}
-            className="md:col-span-2"
-          >
-            {(props) => (
-              <input
-                {...props}
-                {...inputProps("country")}
-                type="text"
-                autoComplete="country-name"
-                className={`${props.className} min-h-12`}
-              />
-            )}
-          </Field>
-
-          <Field
-            name="requirements"
-            copy={fields.requirements}
-            error={errors.requirements}
-            className="md:col-span-2"
-          >
-            {(props) => (
-              <textarea
-                {...props}
-                {...inputProps("requirements")}
-                rows={6}
-                required
-                placeholder={fields.requirements.placeholder}
-                className={`${props.className} min-h-36 py-3`}
-              />
-            )}
-          </Field>
-        </div>
-      </fieldset>
-
-      {/* Spam trap: hidden from people and assistive technology (D-20) */}
-      <div
-        aria-hidden="true"
-        className="absolute -left-[9999px] size-px overflow-hidden"
+    // Loads only the DOM animation features; `m` instead of `motion` (strict)
+    <LazyMotion features={domAnimation} strict>
+      <form
+        ref={formRef}
+        method="post"
+        noValidate
+        onSubmit={handleSubmit}
+        aria-describedby="enquiry-required-note"
       >
-        <label htmlFor="enquiry-website">Website</label>
-        <input
-          ref={honeypotRef}
-          id="enquiry-website"
-          name="website"
-          type="text"
-          tabIndex={-1}
-          autoComplete="off"
-          defaultValue=""
-        />
-      </div>
-
-      <div className="mt-10 flex flex-col gap-4 border-t border-line pt-8 sm:flex-row sm:items-center sm:justify-between">
-        <p className="max-w-[44ch] text-small text-text-muted">
-          {copy.privacyNote}
+        <p id="enquiry-required-note" className="text-small text-text-muted">
+          {copy.requiredNote}
         </p>
-        <button
-          type="submit"
-          disabled={!hydrated}
-          className="inline-flex min-h-13 shrink-0 items-center justify-center gap-2 rounded-md bg-primary px-7 text-body font-semibold whitespace-nowrap text-white transition-colors duration-(--duration-fast) ease-out hover:bg-primary-hover disabled:cursor-not-allowed disabled:opacity-60"
-        >
-          {copy.submitLabel}
-        </button>
-      </div>
 
-      <div role="status">
-        {notConnected && (
-          <p className="mt-6 flex gap-3 rounded-md bg-bg-alt p-4 text-text">
-            <Info
-              className="mt-0.5 size-5 shrink-0 text-primary"
-              aria-hidden="true"
-            />
-            {copy.notConnected}
+        {/* Mounted from the start so screen readers announce changes */}
+        <div aria-live="polite">
+          <AnimatePresence>
+            {summary && (
+              <m.p
+                key="summary"
+                className="mt-6 flex gap-3 rounded-md border border-error bg-surface p-4 font-medium text-error"
+                {...messageProps}
+              >
+                <CircleAlert
+                  className="mt-0.5 size-5 shrink-0"
+                  aria-hidden="true"
+                />
+                {summary}
+              </m.p>
+            )}
+          </AnimatePresence>
+        </div>
+
+        <fieldset className="mt-8">
+          <legend className="text-h4 font-semibold text-primary">
+            {copy.groups.details}
+          </legend>
+          <div className="mt-5 grid gap-6 md:grid-cols-2">
+            <Field name="name" copy={fields.name} error={errors.name}>
+              {(props) => (
+                <input
+                  {...props}
+                  {...inputProps("name")}
+                  type="text"
+                  autoComplete="name"
+                  required
+                  className={`${props.className} min-h-12`}
+                />
+              )}
+            </Field>
+
+            <Field name="company" copy={fields.company} error={errors.company}>
+              {(props) => (
+                <input
+                  {...props}
+                  {...inputProps("company")}
+                  type="text"
+                  autoComplete="organization"
+                  className={`${props.className} min-h-12`}
+                />
+              )}
+            </Field>
+
+            <Field name="email" copy={fields.email} error={errors.email}>
+              {(props) => (
+                <input
+                  {...props}
+                  {...inputProps("email")}
+                  type="email"
+                  autoComplete="email"
+                  spellCheck={false}
+                  required
+                  className={`${props.className} min-h-12`}
+                />
+              )}
+            </Field>
+
+            <Field name="phone" copy={fields.phone} error={errors.phone}>
+              {(props) => (
+                <input
+                  {...props}
+                  {...inputProps("phone")}
+                  type="tel"
+                  autoComplete="tel"
+                  className={`${props.className} min-h-12`}
+                />
+              )}
+            </Field>
+          </div>
+        </fieldset>
+
+        <fieldset className="mt-10 border-t border-line pt-8">
+          <legend className="float-left w-full text-h4 font-semibold text-primary">
+            {copy.groups.enquiry}
+          </legend>
+          <div className="clear-left grid gap-6 pt-5 md:grid-cols-2">
+            {selectField("enquiryType")}
+            {selectField("category")}
+
+            <Field
+              name="country"
+              copy={fields.country}
+              error={errors.country}
+              className="md:col-span-2"
+            >
+              {(props) => (
+                <input
+                  {...props}
+                  {...inputProps("country")}
+                  type="text"
+                  autoComplete="country-name"
+                  className={`${props.className} min-h-12`}
+                />
+              )}
+            </Field>
+
+            <Field
+              name="requirements"
+              copy={fields.requirements}
+              error={errors.requirements}
+              className="md:col-span-2"
+            >
+              {(props) => (
+                <textarea
+                  {...props}
+                  {...inputProps("requirements")}
+                  rows={6}
+                  required
+                  placeholder={fields.requirements.placeholder}
+                  className={`${props.className} min-h-36 py-3`}
+                />
+              )}
+            </Field>
+          </div>
+        </fieldset>
+
+        {/* Spam trap: hidden from people and assistive technology (D-20) */}
+        <div
+          aria-hidden="true"
+          className="absolute -left-[9999px] size-px overflow-hidden"
+        >
+          <label htmlFor="enquiry-website">Website</label>
+          <input
+            ref={honeypotRef}
+            id="enquiry-website"
+            name="website"
+            type="text"
+            tabIndex={-1}
+            autoComplete="off"
+            defaultValue=""
+          />
+        </div>
+
+        <div className="mt-10 flex flex-col gap-4 border-t border-line pt-8 sm:flex-row sm:items-center sm:justify-between">
+          <p className="max-w-[44ch] text-small text-text-muted">
+            {copy.privacyNote}
           </p>
-        )}
-      </div>
-    </form>
+          <button
+            type="submit"
+            disabled={!hydrated}
+            className="inline-flex min-h-13 shrink-0 items-center justify-center gap-2 rounded-md bg-primary px-7 text-body font-semibold whitespace-nowrap text-white transition-colors duration-(--duration-fast) ease-out hover:bg-primary-hover disabled:cursor-not-allowed disabled:opacity-60"
+          >
+            {copy.submitLabel}
+          </button>
+        </div>
+
+        <div role="status">
+          <AnimatePresence>
+            {notConnected && (
+              <m.p
+                key="not-connected"
+                className="mt-6 flex gap-3 rounded-md bg-bg-alt p-4 text-text"
+                {...messageProps}
+              >
+                <Info
+                  className="mt-0.5 size-5 shrink-0 text-primary"
+                  aria-hidden="true"
+                />
+                {copy.notConnected}
+              </m.p>
+            )}
+          </AnimatePresence>
+        </div>
+      </form>
+    </LazyMotion>
   );
 }

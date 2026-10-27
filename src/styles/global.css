@@ -180,21 +180,21 @@
 }
 
 /* Reveal once (AD-05, §14): the hidden state exists only after
-   src/scripts/reveal.ts has run, so content is visible without JavaScript */
-@media (prefers-reduced-motion: no-preference) {
+   src/scripts/reveal.ts has run, so content is visible without JavaScript.
+   Screen only, so content not yet scrolled to still prints. The script sets
+   --reveal-step for elements that enter the viewport together. Never put
+   data-reveal on an element with its own transitions; wrap it instead. */
+@media screen and (prefers-reduced-motion: no-preference) {
   .reveal-ready [data-reveal] {
     transition:
       opacity var(--duration-reveal) var(--ease-out),
       transform var(--duration-reveal) var(--ease-out);
+    transition-delay: calc(var(--reveal-stagger) * var(--reveal-step, 0));
   }
 
   .reveal-ready [data-reveal]:not(.is-revealed) {
     opacity: 0;
     transform: translateY(var(--reveal-distance));
-  }
-
-  .reveal-ready [data-reveal] + [data-reveal] {
-    transition-delay: var(--reveal-stagger);
   }
 }
 

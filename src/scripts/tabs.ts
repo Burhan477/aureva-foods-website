@@ -5,11 +5,11 @@
  * heading, and the tab list stays hidden. This script shows the tab list
  * and one panel at a time, following the WAI-ARIA tabs pattern with
  * automatic activation: click, or Left/Right arrow, Home and End on a tab.
- * Only the selected tab is in the tab order. Nothing animates.
+ * Only the selected tab is in the tab order. A newly selected panel fades
+ * in briefly, except under reduced motion.
  */
 
-// A module, so its names stay out of the global scope shared with other scripts
-export {};
+import { fadeIn } from "./motion";
 
 function setup(root: HTMLElement): void {
   const list = root.querySelector<HTMLElement>("[data-tabs-list]");
@@ -22,9 +22,11 @@ function setup(root: HTMLElement): void {
   function select(index: number, moveFocus: boolean): void {
     tabs.forEach((tab, i) => {
       const selected = i === index;
+      const shown = selected && panels[i]!.hidden;
       tab.setAttribute("aria-selected", String(selected));
       tab.tabIndex = selected ? 0 : -1;
       panels[i]!.hidden = !selected;
+      if (shown) fadeIn(panels[i]!);
     });
     if (moveFocus) tabs[index].focus();
   }

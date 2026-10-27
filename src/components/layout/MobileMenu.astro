@@ -118,14 +118,14 @@ const rowLink =
           </ul>
           <a
             href={allProductsLink.href}
-            class="mt-3 inline-flex min-h-11 items-center gap-2 text-button font-semibold text-primary hover:underline hover:underline-offset-4"
+            class="group/cta mt-3 inline-flex min-h-11 items-center gap-2 text-button font-semibold text-primary hover:underline hover:underline-offset-4"
             aria-current={
               isExactPath(pathname, allProductsLink.href) ? "page" : undefined
             }
           >
             {allProductsLink.label}
             <ArrowRight
-              className="size-4"
+              className="size-4 transition-transform duration-(--duration-base) ease-out motion-safe:group-hover/cta:translate-x-0.5"
               strokeWidth={1.75}
               aria-hidden="true"
             />

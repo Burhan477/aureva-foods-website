@@ -142,7 +142,7 @@ Containers are centred and use `--space-gutter` side padding, so content never t
 ### 6.2 Grid
 
 - 12-column grid from `lg` (1024 px), 6 columns at `md`, 4 at the smallest size; column gap 16 / 24 / 32 px.
-- Section heading blocks align to the left edge of the grid; no centred long text.
+- Stacked section heading blocks (SectionHeader: label, title, intro) are centred on one axis (owner instruction, 2026-10-27); headings set beside an image or content in a two-column section stay left-aligned. Only headings and one-sentence intros are centred; body text, lists and cards stay left-aligned.
 
 | Pattern | Small (< 640) | `sm`/`md` | `lg`+ |
 |---|---|---|---|
@@ -217,7 +217,7 @@ The two CTAs (BRAND_GUIDELINES.md §11) always appear as Primary (WhatsApp Us) a
 | Card | white with `--color-line` border | ink | radius-lg; image first |
 | Dark panel | noir, inside the container, `rounded-2xl` | mist; accents emerald | Business Enquiry CTA, Contact WhatsApp panel. Contained, so it never merges with the footer |
 | Footer | noir, full bleed | mist | The only full-bleed dark band |
-| Header | white 95% with blur and bottom `--color-line` | ink; active item emerald 700 | Sticky; subtle shadow after scrolling |
+| Header | white, solid, with bottom `--color-line` | ink; active item emerald 700 | Sticky; subtle shadow after scrolling |
 
 Section rhythm: alternate default and alternate backgrounds; the Business Enquiry CTA panel is the last section before the footer. No image washes, decorative offset frames or illustrations (D-24), except the Home hero: its photo fills the section with a white fade on the text side (owner request, 2026-10-26).
 
@@ -244,7 +244,7 @@ Section rhythm: alternate default and alternate backgrounds; the Business Enquir
 | `--duration-reveal` | 450 ms | Reveal-once fade and rise |
 | `--ease-out` | cubic-bezier(0.22, 1, 0.36, 1) | All entrances and hovers |
 | `--reveal-distance` | 16 px | Upward travel on reveal (S-07: 12–20 px) |
-| `--reveal-stagger` | 80 ms per item, maximum 6 items (cap 400 ms) | Card groups (S-07: 60–100 ms) |
+| `--reveal-stagger` | 80 ms per item, maximum 6 items (cap 400 ms) | Items entering the viewport together (S-07: 60–100 ms) |
 | `--hover-lift` | −3 px | Card lift (S-07: −2 to −4 px) |
 | `--hover-zoom` | 1.05 | Card image zoom (S-07: 1.04–1.06) |
 
@@ -254,6 +254,12 @@ Rules:
 - Hover effects apply only on devices that support hover (`@media (hover: hover) and (pointer: fine)`).
 - The hero and any content visible on first load are never hidden for a reveal, so the largest image paints immediately (SEO_AND_PERFORMANCE.md).
 - `prefers-reduced-motion: reduce` removes all transforms and reveal transitions; content is shown immediately.
+- Stagger is set by `reveal.ts` from the elements that enter the viewport together, in document order; an element entering alone has no delay. Product grids reveal card by card.
+- The reveal hidden state is screen-only, so content not yet scrolled to still prints.
+- `data-reveal` never goes on an element with its own transitions; wrap it instead.
+- Content a script shows (a tab panel, filtered cards, the mobile Products list) fades in over `--duration-fast` (`src/scripts/motion.ts`).
+- Enquiry form messages (error summary, field errors, notices) fade in with a 4 px drop over `--duration-fast` and fade out, using Framer Motion inside the form island (AD-06); under reduced motion they appear and go at once.
+- Arrow text links nudge their arrow 2 px on hover.
 
 ## 15. Layering
 
@@ -320,3 +326,4 @@ For orientation only; the actual file is written in M1.4 after approval.
 | 0.1 | 2026-10-25 | First draft: tokens, type scale, spacing, layout, buttons, forms, surfaces, motion |
 | 0.1 | 2026-10-25 | Approved by owner, including the derived shades (D-19, C-33 resolved) |
 | 0.2 | 2026-10-26 | D-24 theme modernisation: §3 colours, §4 typography, §8 radii and shadows, §9.1 buttons, §11 surfaces |
+| 0.3 | 2026-10-27 | Animation audit (owner approved): §14 batch stagger, per-card grid reveals, print-safe reveals, script fades, arrow nudge, Framer Motion form messages; §11 header blur removed; §6 stacked section headings centred |

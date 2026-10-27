@@ -18,7 +18,7 @@ import SectionHeader from "../../ui/SectionHeader.astro";
  * Saffron (D-09), on the eyebrow rule and card marks only (§3.4).
  * Product grid: 1 column on phones, 2 from md, 3 from lg (§6.2).
  *
- * Card images are lazy. The heading and grid reveal once (§14) and stay
+ * Card images are lazy. The heading and each card reveal once (§14) and stay
  * visible under reduced motion. No filters: three products need none.
  *
  * The section `id` is the target of the Page Introduction's "Explore
@@ -58,12 +58,9 @@ const ctaLastWord = section.cta.label.slice(splitAt);
       intro={section.intro}
     />
 
-    <ul
-      class="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2 lg:mt-12 lg:grid-cols-3 lg:gap-8"
-      data-reveal
-    >
+    <ul class="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2 lg:mt-12 lg:grid-cols-3 lg:gap-8">
       {onions.map(({ data, category, description }) => (
-        <li>
+        <li data-reveal>
           <ProductCard
             product={data}
             sizes={imageSizes}
@@ -73,14 +70,14 @@ const ctaLastWord = section.cta.label.slice(splitAt);
             <!-- Negative margins keep the 44 px target without extra space -->
             <a
               href={section.cta.href}
-              class="-my-3 inline-block min-h-11 py-3 text-button font-semibold text-primary underline-offset-4 hover:underline focus-visible:underline"
+              class="group/cta -my-3 inline-block min-h-11 py-3 text-button font-semibold text-primary underline-offset-4 hover:underline focus-visible:underline"
             >
               {ctaLead}
               <span class="whitespace-nowrap">
                 {ctaLastWord}
                 <span class="sr-only"> for {data.name}</span>
                 <ArrowRight
-                  className="ml-1.5 inline size-4 align-[-0.1875em]"
+                  className="ml-1.5 inline size-4 align-[-0.1875em] transition-transform duration-(--duration-base) ease-out motion-safe:group-hover/cta:translate-x-0.5"
                   strokeWidth={1.75}
                   aria-hidden="true"
                 />
@@ -92,7 +89,3 @@ const ctaLastWord = section.cta.label.slice(splitAt);
     </ul>
   </div>
 </section>
-
-<script>
-  import "../../../scripts/reveal";
-</script>

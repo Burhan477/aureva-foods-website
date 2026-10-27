@@ -54,12 +54,9 @@ const imageSizes =
       intro={section.intro}
     />
 
-    <ul
-      class="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2 lg:mt-12 lg:grid-cols-3 lg:gap-8"
-      data-reveal
-    >
+    <ul class="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2 lg:mt-12 lg:grid-cols-3 lg:gap-8">
       {products.map(({ data, description }) => (
-        <li>
+        <li data-reveal>
           <ProductCard
             product={data}
             sizes={imageSizes}
@@ -80,7 +77,3 @@ const imageSizes =
     </div>
   </div>
 </section>
-
-<script>
-  import "../../../scripts/reveal";
-</script>
