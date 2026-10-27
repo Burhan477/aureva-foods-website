@@ -13,6 +13,9 @@
   --color-snow: #fafaf8;
   /* Alternate section band: a light emerald tint (2026-10-27) */
   --color-mint: #eff7f3;
+  /* Header background: a lighter tint than the mint band, so the two
+     never read as one surface (2026-10-27) */
+  --color-mint-light: #f5faf7;
   --color-mist: #f4f4f5;
   --color-ink: #18181b;
   --color-muted: #71717a;

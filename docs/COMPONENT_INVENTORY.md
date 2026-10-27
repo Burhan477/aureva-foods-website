@@ -73,8 +73,7 @@ Nothing is built yet; every status is NOT BUILT. A component not listed here nee
 - **Purpose:** brand, navigation, primary CTA on every page (SITE_STRUCTURE.md §3.1).
 - **Content:** Wordmark → `/`; Home, About Us, Products (ProductsMenu), Contact Us; WhatsAppButton (`md` size).
 - **Behaviour:** sticky; gains `--shadow-float` style shadow after scrolling past the top; current page marked with `aria-current="page"` and an olive underline.
-- **Noir bar (owner, 2026-10-27, PENDING REVIEW):** same colour as the Footer. The full logo's dark lettering does not read on noir, so the header uses the Footer's monogram with an "AUREVA FOODS" wordmark (wordmark hidden visually below `sm`). Links are mist with Emerald 500 hover and current page; the Products dropdown and MobileMenu panels stay white.
-- **Reading progress (2026-10-27, PENDING REVIEW):** a 3 px emerald bar on the header's bottom edge tracks page scroll (DESIGN_SYSTEM.md §16). Shadow and progress share one passive, frame-throttled scroll handler in `scripts/navigation.ts`.
+- **Reading progress (2026-10-27, PENDING REVIEW):** a 3 px Emerald 700 bar on the header's bottom edge tracks page scroll (DESIGN_SYSTEM.md §16). Shadow and progress share one passive, frame-throttled scroll handler in `scripts/navigation.ts`.
 - **Below `lg`:** navigation collapses into MobileMenu; WhatsApp Us leaves the bar for the bottom-left FloatingWhatsApp (owner, 2026-10-27).
 
 ### ProductsMenu (dropdown)

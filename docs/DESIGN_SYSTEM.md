@@ -221,7 +221,7 @@ The two CTAs (BRAND_GUIDELINES.md §11) always appear as Primary (WhatsApp Us) a
 | Card | white with `--color-line` border | ink | radius-lg; image first |
 | Dark panel | noir, inside the container, `rounded-2xl` | mist; accents emerald | Business Enquiry CTA, Contact WhatsApp panel. Contained, so it never merges with the footer |
 | Footer | noir, full bleed | mist | The only full-bleed dark band |
-| Header | noir, solid, like the Footer (owner, 2026-10-27, PENDING REVIEW), bottom border white/10 | mist; hover and active item Emerald 500; monogram + light wordmark as in the Footer; dark WhatsApp Us | Sticky; subtle shadow after scrolling; 3 px Emerald 500 progress bar |
+| Header | `--color-mint-light` `#F5FAF7` (faint green tint, owner 2026-10-27; ink 16.8, emerald 700 5.20), solid, with bottom `--color-line`; full logo (a noir trial was reverted by the owner, 2026-10-27) | ink; active item emerald 700 | Sticky; subtle shadow after scrolling; 3 px Emerald 700 progress bar |
 
 Section rhythm: alternate default and alternate backgrounds; the Business Enquiry CTA panel is the last section before the footer. No image washes, decorative offset frames or illustrations (D-24), except the Home hero: its photo fills the section with a white fade on the text side (owner request, 2026-10-26).
 
@@ -282,7 +282,7 @@ Rules:
 - Touch targets at least 44 × 44 px with 8 px spacing between adjacent targets.
 - Header height 64 px on phones, 80 px from `lg`.
 - Back to top (2026-10-27, PENDING REVIEW): 48 px noir circle with a mist arrow, fixed bottom-right (16 / 24 / 32 px from the edges plus the safe-area inset), `--z-float`; Emerald 700 on hover. It shows after one screen of scrolling and hides near the top. A click scrolls to the top (instant under reduced motion) and moves focus to the header logo.
-- Reading progress bar: 3 px, `--color-accent` (Emerald 500, on the noir header), along the header's bottom edge (covers the border, so no layout change). Scaled from 0 to 100% of the scrollable height by `navigation.ts`, at most once per animation frame; empty on pages too short to scroll. No transition, so it behaves the same under reduced motion.
+- Reading progress bar: 3 px, `--color-primary`, along the header's bottom edge (covers the border, so no layout change). Scaled from 0 to 100% of the scrollable height by `navigation.ts`, at most once per animation frame; empty on pages too short to scroll. No transition, so it behaves the same under reduced motion.
 - Floating WhatsApp button (built 2026-10-27, owner: bottom-left, PENDING REVIEW): 56 px Emerald 700 circle, bottom-left, 16 / 24 px from the edges plus the device safe-area inset; below `lg` only, where it replaces WhatsApp Us in the header bar (MobileMenu keeps its full-width WhatsApp Us). Rendered only while the number is CONFIRMED. The Footer has extra bottom padding below `lg` (`pb-24`) so the copyright line stays clear of it and of Back to top.
 - Text stays readable at 200% browser zoom, and content reflows without loss at 320 px width.
 
