@@ -1,6 +1,6 @@
 /**
  * Header behaviour (ARCHITECTURE_DECISIONS.md AD-05, AD-15):
- * - scroll shadow on the sticky header
+ * - scroll shadow and reading progress bar on the sticky header
  * - desktop Products mega menu: hover (mouse), click, keyboard
  * - mobile menu with a Products disclosure, focus containment and scroll lock
  *
@@ -36,12 +36,38 @@ function enhance(fallback: Element | null, button: HTMLButtonElement): void {
   button.hidden = false;
 }
 
-function initHeaderShadow(header: HTMLElement): void {
+/**
+ * Scroll shadow and reading progress bar, updated at most once per frame.
+ * Progress is 0 at the top and 1 at the bottom; on a page too short to
+ * scroll the bar stays empty.
+ */
+function initHeaderScroll(header: HTMLElement): void {
+  const progress = header.querySelector<HTMLElement>("[data-scroll-progress]");
+  let frame = 0;
+
   const update = () => {
-    header.toggleAttribute("data-scrolled", window.scrollY > 8);
+    frame = 0;
+    const { scrollY, innerHeight } = window;
+    header.toggleAttribute("data-scrolled", scrollY > 8);
+    if (progress) {
+      const scrollable = document.documentElement.scrollHeight - innerHeight;
+      const ratio =
+        scrollable > 0 ? Math.min(Math.max(scrollY / scrollable, 0), 1) : 0;
+      // `scale`, not `transform`: Tailwind's scale-x-0 sets the scale
+      // property, which would multiply with a transform
+      progress.style.scale = `${ratio} 1`;
+    }
   };
+
+  const schedule = () => {
+    if (!frame) frame = window.requestAnimationFrame(update);
+  };
+
   update();
-  window.addEventListener("scroll", update, { passive: true });
+  window.addEventListener("scroll", schedule, { passive: true });
+  // Page height changes as lazy images load or the window resizes
+  window.addEventListener("resize", schedule, { passive: true });
+  new ResizeObserver(schedule).observe(document.body);
 }
 
 function initProductsMenu(root: HTMLElement): void {
@@ -208,7 +234,7 @@ function initMobileMenu(toggle: HTMLButtonElement): void {
 }
 
 const header = document.querySelector<HTMLElement>("[data-site-header]");
-if (header) initHeaderShadow(header);
+if (header) initHeaderScroll(header);
 
 const productsMenu = document.querySelector<HTMLElement>(
   "[data-products-menu]",

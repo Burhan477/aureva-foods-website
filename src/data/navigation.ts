@@ -80,10 +80,13 @@ export const productCategories: ProductCategory[] = [
   },
 ];
 
-export const legalNav: NavLink[] = [
-  { label: "Privacy Policy", href: "/privacy-policy/" },
-  { label: "Terms & Conditions", href: "/terms-and-conditions/" },
-];
+/**
+ * Footer legal links. Privacy Policy (`/privacy-policy/`) and Terms &
+ * Conditions (`/terms-and-conditions/`) are added back once their pages
+ * are built (M6.1); until then the footer leaves them out rather than
+ * link to missing pages (owner, 2026-10-27).
+ */
+export const legalNav: NavLink[] = [];
 
 function withTrailingSlash(pathname: string): string {
   return pathname.endsWith("/") ? pathname : `${pathname}/`;

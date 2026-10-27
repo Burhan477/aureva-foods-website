@@ -70,7 +70,7 @@ A task moves forward only on the owner's explicit word. A task can be DONE with 
 | M1.3 | Starter removal and base document: remove `Welcome.astro` and starter assets; base layout with `lang="en"`, full viewport tag, global stylesheet imported | P0.6 | No starter content left; build passes |
 | M1.4 | Design tokens in `global.css` using Tailwind v4 `@theme` | P0.7 | Tokens match DESIGN_SYSTEM.md and D-01 exactly; no unapproved colours |
 | M1.5 | Folder and data conventions; central data files for site settings, contact settings (unresolved values marked BLOCKED) and the product catalogue from SITE_STRUCTURE.md §5 | P0.6, D-14 | Data typed; product names match D-14; no invented values |
-| M1.6 | Production `site` URL in Astro config | C-18 | Deferred until the domain is confirmed; may be done in M6 |
+| M1.6 | Production `site` URL in Astro config | C-18 | DONE 2026-10-27: `https://aurevafoods.com` |
 
 ### M2 — Shared shell — NOT STARTED
 

@@ -212,7 +212,7 @@ Component file names use PascalCase; scripts and helpers use camelCase; data fil
 | D-15 | AD-06 option A: CSS first; Framer Motion only inside React islands (resolves C-15) | APPROVED |
 | D-16 | AD-12 option A: managed form service, the specific service chosen with hosting (resolves C-17) | APPROVED |
 | D-17 | AD-14: no analytics at launch (resolves C-30) | APPROVED |
-| C-18 | Hosting provider, domain and form service (AD-13) | OPEN: decide before M5 |
+| C-18 | Hosting provider, domain and form service (AD-13) | Domain confirmed 2026-10-27 (`https://aurevafoods.com`); hosting and form service OPEN |
 | — | All other records (AD-01 to AD-05, AD-07 to AD-11, AD-15 to AD-18) | APPROVED |
 
 ## 18. Revision history

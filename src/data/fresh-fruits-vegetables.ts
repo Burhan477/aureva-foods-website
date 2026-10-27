@@ -145,6 +145,10 @@ export const fruits: {
  * (D-08). The brief's "Enquire on WhatsApp" and "Contact Us" would need
  * the shared component changed, so they await approval. No image: the
  * only full-size Fresh image is the Page Introduction's.
+ *
+ * Title from the owner's UI/UX brief (2026-10-27), so each page's panel
+ * reads differently; PENDING REVIEW.
+ * It replaces "Looking for a Fresh Produce Supply Partner?".
  */
 export const enquiryCta: {
   id: string;
@@ -153,7 +157,7 @@ export const enquiryCta: {
   quote: { href: string | null; pendingNote?: string };
 } = {
   id: "fresh-enquiry-cta",
-  title: "Looking for a Fresh Produce Supply Partner?",
+  title: "Discuss Your Produce Requirements",
   intro:
     "Tell us which fruits and vegetables you need, with quantities and destination.",
   quote: { href: `${contactLink.href}#enquiry-form` },

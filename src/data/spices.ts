@@ -415,6 +415,10 @@ export const faqs: {
  * parameters, so no Spices category is preselected. WhatsApp Us uses the
  * `spicesEnquiry` template in site.ts and stays inactive until the number
  * is confirmed (C-01, C-02).
+ *
+ * Title from the owner's UI/UX brief (2026-10-27), so each page's panel
+ * reads differently; PENDING REVIEW.
+ * It replaces "Looking for a Reliable Spice Supply Partner?".
  */
 export const enquiryCta: {
   id: string;
@@ -423,7 +427,7 @@ export const enquiryCta: {
   quote: { href: string | null; pendingNote?: string };
 } = {
   id: "spice-enquiry-cta",
-  title: "Looking for a Reliable Spice Supply Partner?",
+  title: "Request a Spice Supply Quote",
   intro:
     "Tell us which spices you need and we'll confirm availability, specifications and pricing.",
   quote: { href: `${contactLink.href}#enquiry-form` },

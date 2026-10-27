@@ -11,6 +11,8 @@
   /* Neutrals (§3.1, D-24) */
   --color-white: #ffffff;
   --color-snow: #fafaf8;
+  /* Alternate section band: a light emerald tint (2026-10-27) */
+  --color-mint: #eff7f3;
   --color-mist: #f4f4f5;
   --color-ink: #18181b;
   --color-muted: #71717a;
@@ -37,7 +39,7 @@
 
   /* Semantic tokens (§3.3) */
   --color-bg: var(--color-white);
-  --color-bg-alt: var(--color-snow);
+  --color-bg-alt: var(--color-mint);
   --color-surface: var(--color-white);
   --color-inverse: var(--color-noir);
   --color-text: var(--color-ink);
@@ -93,8 +95,8 @@
   --text-legal--line-height: 1.5;
 
   /* Spacing (§5) */
-  --spacing-section: clamp(4rem, 2.8rem + 5vw, 7.5rem);
-  --spacing-section-tight: clamp(3rem, 2.2rem + 3.5vw, 5rem);
+  --spacing-section: clamp(3rem, 2.5rem + 2vw, 4.5rem);
+  --spacing-section-tight: clamp(2rem, 1.75rem + 1vw, 3rem);
   --spacing-stack: 1.5rem;
 
   /* Shape and elevation (§8) */
@@ -177,6 +179,20 @@
   max-width: calc(48rem + 2 * var(--space-gutter));
   margin-inline: auto;
   padding-inline: var(--space-gutter);
+}
+
+/* Consecutive sections on the same background share one gap (§5): the
+   second drops its top padding, so the space between them is a single
+   section padding instead of two. */
+main > .bg-bg + .bg-bg,
+main > .bg-bg-alt + .bg-bg-alt {
+  padding-top: 0;
+}
+
+/* Muted text on the mint band: #71717a falls to 4.43:1 there, this grey
+   keeps 4.84:1 (AA) and still reads as secondary */
+.bg-bg-alt {
+  --color-text-muted: #6b6b74;
 }
 
 /* Reveal once (AD-05, §14): the hidden state exists only after

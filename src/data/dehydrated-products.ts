@@ -323,6 +323,10 @@ export const specifications: {
  * category is preselected. WhatsApp Us uses the `dehydratedEnquiry`
  * template in site.ts (the brief's message) and stays inactive until the
  * number is confirmed (C-01, C-02).
+ *
+ * Title from the owner's UI/UX brief (2026-10-27), so each page's panel
+ * reads differently; PENDING REVIEW.
+ * It replaces "Looking for Dehydrated Ingredients for Your Business?".
  */
 export const enquiryCta: {
   id: string;
@@ -331,7 +335,7 @@ export const enquiryCta: {
   quote: { href: string | null; pendingNote?: string };
 } = {
   id: "dehydrated-enquiry-cta",
-  title: "Looking for Dehydrated Ingredients for Your Business?",
+  title: "Enquire About Bulk Supply",
   intro: "Tell us which onion, garlic or powder products you need.",
   quote: { href: `${contactLink.href}#enquiry-form` },
 };

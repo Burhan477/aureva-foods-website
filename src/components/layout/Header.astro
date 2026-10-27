@@ -44,6 +44,13 @@ const links = {
     class="pointer-events-none absolute inset-0 opacity-0 shadow-float transition-opacity duration-(--duration-base) ease-out group-data-scrolled/header:opacity-100"
     aria-hidden="true"
   ></div>
+  <!-- Reading progress (§16): covers the bottom border, so it never moves
+       the layout; navigation.ts scales it with the page scroll -->
+  <div
+    class="pointer-events-none absolute inset-x-0 -bottom-px h-0.75 origin-left scale-x-0 bg-primary"
+    aria-hidden="true"
+    data-scroll-progress
+  ></div>
 
   <div class="relative container-wide flex h-(--header-height) items-center justify-between gap-3 lg:grid lg:grid-cols-[1fr_auto_1fr] lg:gap-6">
     <a href={homeLink.href} class="flex shrink-0 items-center rounded-md">

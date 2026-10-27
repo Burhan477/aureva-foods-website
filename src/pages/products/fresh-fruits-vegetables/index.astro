@@ -3,7 +3,7 @@ import EnquiryCTA from "../../../components/sections/EnquiryCTA.astro";
 import Fruits from "../../../components/sections/fresh/Fruits.astro";
 import Intro from "../../../components/sections/fresh/Intro.astro";
 import Vegetables from "../../../components/sections/fresh/Vegetables.astro";
-import { enquiryCta } from "../../../data/fresh-fruits-vegetables";
+import { enquiryCta, intro } from "../../../data/fresh-fruits-vegetables";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 
 // Fresh Fruits & Vegetables (SITE_STRUCTURE.md §4.6), built one section
@@ -17,6 +17,7 @@ import BaseLayout from "../../../layouts/BaseLayout.astro";
 <BaseLayout
   title="Fresh Fruits & Vegetables from India | Aureva Foods"
   description="Fresh onion, green chilli, banana, pomegranate and mango from India for B2B buyers. Contact Aureva Foods on WhatsApp or request a quote."
+  breadcrumbs={intro.breadcrumbs}
 >
   <main id="main">
     <Intro />

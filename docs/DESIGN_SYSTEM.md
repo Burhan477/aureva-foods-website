@@ -30,7 +30,8 @@ Values from D-24 (2026-10-26), which supersedes the D-01 palette and the D-19 de
 | Token | Value | Use | Contrast checked |
 |---|---|---|---|
 | `--color-white` | `#FFFFFF` | Page background, cards, fields | — |
-| `--color-snow` | `#FAFAF8` | Alternate section background | Ink on it 17.3; Muted on it 4.62 |
+| `--color-snow` | `#FAFAF8` | Secondary button hover | Ink on it 17.3; Muted on it 4.62 |
+| `--color-mint` | `#EFF7F3` | Alternate section background (2026-10-27, owner: visible alternate colour) | Ink 16.3; Emerald 700 5.03; Orange deep 4.75; Muted is darkened to `#6B6B74` inside the band (4.84) |
 | `--color-mist` | `#F4F4F5` | Image placeholders, hover fills; text on Noir | On Noir 15.67. Never behind Muted text (4.40) |
 | `--color-ink` | `#18181B` | Text and headings | On White 17.7 |
 | `--color-muted` | `#71717A` | Secondary text | On White 4.83; on Snow 4.62 |
@@ -55,7 +56,7 @@ Components use these names, so a later palette change happens in one place.
 | Semantic token | Maps to | Purpose |
 |---|---|---|
 | `--color-bg` | white | Page background |
-| `--color-bg-alt` | snow | Alternate section background |
+| `--color-bg-alt` | mint | Alternate section background |
 | `--color-surface` | white | Cards, fields, panels |
 | `--color-inverse` | noir | Footer, contained dark panels |
 | `--color-text` | ink | Body text |
@@ -122,10 +123,13 @@ Rules:
 
 | Token | Value | Use |
 |---|---|---|
-| `--space-section` | clamp(4rem, 2.8rem + 5vw, 7.5rem) (64 → 120 px) | Vertical padding of a page section |
-| `--space-section-tight` | clamp(3rem, 2.2rem + 3.5vw, 5rem) (48 → 80 px) | Compact sections (CTA bands, intros) |
+| `--space-section` | clamp(3rem, 2.5rem + 2vw, 4.5rem) (48 → 72 px) | Vertical padding of a page section |
+| `--space-section-tight` | clamp(2rem, 1.75rem + 1vw, 3rem) (32 → 48 px) | Compact sections (CTA bands, intros) |
 | `--space-stack` | 1.5 rem (24 px) | Gap between a section heading block and its content |
 | `--space-gutter` | 1 rem → 1.5 rem → 2 rem | Container side padding (mobile → tablet → desktop) |
+
+- Section tokens reduced 2026-10-27 (owner UI/UX brief, then reduced again on owner request). When two consecutive sections share a background, the second drops its top padding (`global.css`), so the gap between them is one section padding, not two.
+- Gap between a SectionHeader and its content: `mt-10 lg:mt-12` (40 / 48 px) everywhere.
 
 ## 6. Layout
 
@@ -142,7 +146,7 @@ Containers are centred and use `--space-gutter` side padding, so content never t
 ### 6.2 Grid
 
 - 12-column grid from `lg` (1024 px), 6 columns at `md`, 4 at the smallest size; column gap 16 / 24 / 32 px.
-- Stacked section heading blocks (SectionHeader: label, title, intro) are centred on one axis (owner instruction, 2026-10-27); headings set beside an image or content in a two-column section stay left-aligned. Only headings and one-sentence intros are centred; body text, lists and cards stay left-aligned.
+- Stacked section heading blocks (SectionHeader: label, title, intro) are centred on one axis (owner instruction, 2026-10-27); headings set beside a photo in a two-column section, heroes and the enquiry form stay left-aligned. Since 2026-10-27 (owner UI/UX brief), sections whose heading sat beside a list, cards or FAQs use a centred SectionHeader above that content (Home Quality & Compliance, Fresh Vegetables, Spices FAQs, Contact Information), and button rows under a centred header are centred too. Only headings and one-sentence intros are centred; body text, lists and cards stay left-aligned.
 
 | Pattern | Small (< 640) | `sm`/`md` | `lg`+ |
 |---|---|---|---|
@@ -213,7 +217,7 @@ The two CTAs (BRAND_GUIDELINES.md §11) always appear as Primary (WhatsApp Us) a
 | Surface | Background | Text | Notes |
 |---|---|---|---|
 | Default section | white | ink; muted for intros | Most sections |
-| Alternate section | snow | ink | Separates adjacent sections; never two alternates in a row |
+| Alternate section | mint | ink; muted `#6B6B74` | Separates adjacent sections; white and mint alternate, never two mint bands in a row |
 | Card | white with `--color-line` border | ink | radius-lg; image first |
 | Dark panel | noir, inside the container, `rounded-2xl` | mist; accents emerald | Business Enquiry CTA, Contact WhatsApp panel. Contained, so it never merges with the footer |
 | Footer | noir, full bleed | mist | The only full-bleed dark band |
@@ -276,6 +280,7 @@ Rules:
 - No horizontal scrolling at any test width.
 - Touch targets at least 44 × 44 px with 8 px spacing between adjacent targets.
 - Header height 64 px on phones, 80 px from `lg`.
+- Reading progress bar: 3 px, `--color-primary`, along the header's bottom edge (covers the border, so no layout change). Scaled from 0 to 100% of the scrollable height by `navigation.ts`, at most once per animation frame; empty on pages too short to scroll. No transition, so it behaves the same under reduced motion.
 - Floating WhatsApp button: 56 px circle, bottom-right, 16 px from the edges plus the device safe-area inset; mobile only (`< lg`); the last section has enough bottom padding that the button never covers content.
 - Text stays readable at 200% browser zoom, and content reflows without loss at 320 px width.
 
@@ -326,4 +331,5 @@ For orientation only; the actual file is written in M1.4 after approval.
 | 0.1 | 2026-10-25 | First draft: tokens, type scale, spacing, layout, buttons, forms, surfaces, motion |
 | 0.1 | 2026-10-25 | Approved by owner, including the derived shades (D-19, C-33 resolved) |
 | 0.2 | 2026-10-26 | D-24 theme modernisation: §3 colours, §4 typography, §8 radii and shadows, §9.1 buttons, §11 surfaces |
+| 0.4 | 2026-10-27 | UI/UX brief (owner): §5 section tokens reduced and same-background gap collapse; §6.2 list/grid section headings centred; §16 header reading progress bar; then section tokens reduced again and the alternate band changed to mint `#EFF7F3`. PENDING REVIEW |
 | 0.3 | 2026-10-27 | Animation audit (owner approved): §14 batch stagger, per-card grid reveals, print-safe reveals, script fades, arrow nudge, Framer Motion form messages; §11 header blur removed; §6 stacked section headings centred |

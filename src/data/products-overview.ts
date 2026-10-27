@@ -66,6 +66,11 @@ export const portfolio = {
  * WhatsApp Us stays inactive until C-01 and C-02 are resolved; Request a
  * Quote goes to the enquiry form on the Contact page (D-10), built in
  * M5.3, so `href` stays null and the button renders inactive.
+ *
+ * Title from the owner's UI/UX brief (2026-10-27), so each page's panel
+ * reads differently; PENDING REVIEW (not in the brief, which has no
+ * Products line; Home keeps the old title).
+ * It replaces "Looking for the Right Ingredients for Your Business?".
  */
 export const enquiryCta: {
   title: string;
@@ -74,7 +79,7 @@ export const enquiryCta: {
   topicsLabel: string;
   quote: { href: string | null; pendingNote?: string };
 } = {
-  title: "Looking for the Right Ingredients for Your Business?",
+  title: "Sourcing From More Than One Range?",
   intro: "Tell us which products you need and share your requirements.",
   topics: productCategories.map((category) => category.label),
   topicsLabel: "Product categories",

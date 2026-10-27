@@ -2,8 +2,8 @@
 
 | | |
 |---|---|
-| Version | 0.1 |
-| Last updated | 2026-10-25 |
+| Version | 0.2 |
+| Last updated | 2026-10-27 |
 | Status | APPROVED by owner, 2026-10-25 |
 | Coordinated by | [AUREVA_FOODS_MASTER_DEVELOPMENT_PLAN.md](AUREVA_FOODS_MASTER_DEVELOPMENT_PLAN.md) |
 
@@ -60,7 +60,7 @@ Nothing is built yet; every status is NOT BUILT. A component not listed here nee
 
 ### BaseLayout
 - **Purpose:** the shared page shell (AD-03).
-- **Props:** `title` (required), `description` (required), `canonicalPath` (required), `ogImage` (optional), `noindex` (optional, for 404).
+- **Props:** `title` (required), `description` (required), `noindex` (optional, for 404: adds `robots` noindex and leaves out the canonical and `og:url`), `organization` (optional, Home: Organization and WebSite JSON-LD), `breadcrumbs` (optional, category pages: BreadcrumbList JSON-LD from the same trail as Breadcrumbs). The canonical URL is built from `site` plus the page path, so no prop is needed (2026-10-27).
 - **Contains:** head tags, fonts, global CSS, SkipLink, Header, `<main id="main">`, Footer, FloatingWhatsApp, script imports.
 - **Accessibility:** `<html lang="en">`; landmarks in order; one `h1` comes from the page.
 
@@ -71,6 +71,7 @@ Nothing is built yet; every status is NOT BUILT. A component not listed here nee
 - **Purpose:** brand, navigation, primary CTA on every page (SITE_STRUCTURE.md §3.1).
 - **Content:** Wordmark → `/`; Home, About Us, Products (ProductsMenu), Contact Us; WhatsAppButton (`md` size).
 - **Behaviour:** sticky; gains `--shadow-float` style shadow after scrolling past the top; current page marked with `aria-current="page"` and an olive underline.
+- **Reading progress (2026-10-27, PENDING REVIEW):** a 3 px emerald bar on the header's bottom edge tracks page scroll (DESIGN_SYSTEM.md §16). Shadow and progress share one passive, frame-throttled scroll handler in `scripts/navigation.ts`.
 - **Below `lg`:** navigation collapses into MobileMenu; the WhatsApp button stays visible in the bar.
 
 ### ProductsMenu (dropdown)
@@ -93,6 +94,7 @@ Nothing is built yet; every status is NOT BUILT. A component not listed here nee
 - Groups per SITE_STRUCTURE.md §3.2. Inverse band (olive).
 - Contact, partner and social groups render only values whose status is CONFIRMED in `site.ts` (AD-08); otherwise a PendingContent marker in non-production builds and nothing in production.
 - Copyright line uses the legal name (C-29).
+- Privacy Policy and Terms & Conditions links are hidden until those pages are built (M6.1), so the footer never links to a missing page (owner, 2026-10-27).
 
 ### FloatingWhatsApp
 - Mobile only (`< lg`), D-13. 56 px circle, WhatsApp glyph, accessible name "WhatsApp Us".
@@ -214,6 +216,7 @@ Messages contain no price, quantity, availability or terms. The WhatsApp glyph i
 ## 9. 404 page (D-11)
 
 - `noindex`; `h1` "Page not found"; one sentence; links to Home, Products and Contact Us; standard header and footer.
+- Built 2026-10-27 (`src/pages/404.astro`): centred SectionHeader with the eyebrow "Error 404", then Back to Home (primary), View Products and Contact Us (secondary). PENDING APPROVAL.
 
 ## 10. Decisions
 
@@ -228,3 +231,4 @@ Messages contain no price, quantity, availability or terms. The WhatsApp glyph i
 |---|---|---|
 | 0.1 | 2026-10-25 | First draft: full component list, behaviours, form fields and states, WhatsApp templates |
 | 0.1 | 2026-10-25 | Approved by owner, including All Products, breadcrumbs, form fields and WhatsApp message templates (D-20) |
+| 0.2 | 2026-10-27 | BaseLayout props for SEO (noindex, organization, breadcrumbs); 404 page built; footer legal links hidden until the legal pages exist |

@@ -1,25 +1,57 @@
 ---
-import { Font } from "astro:assets";
+import { Font, getImage } from "astro:assets";
 
+import logo from "../assets/images/brand/aureva-foods-logo.png";
 import Footer from "../components/layout/Footer.astro";
 import Header from "../components/layout/Header.astro";
 import SkipLink from "../components/layout/SkipLink.astro";
+import type { NavLink } from "../data/navigation";
 import { site } from "../data/site";
+import {
+  type JsonLd,
+  breadcrumbList,
+  organizationGraph,
+  toJsonLd,
+} from "../lib/structuredData";
 import "../styles/global.css";
 
 interface Props {
   title: string;
   description: string;
+  /** Keeps the page out of search results, and leaves out its canonical URL (404) */
+  noindex?: boolean;
+  /** Adds Organization and WebSite structured data (Home) */
+  organization?: boolean;
+  /** Adds BreadcrumbList structured data matching the visible trail (category pages) */
+  breadcrumbs?: NavLink[];
 }
 
-const { title, description } = Astro.props;
+const {
+  title,
+  description,
+  noindex = false,
+  organization = false,
+  breadcrumbs,
+} = Astro.props;
 
-// Social sharing (SEO_AND_PERFORMANCE.md §6). og:url and og:image must be
-// absolute, so they are left out until the production `site` URL is set (C-18)
-const pageUrl = Astro.site
-  ? new URL(Astro.url.pathname, Astro.site).href
-  : null;
+// Canonical and share URLs (SEO_AND_PERFORMANCE.md §4, §6) are absolute,
+// built from the production `site` URL (C-18) plus the page path. A
+// noindex page has neither.
+const pageUrl =
+  Astro.site && !noindex ? new URL(Astro.url.pathname, Astro.site).href : null;
 const ogImage = Astro.site ? new URL("/og/default.jpg", Astro.site).href : null;
+
+// Structured data (§7)
+const graph: JsonLd[] = [];
+if (Astro.site && organization) {
+  const logoImage = await getImage({ src: logo, width: 600, format: "png" });
+  graph.push(
+    ...organizationGraph(Astro.site, new URL(logoImage.src, Astro.site).href),
+  );
+}
+if (Astro.site && breadcrumbs) {
+  graph.push(breadcrumbList(Astro.site, breadcrumbs));
+}
 ---
 
 <!doctype html>
@@ -29,6 +61,8 @@ const ogImage = Astro.site ? new URL("/og/default.jpg", Astro.site).href : null;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex" />}
+    {pageUrl && <link rel="canonical" href={pageUrl} />}
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={site.name.value} />
     <meta property="og:title" content={title} />
@@ -47,6 +81,9 @@ const ogImage = Astro.site ? new URL("/og/default.jpg", Astro.site).href : null;
     <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <Font cssVariable="--font-inter" preload />
+    {graph.length > 0 && (
+      <script is:inline type="application/ld+json" set:html={toJsonLd(graph)} />
+    )}
   </head>
   <body>
     <SkipLink />

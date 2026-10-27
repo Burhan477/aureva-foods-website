@@ -152,15 +152,17 @@ const linkClass =
 
     <div class="mt-12 flex flex-col-reverse gap-2 border-t border-mist/20 pt-6 sm:flex-row sm:items-center sm:justify-between">
       <p class="text-legal">{copyright}</p>
-      <ul class="flex flex-wrap gap-x-6 text-small">
-        {legalNav.map((link) => (
-          <li>
-            <a href={link.href} class={linkClass}>
-              {link.label}
-            </a>
-          </li>
-        ))}
-      </ul>
+      {legalNav.length > 0 && (
+        <ul class="flex flex-wrap gap-x-6 text-small">
+          {legalNav.map((link) => (
+            <li>
+              <a href={link.href} class={linkClass}>
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   </div>
 </footer>

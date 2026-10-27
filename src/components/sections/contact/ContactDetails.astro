@@ -8,6 +8,7 @@ import {
 import { confirmed, site } from "../../../data/site";
 import { getWhatsAppHref } from "../../../lib/whatsapp";
 import PendingContent from "../../ui/PendingContent.astro";
+import SectionHeader from "../../ui/SectionHeader.astro";
 import WhatsAppIcon from "../../ui/WhatsAppIcon.astro";
 
 /**
@@ -16,9 +17,9 @@ import WhatsAppIcon from "../../ui/WhatsAppIcon.astro";
  * hours); see data/contact.ts.
  *
  * Alternate Ivory band after the Ivory introduction (DESIGN_SYSTEM.md
- * §11). Heading block with the introduction beside it from lg, as on the
- * Products Overview; then three white cards, stacked below lg and in a
- * row from lg. Icon chips are Saffron on Olive (BRAND_GUIDELINES.md §3.3).
+ * §11). A centred SectionHeader (§6.2), then three white cards, stacked
+ * below lg and in a row from lg. Icon chips are Saffron on Olive
+ * (BRAND_GUIDELINES.md §3.3).
  *
  * Details render only when CONFIRMED in site.ts, as in the Footer: email
  * as `mailto:`, phone as `tel:`, WhatsApp through the shared link builder
@@ -88,26 +89,14 @@ const cards = section.cards.filter(
 {cards.length > 0 && (
   <section aria-labelledby="contact-info-title" class="bg-bg-alt py-section">
     <div class="container-wide">
-      <div class="grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-16">
-        <div class="lg:col-span-6">
-          <p class="flex items-center gap-3 text-eyebrow font-semibold text-primary">
-            {section.eyebrow}
-          </p>
+      <SectionHeader
+        id="contact-info-title"
+        eyebrow={section.eyebrow}
+        title={section.title}
+        intro={section.intro}
+      />
 
-          <h2
-            id="contact-info-title"
-            class="mt-5 font-display text-h2 text-balance text-heading"
-          >
-            {section.title}
-          </h2>
-        </div>
-
-        <p class="max-w-[60ch] text-lead text-text lg:col-span-6">
-          {section.intro}
-        </p>
-      </div>
-
-      <ul class="mt-12 grid gap-6 lg:mt-16 lg:grid-cols-3 lg:gap-8">
+      <ul class="mt-10 grid gap-6 lg:mt-12 lg:grid-cols-3 lg:gap-8">
         {cards.map((card) => {
           const Icon = icons[card.id];
           const cardDetails = details[card.id];

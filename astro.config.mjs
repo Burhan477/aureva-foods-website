@@ -7,6 +7,12 @@ import tailwindcss from "@tailwindcss/vite";
 
 // https://astro.build/config
 export default defineConfig({
+  // Production domain (C-18, owner 2026-10-27): canonical URLs, share tags,
+  // sitemap and robots.txt are built from it
+  site: "https://aurevafoods.com",
+  // Every route ends in a slash (AD-02)
+  trailingSlash: "always",
+
   integrations: [react()],
 
   // Self-hosted at build time (AD-10); Inter is the only family (D-24)

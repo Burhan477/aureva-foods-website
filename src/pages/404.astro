@@ -1,0 +1,45 @@
+---
+import Button from "../components/ui/Button.astro";
+import SectionHeader from "../components/ui/SectionHeader.astro";
+import { contactLink, homeLink, productsLink } from "../data/navigation";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+// Not found (D-11, COMPONENT_INVENTORY.md §9): noindex, not linked in
+// navigation and left out of the sitemap. One sentence and links to Home,
+// Products and Contact Us; the standard header and footer stay in place.
+---
+
+<BaseLayout
+  title="Page Not Found | Aureva Foods"
+  description="The page you are looking for could not be found."
+  noindex
+>
+  <main id="main">
+    <section aria-labelledby="not-found-title" class="bg-bg py-section">
+      <div class="container-wide">
+        <SectionHeader
+          id="not-found-title"
+          level={1}
+          eyebrow="Error 404"
+          title="Page not found"
+          intro="The page you are looking for does not exist or may have moved."
+        >
+          <div
+            slot="action"
+            class="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:justify-center"
+          >
+            <Button href={homeLink.href} size="lg">
+              Back to Home
+            </Button>
+            <Button href={productsLink.href} variant="secondary" size="lg">
+              View Products
+            </Button>
+            <Button href={contactLink.href} variant="secondary" size="lg">
+              Contact Us
+            </Button>
+          </div>
+        </SectionHeader>
+      </div>
+    </section>
+  </main>
+</BaseLayout>

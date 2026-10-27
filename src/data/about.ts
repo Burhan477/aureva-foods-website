@@ -244,6 +244,10 @@ export const globalMarkets: {
  * approval first. WhatsApp Us stays inactive until C-01 and C-02 are
  * resolved; Request a Quote goes to the enquiry form (D-10), built in
  * M5.3, so `href` stays null and the button renders inactive.
+ *
+ * Title from the owner's UI/UX brief (2026-10-27), so each page's panel
+ * reads differently; PENDING REVIEW.
+ * It replaces "Let's Source Better Ingredients, Together".
  */
 export const enquiryCta: {
   title: string;
@@ -254,7 +258,7 @@ export const enquiryCta: {
   /** Image: src/assets/images/categories/spices.jpg (ASSET_GUIDELINES.md §9.2) */
   imageAlt: string;
 } = {
-  title: "Let's Source Better Ingredients, Together",
+  title: "Partner With Aureva Foods",
   intro:
     "Tell us what your business needs and we'll explore the right options with you.",
   topics: [

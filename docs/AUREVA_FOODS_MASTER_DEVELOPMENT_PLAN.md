@@ -2,8 +2,8 @@
 
 | | |
 |---|---|
-| Version | 1.1 |
-| Last updated | 2026-10-26 |
+| Version | 1.2 |
+| Last updated | 2026-10-27 |
 | Status | APPROVED by owner, 2026-10-25 |
 | Scope of this file | Coordination: sources, rules, decisions, open conflicts, milestone sequence, workflow |
 
@@ -115,7 +115,7 @@ Source: S-02 Q3. The full product list, with the client's original spelling next
 | Git | Branch `development`, one initial commit; remote `Burhan477/aureva-foods-website` |
 | Installed | astro 7.4.2, @astrojs/react 7.1.1, react / react-dom 19.3.1, tailwindcss and @tailwindcss/vite 4.3.3, framer-motion 14.6.0, lucide-react 1.61.0, @types/react and @types/react-dom 19.3.0 |
 | Dev tooling | Installed 2026-10-25 (D-22): typescript 6.0.3, @astrojs/check 0.9.12, eslint 10.13.0, typescript-eslint 8.72.0, eslint-plugin-astro 3.2.1, eslint-plugin-jsx-a11y-x 0.2.0, @eslint-react/eslint-plugin 5.28.8, eslint-plugin-react-hooks 7.1.1, globals 17.13.0, prettier 3.9.10, prettier-plugin-astro 1.1.2, prettier-plugin-tailwindcss 0.8.1, eslint-config-prettier 10.1.8 |
-| Config | `astro.config.mjs`: React integration and Tailwind Vite plugin; no `site` URL (C-18). `tsconfig.json`: strict mode, React JSX |
+| Config | `astro.config.mjs`: React integration and Tailwind Vite plugin; `site` is `https://aurevafoods.com` and `trailingSlash: "always"` (C-18, AD-02). `tsconfig.json`: strict mode, React JSX |
 | Source | After M1.3 (2026-10-25): `src/layouts/BaseLayout.astro` (`lang="en"`, full viewport tag, title and description props, global stylesheet, favicon links from the separate session) and a placeholder `src/pages/index.astro`. Astro starter files removed. Config files formatted with Prettier |
 | Assets | Starter images removed in M1.3. Added 2026-10-25 in a separate session: `src/assets/images/brand/aureva-foods-logo.png`, `aureva-foods-monogram.png`, new `public/favicon.ico` and `public/apple-touch-icon.png`; `public/favicon.svg` deleted (ASSET_GUIDELINES.md §9.2, C-13) |
 | Docs | The ten planning documents in `docs/`, all approved 2026-10-25 |
@@ -187,7 +187,7 @@ New decisions are appended with the next ID. A decision that replaces an earlier
 | C-15 | Framer Motion | Installed (S-08), but S-04, S-05 and S-07 prefer CSS and say a library should be used only when justified. S-07 card behaviour can be done with CSS plus a small observer script. | Resolved by D-15. | — | RESOLVED |
 | C-16 | Quality tooling | S-05 §8 requires ESLint, Prettier, type checking and matching scripts. None are present, and `typescript` / `@astrojs/check` are not installed. | Resolved by D-22. | — | RESOLVED |
 | C-17 | Form delivery | The form should reach the sales mailbox (S-02 note), but the site is static with no backend, and hosting is undecided. | Resolved by D-16. | — | RESOLVED |
-| C-18 | Hosting and domain | Hosting provider and production domain not stated. `aurevafoods.com` is only inferred from the email (C-03). Astro `site` is unset, which canonical URLs and the sitemap need. | Owner confirms the domain and hosting; the form service is chosen at the same time (D-16). | M6 SEO, M7 deployment | OPEN |
+| C-18 | Hosting and domain | Hosting provider and production domain not stated. `aurevafoods.com` is only inferred from the email (C-03). Astro `site` is unset, which canonical URLs and the sitemap need. | Owner confirms the domain and hosting; the form service is chosen at the same time (D-16). | M6 SEO, M7 deployment | PARTLY RESOLVED: owner confirmed the domain `https://aurevafoods.com` (no www) on 2026-10-27, and `site` is set. Hosting and form service still OPEN. |
 | C-19 | Address | None supplied; S-01 Contact section 6 is "if applicable". | Owner supplies the address or confirms it is omitted. | Contact section 6 (M5) | OPEN |
 | C-20 | Social media | S-02 Q14 "smm -" is blank. | Owner supplies profile links or confirms none. | Footer (M2) | OPEN |
 | C-21 | Legal pages | S-02 Q14: privacy and terms "generic". Content must reflect actual data collection (form, any analytics). | Draft after C-17 and the analytics decision; owner arranges legal review. | M6 | OPEN |
@@ -314,3 +314,4 @@ The site may launch only when all of the following hold:
 | 0.9 | 2026-10-25 | M1.3 implemented; §7.1 updated; added C-35 (line endings) |
 | 1.0 | 2026-10-26 | Added D-23 (WhatsApp and phone number); C-01 and C-02 resolved; §6.1 updated |
 | 1.1 | 2026-10-26 | Added D-24 (theme modernisation); D-01 palette and fonts and D-19 shades marked superseded |
+| 1.2 | 2026-10-27 | C-18 partly resolved: production domain confirmed and set; SEO batch (canonicals, sitemap, robots, structured data, 404 page) implemented per SEO_AND_PERFORMANCE.md v0.2 |
