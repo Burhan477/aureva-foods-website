@@ -14,6 +14,7 @@ import { companyIntro as section } from "../../../data/about";
  *
  * The image is the LCP element: eager, high priority, and never hidden by
  * a reveal animation (DESIGN_SYSTEM.md §14). No client JavaScript.
+ * On load the text block enters and the photo settles (CSS, §14).
  */
 ---
 
@@ -23,7 +24,7 @@ import { companyIntro as section } from "../../../data/about";
 >
   <div class="container-wide pt-12 sm:pt-16 xl:py-section-tight">
     <!-- Wide enough for the heading to sit on two lines from xl -->
-    <div class="max-w-xl xl:max-w-152">
+    <div class="max-w-xl xl:max-w-152" data-enter>
       <p class="text-eyebrow font-semibold text-primary">{section.eyebrow}</p>
 
       <h1
@@ -56,6 +57,7 @@ import { companyIntro as section } from "../../../data/about";
       sizes="100vw"
       loading="eager"
       fetchpriority="high"
+      data-enter-image
       class="absolute inset-0 size-full object-cover object-[60%_50%] xl:object-[80%_50%]"
     />
     <!-- Fades the photo into the page: from the top below xl, from the

@@ -4,7 +4,7 @@ import {
   domAnimation,
   m,
   useReducedMotion,
-} from "framer-motion";
+} from "motion/react";
 import { ChevronDown, CircleAlert, Info } from "lucide-react";
 import {
   type ChangeEvent,
@@ -38,7 +38,7 @@ import type { EnquiryFieldCopy, EnquiryFormCopy } from "../../data/contact";
  * Submissions that fill the hidden spam trap are dropped (QA-75).
  *
  * Messages (summary, field errors, notice) fade in with a small drop and
- * fade out, using Framer Motion (AD-06, D-15); under reduced motion they
+ * fade out, using Motion for React (AD-06, D-15); under reduced motion they
  * appear and go at once. Only opacity and transform animate (§14).
  */
 

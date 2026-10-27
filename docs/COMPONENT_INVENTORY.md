@@ -88,6 +88,7 @@ Nothing is built yet; every status is NOT BUILT. A component not listed here nee
 ### MobileMenu
 - Below `lg`: a "Menu" button (`aria-expanded`) opens a full-height panel with the same items; Products categories are listed directly under "Products" (no nested toggle).
 - Focus moves into the panel on open, is kept inside while open, and returns to the button on close; Escape closes; page scrolling is locked while open.
+- **Motion:** the panel fades in with an 8 px drop over `--duration-base` (CSS) and fades out rising 8 px over `--duration-fast` (`motion.ts` `fadeOut`), inert while it closes; reopening mid-close keeps it in place. None under reduced motion. (2026-10-27, PENDING REVIEW)
 
 ### Wordmark
 - Text "AUREVA FOODS" in DM Serif Display (D-08), TEMPORARY until the logo (C-13). Same box size as the future logo slot. Rendered as a link with accessible name "Aureva Foods home".
@@ -203,7 +204,7 @@ A short line under the button links to the Privacy Policy; no marketing consent 
 
 - Delivery: managed form service (D-16); the service is chosen with hosting (C-18).
 - The form is never described as working until M5.4 is tested with a real submission.
-- **Motion:** the error summary, field errors and notices fade in with a 4 px drop and fade out (Framer Motion, AD-06); none under reduced motion.
+- **Motion:** the error summary, field errors and notices fade in with a 4 px drop and fade out (Motion for React, `motion/react`, AD-06); none under reduced motion.
 
 ## 8. WhatsApp message templates (approved, D-20)
 

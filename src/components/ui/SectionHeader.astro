@@ -6,8 +6,9 @@
  * "View all" link) sits centred below the text. Reveals once (§14).
  *
  * `level={1}` makes the heading the page h1 (for a page that opens with
- * this section); it then uses the h1 size and is never hidden by a reveal,
- * because it is visible on first load (§14).
+ * this section); it then uses the h1 size and, instead of the scroll
+ * reveal, plays the CSS page entrance, because it is visible on first
+ * load (§14).
  */
 interface Props {
   /** id of the heading, referenced by the section's aria-labelledby */
@@ -27,6 +28,7 @@ const hasAction = Astro.slots.has("action");
 <div
   class:list={["flex flex-col items-center gap-6 text-center", className]}
   data-reveal={level === 2 || undefined}
+  data-enter={level === 1 || undefined}
 >
   <div class="max-w-3xl">
     {eyebrow && (

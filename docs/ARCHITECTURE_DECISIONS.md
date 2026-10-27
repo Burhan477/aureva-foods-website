@@ -77,7 +77,7 @@ The owner approved this document on 2026-10-25 with the recommended option for e
 - **Decision:** two small modules in `src/scripts/`, bundled by Astro:
   - `navigation.ts`: Products dropdown and mobile menu open/close, `aria-expanded`, Escape to close, close on outside click, focus return.
   - `reveal.ts`: one shared `IntersectionObserver` that adds a class to `[data-reveal]` elements once, then stops observing them (D-06). Imported once in `BaseLayout`; staggers elements that enter the viewport together.
-  - `motion.ts` (added 2026-10-27): shared `fadeIn` helper for content other scripts show, timed from the CSS tokens.
+  - `motion.ts` (added 2026-10-27): shared `fadeIn` helper for content other scripts show, and `fadeOut` for content they are about to hide (the mobile menu), timed from the CSS tokens.
 - **Rationale:** both behaviours are simple; plain scripts cost far less than a framework island.
 - **Consequences:** content must be fully visible without JavaScript. The hidden starting state for reveals is applied only after the script marks the document as JS-enabled (S-07 §3).
 
@@ -89,6 +89,11 @@ The owner approved this document on 2026-10-25 with the recommended option for e
   - **B: Framer Motion for header and cards.** Header and product cards become React islands animated with Framer Motion. This loads React and Framer Motion on every page for effects CSS already handles.
 - **Rationale for A:** meets S-07 exactly, keeps every page except Contact free of React, and keeps the dependency available as the brief requires.
 - **Consequences of A:** if Framer Motion is still unused at M6, the owner may decide whether to keep or remove it (removal needs approval). **Update 2026-10-27 (owner):** used in the enquiry form for message transitions (`LazyMotion` with `domAnimation` and `m`, about 37 KB gzip on the Contact page only); not used elsewhere. All motion respects `prefers-reduced-motion`; inside React islands this uses Framer Motion's reduced-motion support.
+- **Update 2026-10-27 (owner, motion brief; PENDING REVIEW):** a brief asked for Motion for React and `@motionone/dom` site-wide, which would mean option B. The owner kept option A and chose:
+  - `framer-motion` replaced by `motion` 14.7.1, the same library under its current name (`motion` wraps `framer-motion` 14.7.1). The form imports from `motion/react`; no change in behaviour or size.
+  - `@motionone/dom` not installed. Its last release (10.18.0) dates from 2024; Motion One was merged into `motion`, which ships the same DOM functions (`animate`, `inView`, `scroll`). Installing it would duplicate them.
+  - Motion's DOM `animate` is not used either. The one gap found, the mobile menu closing instantly, is a single opacity and translate fade; the browser's Web Animations API does it with no added bytes, alongside the existing `fadeIn` (`motion.ts` `fadeOut`).
+  - Buttons stay colour-only (DESIGN_SYSTEM.md §9.2).
 
 ## 9. AD-07 Styling
 

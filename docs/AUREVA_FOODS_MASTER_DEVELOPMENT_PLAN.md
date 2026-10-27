@@ -113,7 +113,7 @@ Source: S-02 Q3. The full product list, with the client's original spelling next
 | Item | State |
 |---|---|
 | Git | Branch `development`, one initial commit; remote `Burhan477/aureva-foods-website` |
-| Installed | astro 7.4.2, @astrojs/react 7.1.1, react / react-dom 19.3.1, tailwindcss and @tailwindcss/vite 4.3.3, framer-motion 14.6.0, lucide-react 1.61.0, @types/react and @types/react-dom 19.3.0 |
+| Installed | astro 7.4.2, @astrojs/react 7.1.1, react / react-dom 19.3.1, tailwindcss and @tailwindcss/vite 4.3.3, motion 14.7.1 (replaced framer-motion 14.6.0 on 2026-10-27, AD-06), lucide-react 1.61.0, @types/react and @types/react-dom 19.3.0 |
 | Dev tooling | Installed 2026-10-25 (D-22): typescript 6.0.3, @astrojs/check 0.9.12, eslint 10.13.0, typescript-eslint 8.72.0, eslint-plugin-astro 3.2.1, eslint-plugin-jsx-a11y-x 0.2.0, @eslint-react/eslint-plugin 5.28.8, eslint-plugin-react-hooks 7.1.1, globals 17.13.0, prettier 3.9.10, prettier-plugin-astro 1.1.2, prettier-plugin-tailwindcss 0.8.1, eslint-config-prettier 10.1.8 |
 | Config | `astro.config.mjs`: React integration and Tailwind Vite plugin; `site` is `https://aurevafoods.com` and `trailingSlash: "always"` (C-18, AD-02). `tsconfig.json`: strict mode, React JSX |
 | Source | After M1.3 (2026-10-25): `src/layouts/BaseLayout.astro` (`lang="en"`, full viewport tag, title and description props, global stylesheet, favicon links from the separate session) and a placeholder `src/pages/index.astro`. Astro starter files removed. Config files formatted with Prettier |

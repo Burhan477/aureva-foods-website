@@ -121,6 +121,9 @@
   --duration-fast: 150ms;
   --duration-base: 250ms;
   --duration-reveal: 450ms;
+  --duration-enter: 600ms;
+  --duration-settle: 900ms;
+  --duration-page: 200ms;
   --reveal-distance: 16px;
   --reveal-stagger: 80ms;
   --hover-lift: -3px;
@@ -224,6 +227,69 @@ main > .bg-bg-alt + .bg-bg-alt {
     opacity: 0;
     transform: translateY(var(--reveal-distance));
   }
+}
+
+/* Page entrance (§14): the children of a page's opening block (eyebrow,
+   h1, intro, buttons) rise in once on load, in order. CSS only, so it
+   runs without JavaScript and always ends visible; screen only. The hero
+   image is never faded, so it paints at once (LCP); it only settles from
+   a slight zoom. Never on an element with its own transform. */
+@media screen and (prefers-reduced-motion: no-preference) {
+  [data-enter] > * {
+    animation: enter var(--duration-enter) var(--ease-out) both;
+  }
+
+  [data-enter] > :nth-child(2) {
+    animation-delay: var(--reveal-stagger);
+  }
+
+  [data-enter] > :nth-child(3) {
+    animation-delay: calc(var(--reveal-stagger) * 2);
+  }
+
+  [data-enter] > :nth-child(4) {
+    animation-delay: calc(var(--reveal-stagger) * 3);
+  }
+
+  [data-enter] > :nth-child(n + 5) {
+    animation-delay: calc(var(--reveal-stagger) * 4);
+  }
+
+  [data-enter-image] {
+    animation: settle var(--duration-settle) var(--ease-out) both;
+  }
+
+  /* FAQ answers fade in as they open; closing is instant */
+  details[open]::details-content {
+    animation: fade-in var(--duration-base) var(--ease-out);
+  }
+}
+
+@keyframes enter {
+  from {
+    opacity: 0;
+    transform: translateY(var(--reveal-distance));
+  }
+}
+
+@keyframes settle {
+  from {
+    transform: scale(1.04);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+/* Page crossfade (§14): the opt-in is inline in BaseLayout, so Chrome
+   reads it before the first paint; these set its timing. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: var(--duration-page);
+  animation-timing-function: ease-out;
 }
 
 /* All motion off under reduced motion (AD-15, §14) */

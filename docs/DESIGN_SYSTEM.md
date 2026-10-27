@@ -246,6 +246,9 @@ Section rhythm: alternate default and alternate backgrounds; the Business Enquir
 | `--duration-fast` | 150 ms | Colour, border and underline changes |
 | `--duration-base` | 250 ms | Card lift, image zoom, dropdown open |
 | `--duration-reveal` | 450 ms | Reveal-once fade and rise |
+| `--duration-enter` | 600 ms | Page entrance: opening block fade and rise on load |
+| `--duration-settle` | 900 ms | Page entrance: intro photo settles from 1.04 scale |
+| `--duration-page` | 200 ms | Crossfade between pages |
 | `--ease-out` | cubic-bezier(0.22, 1, 0.36, 1) | All entrances and hovers |
 | `--reveal-distance` | 16 px | Upward travel on reveal (S-07: 12–20 px) |
 | `--reveal-stagger` | 80 ms per item, maximum 6 items (cap 400 ms) | Items entering the viewport together (S-07: 60–100 ms) |
@@ -257,12 +260,16 @@ Rules:
 - Only `transform` and `opacity` are animated.
 - Hover effects apply only on devices that support hover (`@media (hover: hover) and (pointer: fine)`).
 - The hero and any content visible on first load are never hidden for a reveal, so the largest image paints immediately (SEO_AND_PERFORMANCE.md).
+- Page entrance (2026-10-27, PENDING REVIEW): the opening block of every page (`data-enter`: the Home hero, the About, Contact and category intros, and a level-1 `SectionHeader` on Products and 404) rises in on load, child by child: eyebrow, h1, intro, buttons, at `--reveal-stagger` steps capped at 4. CSS keyframes only, screen only, so it runs without JavaScript and always ends visible. The intro photo (`data-enter-image`) is never faded; it only settles from 1.04 scale, so the LCP image paints at once.
+- Page crossfade (2026-10-27, PENDING REVIEW): cross-document View Transitions, `--duration-page` root crossfade; no client router. The `@view-transition` opt-in is an inline style in BaseLayout's head (from the external stylesheet Chrome often skipped it); browsers without support navigate normally. Off under reduced motion.
+- FAQ answers fade in over `--duration-base` as they open (`::details-content`, where supported); closing is instant.
 - `prefers-reduced-motion: reduce` removes all transforms and reveal transitions; content is shown immediately.
 - Stagger is set by `reveal.ts` from the elements that enter the viewport together, in document order; an element entering alone has no delay. Product grids reveal card by card.
 - The reveal hidden state is screen-only, so content not yet scrolled to still prints.
 - `data-reveal` never goes on an element with its own transitions; wrap it instead.
 - Content a script shows (a tab panel, filtered cards, the mobile Products list) fades in over `--duration-fast` (`src/scripts/motion.ts`).
-- Enquiry form messages (error summary, field errors, notices) fade in with a 4 px drop over `--duration-fast` and fade out, using Framer Motion inside the form island (AD-06); under reduced motion they appear and go at once.
+- Mobile menu (2026-10-27, PENDING REVIEW): opens with an 8 px drop and fade over `--duration-base` (CSS); closes with an 8 px rise and fade over `--duration-fast` (`motion.ts` `fadeOut`), inert while closing. Exits are shorter than entrances.
+- Enquiry form messages (error summary, field errors, notices) fade in with a 4 px drop over `--duration-fast` and fade out, using Motion for React (`motion/react`) inside the form island (AD-06); under reduced motion they appear and go at once.
 - Arrow text links nudge their arrow 2 px on hover.
 - Smooth scrolling (owner, 2026-10-27, PENDING REVIEW): native `scroll-behavior: smooth` on `html` for in-page links, the skip link and Back to top; off under reduced motion. No scroll libraries or wheel hijacking.
 
@@ -334,4 +341,6 @@ For orientation only; the actual file is written in M1.4 after approval.
 | 0.1 | 2026-10-25 | Approved by owner, including the derived shades (D-19, C-33 resolved) |
 | 0.2 | 2026-10-26 | D-24 theme modernisation: §3 colours, §4 typography, §8 radii and shadows, §9.1 buttons, §11 surfaces |
 | 0.4 | 2026-10-27 | UI/UX brief (owner): §5 section tokens reduced and same-background gap collapse; §6.2 list/grid section headings centred; §16 header reading progress bar; then section tokens reduced again and the alternate band changed to mint `#EFF7F3`. PENDING REVIEW |
+| 0.5 | 2026-10-27 | Motion brief (owner): §14 page entrance, page crossfade, FAQ answer fade; buttons stay colour-only (§9.2). PENDING REVIEW |
+| 0.6 | 2026-10-27 | Motion library brief (owner): §14 mobile menu exit fade; form messages now import `motion/react` (AD-06). PENDING REVIEW |
 | 0.3 | 2026-10-27 | Animation audit (owner approved): §14 batch stagger, per-card grid reveals, print-safe reveals, script fades, arrow nudge, Framer Motion form messages; §11 header blur removed; §6 stacked section headings centred |

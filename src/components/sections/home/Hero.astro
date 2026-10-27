@@ -17,6 +17,7 @@ import Button from "../../ui/Button.astro";
  *
  * The image is the LCP element: eager, high priority, and never hidden
  * by a reveal animation (DESIGN_SYSTEM.md §14). No client JavaScript.
+ * On load the text block enters and the photo settles (CSS, §14).
  */
 ---
 
@@ -26,7 +27,7 @@ import Button from "../../ui/Button.astro";
 >
   <div class="container-wide pt-12 sm:pt-16 xl:py-section-tight">
     <!-- Wide enough for each heading line to stay on one line from xl -->
-    <div class="max-w-xl xl:max-w-160">
+    <div class="max-w-xl xl:max-w-160" data-enter>
       <p class="text-eyebrow font-semibold text-primary">{hero.eyebrow}</p>
 
       <h1 id="hero-title" class="mt-4 font-display text-display text-heading">
@@ -58,6 +59,7 @@ import Button from "../../ui/Button.astro";
       sizes="100vw"
       loading="eager"
       fetchpriority="high"
+      data-enter-image
       class="absolute inset-0 size-full object-cover object-[85%_50%] lg:object-center xl:object-[75%_50%]"
     />
     <!-- Fades the photo into the page: from the top below xl, from the

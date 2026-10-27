@@ -83,6 +83,15 @@ if (Astro.site && breadcrumbs) {
     <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <Font cssVariable="--font-inter" preload />
+    <!-- Page crossfade opt-in (§14). Inline: from the external stylesheet
+         Chrome often skipped the transition. Timing is in global.css. -->
+    <style is:inline>
+      @media (prefers-reduced-motion: no-preference) {
+        @view-transition {
+          navigation: auto;
+        }
+      }
+    </style>
     {graph.length > 0 && (
       <script is:inline type="application/ld+json" set:html={toJsonLd(graph)} />
     )}

@@ -10,7 +10,7 @@
  * fallback links rendered in the markup stay in place.
  */
 
-import { fadeIn } from "./motion";
+import { fadeIn, fadeOut } from "./motion";
 
 const desktop = window.matchMedia("(width >= 64rem)");
 const fineHover = window.matchMedia("(hover: hover) and (pointer: fine)");
@@ -187,15 +187,45 @@ function initMobileMenu(toggle: HTMLButtonElement): void {
       (element) => element.getClientRects().length > 0,
     );
 
+  // Opening fades in with CSS (`starting:`); closing fades out here, with
+  // the panel inert so nothing in it can be clicked or focused meanwhile
+  let closing: Animation | null = null;
+
+  const hide = () => {
+    panel.hidden = true;
+    panel.inert = false;
+  };
+
   const setOpen = (open: boolean, returnFocus = true) => {
     toggle.setAttribute("aria-expanded", String(open));
-    panel.hidden = !open;
     document.documentElement.style.overflow = open ? "hidden" : "";
     if (open) {
+      // Reopening mid-close keeps the panel where it is
+      closing?.cancel();
+      closing = null;
+      panel.inert = false;
+      panel.hidden = false;
       focusables()[0]?.focus();
-    } else if (returnFocus) {
-      toggle.focus();
+      return;
     }
+    if (returnFocus) toggle.focus();
+    if (panel.hidden || closing) return;
+    const animation = fadeOut(panel, 8);
+    if (!animation) {
+      hide();
+      return;
+    }
+    closing = animation;
+    panel.inert = true;
+    animation.finished.then(
+      () => {
+        hide();
+        animation.cancel();
+        closing = null;
+      },
+      // Cancelled by a reopen
+      () => {},
+    );
   };
 
   toggle.addEventListener("click", () => setOpen(!isExpanded(toggle)));
