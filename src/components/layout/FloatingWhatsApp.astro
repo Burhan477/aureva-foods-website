@@ -1,0 +1,27 @@
+---
+import { getWhatsAppHref } from "../../lib/whatsapp";
+import WhatsAppIcon from "../ui/WhatsAppIcon.astro";
+
+/**
+ * Floating WhatsApp button (DESIGN_SYSTEM.md §16; owner, 2026-10-27,
+ * PENDING REVIEW): below lg it replaces WhatsApp Us in the header bar.
+ * A 56 px Emerald 700 circle fixed bottom-left (the Back to top button
+ * holds bottom-right), always visible, with the general message (D-20).
+ * Rendered only while the number is CONFIRMED (C-01): an inactive
+ * floating button would only get in the way. The open MobileMenu covers
+ * it (§15) and has its own WhatsApp Us.
+ */
+const href = getWhatsAppHref();
+---
+
+{href && (
+  <a
+    href={href}
+    target="_blank"
+    rel="noopener noreferrer"
+    class="fixed bottom-[max(1rem,env(safe-area-inset-bottom))] left-4 z-(--z-float) inline-flex size-14 items-center justify-center rounded-full bg-primary text-white shadow-float transition-colors duration-(--duration-fast) ease-out hover:bg-primary-hover active:brightness-95 sm:bottom-6 sm:left-6 lg:hidden"
+  >
+    <WhatsAppIcon class="size-7" />
+    <span class="sr-only">WhatsApp Us (opens in a new tab)</span>
+  </a>
+)}

@@ -1,6 +1,7 @@
 /**
  * Header behaviour (ARCHITECTURE_DECISIONS.md AD-05, AD-15):
- * - scroll shadow and reading progress bar on the sticky header
+ * - scroll shadow and reading progress bar on the sticky header, and the
+ *   Back to top button
  * - desktop Products mega menu: hover (mouse), click, keyboard
  * - mobile menu with a Products disclosure, focus containment and scroll lock
  *
@@ -37,11 +38,15 @@ function enhance(fallback: Element | null, button: HTMLButtonElement): void {
 }
 
 /**
- * Scroll shadow and reading progress bar, updated at most once per frame.
- * Progress is 0 at the top and 1 at the bottom; on a page too short to
- * scroll the bar stays empty.
+ * Scroll shadow, reading progress bar and Back to top visibility, updated
+ * at most once per frame. Progress is 0 at the top and 1 at the bottom;
+ * on a page too short to scroll the bar stays empty and the button never
+ * shows.
  */
-function initHeaderScroll(header: HTMLElement): void {
+function initHeaderScroll(
+  header: HTMLElement,
+  scrollTop: HTMLButtonElement | null,
+): void {
   const progress = header.querySelector<HTMLElement>("[data-scroll-progress]");
   let frame = 0;
 
@@ -49,6 +54,7 @@ function initHeaderScroll(header: HTMLElement): void {
     frame = 0;
     const { scrollY, innerHeight } = window;
     header.toggleAttribute("data-scrolled", scrollY > 8);
+    scrollTop?.toggleAttribute("data-visible", scrollY > innerHeight);
     if (progress) {
       const scrollable = document.documentElement.scrollHeight - innerHeight;
       const ratio =
@@ -68,6 +74,19 @@ function initHeaderScroll(header: HTMLElement): void {
   // Page height changes as lazy images load or the window resizes
   window.addEventListener("resize", schedule, { passive: true });
   new ResizeObserver(schedule).observe(document.body);
+}
+
+function initScrollTop(button: HTMLButtonElement): void {
+  button.hidden = false;
+  button.addEventListener("click", () => {
+    const smooth = !window.matchMedia("(prefers-reduced-motion: reduce)")
+      .matches;
+    window.scrollTo({ top: 0, behavior: smooth ? "smooth" : "auto" });
+    // The button hides at the top, so keyboard focus restarts at the logo
+    document
+      .querySelector<HTMLElement>("[data-site-header] a[href]")
+      ?.focus({ preventScroll: true });
+  });
 }
 
 function initProductsMenu(root: HTMLElement): void {
@@ -234,7 +253,10 @@ function initMobileMenu(toggle: HTMLButtonElement): void {
 }
 
 const header = document.querySelector<HTMLElement>("[data-site-header]");
-if (header) initHeaderScroll(header);
+const scrollTop =
+  document.querySelector<HTMLButtonElement>("[data-scroll-top]");
+if (scrollTop) initScrollTop(scrollTop);
+if (header) initHeaderScroll(header, scrollTop);
 
 const productsMenu = document.querySelector<HTMLElement>(
   "[data-products-menu]",

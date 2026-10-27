@@ -2,7 +2,7 @@
 import { Image } from "astro:assets";
 import { Menu, X } from "lucide-react";
 
-import logo from "../../assets/images/brand/aureva-foods-logo.png";
+import monogram from "../../assets/images/brand/aureva-foods-monogram.png";
 import {
   aboutLink,
   contactLink,
@@ -21,8 +21,13 @@ import {
 
 /**
  * Sticky site header (COMPONENT_INVENTORY.md, Header): logo, main
- * navigation with the Products mega menu, WhatsApp Us. Below lg the
- * navigation moves into MobileMenu and WhatsApp Us stays in the bar.
+ * navigation with the Products mega menu, WhatsApp Us (from lg). Noir,
+ * like the Footer (owner, 2026-10-27), so it uses the Footer's monogram
+ * and light wordmark (the full logo's dark lettering does not read on
+ * noir), light links with Emerald 500 for hover and the current page, and
+ * the dark WhatsApp Us (DESIGN_SYSTEM.md §9.1). Below lg the navigation
+ * moves into MobileMenu and WhatsApp Us leaves the bar for
+ * FloatingWhatsApp (owner, 2026-10-27).
  */
 const pathname = Astro.url.pathname;
 
@@ -37,7 +42,7 @@ const links = {
   <!-- Background and scroll shadow sit on their own layers so the header
        itself never becomes a containing block for the fixed mobile menu -->
   <div
-    class="absolute inset-0 border-b border-line bg-bg"
+    class="absolute inset-0 border-b border-white/10 bg-inverse"
     aria-hidden="true"
   ></div>
   <div
@@ -47,21 +52,28 @@ const links = {
   <!-- Reading progress (§16): covers the bottom border, so it never moves
        the layout; navigation.ts scales it with the page scroll -->
   <div
-    class="pointer-events-none absolute inset-x-0 -bottom-px h-0.75 origin-left scale-x-0 bg-primary"
+    class="pointer-events-none absolute inset-x-0 -bottom-px h-0.75 origin-left scale-x-0 bg-accent"
     aria-hidden="true"
     data-scroll-progress
   ></div>
 
-  <div class="relative container-wide flex h-(--header-height) items-center justify-between gap-3 lg:grid lg:grid-cols-[1fr_auto_1fr] lg:gap-6">
-    <a href={homeLink.href} class="flex shrink-0 items-center rounded-md">
+  <div class="relative container-wide flex h-(--header-height) items-center justify-between gap-3 text-text-inverse [--color-focus:var(--color-accent)] lg:grid lg:grid-cols-[1fr_auto_1fr] lg:gap-6">
+    <a
+      href={homeLink.href}
+      class="flex shrink-0 items-center gap-3 rounded-md"
+      aria-label="Aureva Foods home"
+    >
       <Image
-        src={logo}
-        alt="Aureva Foods home"
-        height={56}
+        src={monogram}
+        alt=""
+        width={48}
         densities={[1, 2]}
         loading="eager"
-        class="h-12 w-auto lg:h-14"
+        class="size-10 rounded-lg lg:size-12"
       />
+      <span class="font-display text-h4 font-semibold tracking-wide whitespace-nowrap max-sm:sr-only">
+        AUREVA FOODS
+      </span>
     </a>
 
     <nav aria-label="Main" class="hidden self-stretch lg:flex">
@@ -107,12 +119,14 @@ const links = {
     </nav>
 
     <div class="flex items-center gap-2 lg:justify-self-end">
-      <WhatsAppButton class="max-sm:px-3.5" />
+      <!-- Below lg, WhatsApp Us floats bottom-left (FloatingWhatsApp) and
+           sits in MobileMenu -->
+      <WhatsAppButton tone="dark" class="max-lg:hidden" />
 
       <!-- Without JavaScript, "Menu" jumps to the footer links -->
       <a
         href="#footer-navigation"
-        class="inline-flex size-11 items-center justify-center rounded-md text-ink lg:hidden"
+        class="inline-flex size-11 items-center justify-center rounded-md text-mist lg:hidden"
         aria-label="Menu"
         data-mobile-menu-fallback
       >
@@ -120,7 +134,7 @@ const links = {
       </a>
       <button
         type="button"
-        class="group inline-flex size-11 items-center justify-center rounded-md text-ink transition-colors duration-(--duration-fast) hover:bg-mist lg:hidden"
+        class="group inline-flex size-11 items-center justify-center rounded-md text-mist transition-colors duration-(--duration-fast) hover:bg-white/10 lg:hidden"
         aria-label="Menu"
         aria-expanded="false"
         aria-controls="mobile-menu"

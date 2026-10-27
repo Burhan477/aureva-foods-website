@@ -1,0 +1,22 @@
+---
+import { ArrowUp } from "lucide-react";
+
+/**
+ * Back to top (owner, 2026-10-27, PENDING REVIEW): a noir circle matching
+ * the Header and Footer, fixed bottom-right. It fades in once the page has
+ * scrolled past one screen and hides again near the top; navigation.ts
+ * toggles `data-visible` from the header's scroll handler. While hidden it
+ * is `invisible`, so it is out of the tab order. Without JavaScript it
+ * stays `hidden`. Sits below the mobile menu (§15).
+ */
+---
+
+<button
+  type="button"
+  aria-label="Back to top"
+  hidden
+  data-scroll-top
+  class="invisible fixed right-4 bottom-[max(1rem,env(safe-area-inset-bottom))] z-(--z-float) inline-flex size-12 translate-y-2 items-center justify-center rounded-full border border-white/10 bg-inverse text-mist opacity-0 shadow-float transition-[opacity,translate,visibility,background-color,color] duration-(--duration-base) ease-out hover:bg-primary hover:text-white data-visible:visible data-visible:translate-y-0 data-visible:opacity-100 sm:right-6 sm:bottom-6 lg:right-8 lg:bottom-8"
+>
+  <ArrowUp className="size-5" strokeWidth={2} aria-hidden="true" />
+</button>

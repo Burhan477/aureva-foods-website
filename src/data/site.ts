@@ -132,9 +132,9 @@ export const site: SiteSettings = {
   },
 
   email: {
-    value: null,
-    status: "BLOCKED",
-    note: "C-03: sales@aurevafoods.com vs SALES@AUREVA.COM unresolved",
+    value: "sales@aurevafoods.com",
+    status: "CONFIRMED",
+    note: "C-03: owner confirmed the company email, 2026-10-27",
   },
 
   phone: {

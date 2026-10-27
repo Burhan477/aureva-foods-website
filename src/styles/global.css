@@ -153,6 +153,15 @@
     scroll-padding-top: calc(var(--header-height) + 1rem);
   }
 
+  /* Smooth scrolling for in-page links, Back to top and the skip link
+     (owner, 2026-10-27); native, never scroll-jacking (§14). Off under
+     reduced motion. */
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
   body {
     background-color: var(--color-bg);
     color: var(--color-text);

@@ -84,7 +84,7 @@ When a source is replaced by a newer version, add a row instead of editing the o
 | Customers: B2B importers, distributors, Amazon sellers, wholesalers | CONFIRMED | S-02 Q9 |
 | Strengths / USPs: "GENERIC" | BLOCKER for specific claims (C-12) | S-02 Q10 |
 | Partner company: Dar Al Nibras Foodstuff Trading LLC | CLIENT-PROVIDED / UNVERIFIED (C-04) | S-01, S-02 Q14 |
-| Email sales@aurevafoods.com | CLIENT-PROVIDED / UNVERIFIED (C-03) | S-02 Q14 |
+| Email sales@aurevafoods.com | CONFIRMED (owner, 2026-10-27; C-03) | S-02 Q14 |
 | Phone and WhatsApp +91 87589 53000 | CONFIRMED by owner, 2026-10-26 (D-23; S-02 Q14 had dropped the last digit) | S-09 |
 
 ### 6.2 Product categories
@@ -172,7 +172,7 @@ New decisions are appended with the next ID. A decision that replaces an earlier
 |---|---|---|---|---|---|
 | C-01 | Phone number | S-02 Q14 gives `+91875895300`: 9 digits after +91, where Indian mobile numbers have 10. | Resolved by D-23. | — | RESOLVED |
 | C-02 | WhatsApp number | No WhatsApp number is stated separately; unclear whether it equals C-01. Message templates approved in D-20. | Resolved by D-23. | — | RESOLVED |
-| C-03 | Email domain | S-02 Q14: `sales@aurevafoods.com`; S-02 note: form goes to `SALES@AUREVA.COM`. | Owner confirms the correct address and domain (affects C-18). | M5 contact details and form, launch | OPEN |
+| C-03 | Email domain | S-02 Q14: `sales@aurevafoods.com`; S-02 note: form goes to `SALES@AUREVA.COM`. | Resolved 2026-10-27: owner confirmed `sales@aurevafoods.com` (domain matches C-18). Shown on Contact and in the Footer, and used in Organization JSON-LD; form delivery still waits on the form service (C-18, M5.4). | — | RESOLVED |
 | C-04 | Partner company | S-02 writes "DARALNIBRAS FOODSTUFF TRADIN LLC, (...)" (truncated); S-01 writes "Dar Al Nibras Foodstuff Trading LLC". Relationship and approved wording unknown. | Owner confirms legal name, relationship and what may be shown. | Contact section 5 (M5) | OPEN |
 | C-05 | Credentials | Client lists Spice Board, APEDA, GST, FSSAI, FDA (S-02 Q11). These are mostly registrations or licences, not quality certifications; none verified. S-01 headings say "Quality & Certifications". | Owner provides documents. Verify entity, type, validity, permitted wording and logo-use rules. Section headings to use accurate wording (for example "Quality & Compliance") until verified. | Home section 8 (M3), About section 5 (M5), launch | OPEN |
 | C-06 | "Natural" claims | S-02 Q16 gives "100% NATURAL, WITHOUT ANY MIXES (COLOR AND ALL) (NO PRESERVE)" in answer to the **search terms** question. The Phase 0 brief lists it as product positioning. Indian food advertising rules restrict wording such as "natural". The supplied logo also carries the tagline "Nature Preserved. Flavor Delivered.", where "preserved" may read as a preservation or natural claim and "Flavor" is US spelling. | Do not publish as a claim until the owner confirms it as a product claim with supporting evidence and approved wording. May inform keyword research, labelled as a suggestion. | Product copy (M3, M4) | OPEN |

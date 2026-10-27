@@ -3,8 +3,8 @@ import { confirmed, site as settings } from "../data/site";
 
 /**
  * JSON-LD builders (SEO_AND_PERFORMANCE.md §7). Only CONFIRMED values from
- * site.ts are used (AD-08); email, address, social links and the legal
- * name are left out until they are confirmed.
+ * site.ts are used (AD-08); address, social links and the legal name are
+ * left out until they are confirmed.
  */
 
 export type JsonLd = Record<string, unknown>;
@@ -13,6 +13,7 @@ export type JsonLd = Record<string, unknown>;
 export function organizationGraph(site: URL, logoUrl: string): JsonLd[] {
   const url = site.href;
   const phone = confirmed(settings.phone);
+  const email = confirmed(settings.email);
 
   return [
     {
@@ -21,10 +22,12 @@ export function organizationGraph(site: URL, logoUrl: string): JsonLd[] {
       name: settings.name.value,
       url,
       logo: logoUrl,
-      ...(phone && {
+      ...(email && { email }),
+      ...((phone || email) && {
         contactPoint: {
           "@type": "ContactPoint",
-          telephone: phone.replace(/\s/g, ""),
+          ...(phone && { telephone: phone.replace(/\s/g, "") }),
+          ...(email && { email }),
           contactType: "sales",
         },
       }),

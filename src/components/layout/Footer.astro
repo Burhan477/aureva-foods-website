@@ -37,7 +37,9 @@ const linkClass =
   id="site-footer"
   class="bg-inverse text-text-inverse [--color-focus:var(--color-accent)]"
 >
-  <div class="container-wide pt-section-tight pb-8">
+  <!-- Extra bottom space below lg keeps the copyright line clear of the
+       floating WhatsApp and Back to top buttons -->
+  <div class="container-wide pt-section-tight pb-24 lg:pb-8">
     <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-12 lg:gap-8">
       <div class="sm:col-span-2 lg:col-span-4">
         <a
@@ -143,8 +145,8 @@ const linkClass =
         )}
 
         <PendingContent
-          item="C-03, C-04, C-20, C-29"
-          note="Email, partner company and social links appear here once confirmed. Copyright uses the trading name until the legal name is supplied."
+          item="C-04, C-20, C-29"
+          note="Partner company and social links appear here once confirmed. Copyright uses the trading name until the legal name is supplied."
           class="mt-5"
         />
       </div>

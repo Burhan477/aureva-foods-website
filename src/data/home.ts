@@ -15,7 +15,7 @@ import {
  * header shows it on every page (owner instruction, 2026-10-25).
  */
 export const hero = {
-  eyebrow: "B2B Ingredient Supply",
+  eyebrow: "Aureva Foods: Quality Ingredients for Your Business",
   /** Each entry renders on its own line */
   title: ["Sourced in India.", "Supplied for Business."],
   intro:

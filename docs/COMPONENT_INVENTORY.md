@@ -25,6 +25,8 @@ Nothing is built yet; every status is NOT BUILT. A component not listed here nee
 | Header | Astro + script | `components/layout/` | All pages | M2.3 |
 | ProductsMenu (dropdown) | Astro + script | `components/layout/` | Header | M2.3 |
 | MobileMenu | Astro + script | `components/layout/` | Header (< `lg`) | M2.3 |
+| ScrollTopButton | Astro + script | `components/layout/` | All pages (BaseLayout) | 2026-10-27, PENDING REVIEW |
+| FloatingWhatsApp | Astro | `components/layout/` | All pages below `lg` (BaseLayout) | 2026-10-27, PENDING REVIEW |
 | Wordmark | Astro | `components/layout/` | Header, Footer | M2.3 |
 | Footer | Astro | `components/layout/` | All pages | M2.4 |
 | FloatingWhatsApp | Astro | `components/layout/` | All pages (< `lg`) | M2.5 |
@@ -71,8 +73,9 @@ Nothing is built yet; every status is NOT BUILT. A component not listed here nee
 - **Purpose:** brand, navigation, primary CTA on every page (SITE_STRUCTURE.md §3.1).
 - **Content:** Wordmark → `/`; Home, About Us, Products (ProductsMenu), Contact Us; WhatsAppButton (`md` size).
 - **Behaviour:** sticky; gains `--shadow-float` style shadow after scrolling past the top; current page marked with `aria-current="page"` and an olive underline.
+- **Noir bar (owner, 2026-10-27, PENDING REVIEW):** same colour as the Footer. The full logo's dark lettering does not read on noir, so the header uses the Footer's monogram with an "AUREVA FOODS" wordmark (wordmark hidden visually below `sm`). Links are mist with Emerald 500 hover and current page; the Products dropdown and MobileMenu panels stay white.
 - **Reading progress (2026-10-27, PENDING REVIEW):** a 3 px emerald bar on the header's bottom edge tracks page scroll (DESIGN_SYSTEM.md §16). Shadow and progress share one passive, frame-throttled scroll handler in `scripts/navigation.ts`.
-- **Below `lg`:** navigation collapses into MobileMenu; the WhatsApp button stays visible in the bar.
+- **Below `lg`:** navigation collapses into MobileMenu; WhatsApp Us leaves the bar for the bottom-left FloatingWhatsApp (owner, 2026-10-27).
 
 ### ProductsMenu (dropdown)
 - **Pattern:** disclosure. "Products" is a `<button>` with `aria-expanded` and `aria-controls`; the panel is a list of links (not an ARIA menu).
