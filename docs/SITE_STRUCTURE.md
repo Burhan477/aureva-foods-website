@@ -56,7 +56,7 @@ S-01 lists "Footer" as the last home section; it is one global footer shared by 
 | Pages | Home, About Us, Products, Contact Us | Ready |
 | Products | Spices, Dehydrated Products, Fresh Fruits & Vegetables | Ready |
 | Contact | Email, phone, WhatsApp | BLOCKED (C-01, C-02, C-03) |
-| Partner | Dar Al Nibras Foodstuff Trading LLC | BLOCKED (C-04); shown only if approved |
+| Partner | Not shown in the footer; the name appears on Contact only (D-25) | — |
 | Social | Profile links | BLOCKED (C-20); omitted if none |
 | Legal | Privacy Policy, Terms & Conditions, copyright line with company name | Links ready; Aureva's legal name not supplied (C-29) |
 
@@ -164,7 +164,7 @@ Built 2026-10-26 in the order of the owner's brief, PENDING APPROVAL: Hero (Page
 | 2 | Contact Information | Merged into section 3 (owner, 2026-10-27, PENDING REVIEW) | — | — |
 | 3 | Business Enquiry Form | Request a Quote destination (anchor `#enquiry-form`, D-10); email, phone, WhatsApp and hours listed beside the form | C-03, C-17; hours not supplied | BLOCKED (delivery method) |
 | 4 | WhatsApp Enquiry | Direct WhatsApp start | C-01, C-02 | BLOCKED |
-| 5 | Partner Company Information | Dar Al Nibras Foodstuff Trading LLC | C-04 | BLOCKED |
+| 5 | Partner Company Information | Dar Al Nibras Foodstuff Trading LLC, name only (D-25) | — | READY |
 | 6 | Business Address & Location, if applicable | Address, if one is approved | C-19 | BLOCKED; omitted if no address |
 
 ### 4.8 Privacy Policy (`/privacy-policy/`) and Terms & Conditions (`/terms-and-conditions/`)

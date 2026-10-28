@@ -1,5 +1,4 @@
 import { productCategories } from "./navigation";
-import type { Setting } from "./site";
 
 /**
  * Contact Us page copy (SITE_STRUCTURE.md §4.7).
@@ -224,33 +223,15 @@ export const whatsAppEnquiry = {
 };
 
 /**
- * Partner Company Information (section 5). BLOCKED (C-04). The company
- * name is `site.partner`. The paragraphs are the owner's provisional
- * explanatory copy (2026-10-26): they describe the placeholder, not the
- * company, so they are TEMPORARY and never published. Production builds
- * leave the section out until `site.partner` is CONFIRMED, and then show
- * only the name and the approved wording that replaces these paragraphs.
- * Nothing is said about ownership, control, representation, location,
- * services or history.
+ * Partner Company Information (section 5). Approved for production by the
+ * owner, 2026-10-28 (C-04 resolved, D-25): the heading and the company
+ * name (`site.partner`) only. Nothing is said about the relationship,
+ * ownership, control, representation, location, services or history, and
+ * no logo, address or website is shown.
  */
-export const partnerInfo: {
-  eyebrow: string;
-  title: string;
-  paragraphs: Setting<string[]>;
-  pendingNote: string;
-} = {
+export const partnerInfo = {
   eyebrow: "Our Business Network",
   title: "Partner Company Information",
-  paragraphs: {
-    value: [
-      "Dar Al Nibras Foodstuff Trading LLC is a business entity identified for inclusion in the Aureva Foods website's partner information section.",
-      "This section can provide visitors with additional business context and clarify the relationship between the companies once the relevant details have been confirmed.",
-    ],
-    status: "TEMPORARY",
-    note: "C-04: replace with approved wording describing the relationship",
-  },
-  pendingNote:
-    "Development only until the owner confirms the legal name (S-01 and S-02 spell it differently), the relationship to Aureva Foods and the wording that may be shown. No logo, address, website or services are shown.",
 };
 
 /**

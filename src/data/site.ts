@@ -151,8 +151,8 @@ export const site: SiteSettings = {
 
   partner: {
     value: "Dar Al Nibras Foodstuff Trading LLC",
-    status: "BLOCKED",
-    note: "C-04: name as in S-01 (S-02 writes 'DARALNIBRAS FOODSTUFF TRADIN LLC'); legal name, relationship and approved wording unconfirmed",
+    status: "CONFIRMED",
+    note: "C-04, D-25: owner approved the S-01 spelling for the Contact page, name only, 2026-10-28",
   },
 
   address: {

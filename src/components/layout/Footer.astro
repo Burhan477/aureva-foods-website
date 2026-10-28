@@ -14,7 +14,7 @@ import WhatsAppButton from "../ui/WhatsAppButton.astro";
 
 /**
  * Global footer (SITE_STRUCTURE.md §3.2), an inverse (olive) band.
- * Contact, partner and social details render only when CONFIRMED in
+ * Contact and social details render only when CONFIRMED in
  * src/data/site.ts; until then a PendingContent marker shows in
  * development and nothing in production.
  *
@@ -145,8 +145,8 @@ const linkClass =
         )}
 
         <PendingContent
-          item="C-04, C-20, C-29"
-          note="Partner company and social links appear here once confirmed. Copyright uses the trading name until the legal name is supplied."
+          item="C-20, C-29"
+          note="Social links appear here once confirmed. Copyright uses the trading name until the legal name is supplied."
           class="mt-5"
         />
       </div>

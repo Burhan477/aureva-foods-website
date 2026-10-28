@@ -3,36 +3,29 @@ import { Building2 } from "lucide-react";
 
 import { partnerInfo as section } from "../../../data/contact";
 import { confirmed, site } from "../../../data/site";
-import PendingContent from "../../ui/PendingContent.astro";
 
 /**
  * Contact Us "Partner Company Information" (SITE_STRUCTURE.md §4.7
- * section 5, COMPONENT_INVENTORY.md PartnerInfo). BLOCKED (C-04); see
+ * section 5, COMPONENT_INVENTORY.md PartnerInfo). Approved for production
+ * by the owner, 2026-10-28 (C-04, D-25): the company name only; see
  * data/contact.ts.
  *
- * Production renders the section only once `site.partner` is CONFIRMED,
- * and the paragraphs only once their wording is CONFIRMED; development
- * shows both with a pending marker. Mint alternate band after the WhatsApp
- * panel (DESIGN_SYSTEM.md §11). Heading in 5 columns from lg, beside a
- * white card in 7 that leads with the company name; stacked below lg. The
- * icon is a generic building mark, never a logo: no verified partner logo
- * exists. Content reveals once (§14).
+ * Renders only while `site.partner` is CONFIRMED. Mint alternate band
+ * after the WhatsApp panel (DESIGN_SYSTEM.md §11). Heading in 5 columns
+ * from lg, beside a white card in 7 holding the company name, centred on
+ * the heading; stacked below lg. The icon is a generic building mark,
+ * never a logo: no verified partner logo exists. Content reveals once
+ * (§14).
  */
 
-const isDev = import.meta.env.DEV;
-const name = isDev ? site.partner.value : confirmed(site.partner);
-const paragraphs = isDev
-  ? section.paragraphs.value
-  : (confirmed(section.paragraphs) ?? []);
+const name = confirmed(site.partner);
 ---
 
 {name && (
   <section aria-labelledby="partner-info-title" class="bg-bg-alt py-section">
-    <div class="container-wide grid gap-10 lg:grid-cols-12 lg:gap-16">
+    <div class="container-wide grid gap-10 lg:grid-cols-12 lg:items-center lg:gap-16">
       <div class="lg:col-span-5" data-reveal>
-        <p class="flex items-center gap-3 text-eyebrow font-semibold text-primary">
-          {section.eyebrow}
-        </p>
+        <p class="text-eyebrow font-semibold text-primary">{section.eyebrow}</p>
 
         <h2
           id="partner-info-title"
@@ -40,12 +33,6 @@ const paragraphs = isDev
         >
           {section.title}
         </h2>
-
-        <PendingContent
-          item="C-04"
-          note={section.pendingNote}
-          class="mt-8 text-text-muted"
-        />
       </div>
 
       <div
@@ -65,21 +52,6 @@ const paragraphs = isDev
           </span>
           <h3 class="text-h3 font-semibold text-ink">{name}</h3>
         </div>
-
-        {paragraphs.length > 0 && (
-          <div class="mt-6 border-t border-line pt-6">
-            {paragraphs.map((paragraph, index) => (
-              <p
-                class:list={[
-                  "max-w-[68ch] text-text-muted",
-                  index > 0 && "mt-4",
-                ]}
-              >
-                {paragraph}
-              </p>
-            ))}
-          </div>
-        )}
       </div>
     </div>
   </section>

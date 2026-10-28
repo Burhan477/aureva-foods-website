@@ -167,7 +167,7 @@ Nothing is built yet; every status is NOT BUILT. A component not listed here nee
 | FAQList | Questions and answers using native `<details>` / `<summary>` | No JavaScript; answers approved per C-12 |
 | EnquiryCTA | Inverse band with heading, one line and both CTAs | Last section before the footer on every page except legal pages |
 | Contact details (in EnquirySection) | Email, phone, WhatsApp, hours beside the enquiry form | CONFIRMED values only (C-01, C-02, C-03); email and phone as `mailto:` / `tel:` links |
-| PartnerInfo | Partner company name and approved wording | C-04 |
+| PartnerInfo | Partner company name only, no description (D-25) | Renders while `site.partner` is CONFIRMED |
 | LegalProse | Long-form text styling for Privacy and Terms | `container-text`; readable headings and lists |
 
 ## 7. EnquiryForm (React island)
