@@ -1,7 +1,7 @@
 ---
 import { Image } from "astro:assets";
 
-import monogram from "../../assets/images/brand/aureva-foods-monogram.png";
+import monogram from "../../assets/images/brand/aureva-foods-monogram.webp";
 import {
   homeLink,
   legalNav,
@@ -24,6 +24,11 @@ import WhatsAppButton from "../ui/WhatsAppButton.astro";
  */
 // Build year; updates on each rebuild. Trading name until C-29 is resolved.
 const copyright = `© ${new Date().getFullYear()} ${site.name.value}. All rights reserved.`;
+// Developer credit (owner request, 2026-10-28)
+const credit = {
+  name: "Grow Bharat Technologies",
+  href: "https://growbharat.tech/",
+};
 
 const email = confirmed(site.email);
 const phone = confirmed(site.phone);
@@ -152,10 +157,24 @@ const linkClass =
       </div>
     </div>
 
-    <div class="mt-12 flex flex-col-reverse gap-2 border-t border-mist/20 pt-6 sm:flex-row sm:items-center sm:justify-between">
+    <!-- Phones: legal links, copyright, credit. From sm: copyright and
+         credit, then the legal links last -->
+    <div class="mt-12 flex flex-col gap-2 border-t border-mist/20 pt-6 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:gap-x-6">
       <p class="text-legal">{copyright}</p>
+      <p class="text-legal">
+        Designed &amp; Developed by{" "}
+        <a
+          href={credit.href}
+          class="underline underline-offset-4 hover:text-text-inverse"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {credit.name}
+          <span class="sr-only">(opens in a new tab)</span>
+        </a>
+      </p>
       {legalNav.length > 0 && (
-        <ul class="flex flex-wrap gap-x-6 text-small">
+        <ul class="order-first flex flex-wrap gap-x-6 text-small sm:order-last">
           {legalNav.map((link) => (
             <li>
               <a href={link.href} class={linkClass}>

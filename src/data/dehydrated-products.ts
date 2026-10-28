@@ -42,7 +42,7 @@ export const intro: {
     label: "Explore Products",
     href: "#dehydrated-onion-products",
   },
-  /** Image: src/assets/images/categories/dehydrated-products.jpg (ASSET_GUIDELINES.md §9.2) */
+  /** Image: src/assets/images/categories/dehydrated-products.webp (ASSET_GUIDELINES.md §9.2) */
   imageAlt:
     "Wooden bowls of dried onion and garlic flakes, fried onion and red, green and golden vegetable powders, among whole red and white onions, garlic bulbs, beetroot, fresh herbs and dried lemon slices",
 };
@@ -156,7 +156,7 @@ export const garlic: {
   },
 
   productName: "Dehydrated Garlic",
-  /** Image: src/assets/images/sections/dehydrated-garlic.jpg (ASSET_GUIDELINES.md §9.2) */
+  /** Image: src/assets/images/sections/dehydrated-garlic.webp (ASSET_GUIDELINES.md §9.2) */
   imageAlt:
     "A whole garlic bulb and peeled garlic cloves beside a scatter of dried garlic pieces on a cream surface",
 };

@@ -8,6 +8,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
 // Contact Us (SITE_STRUCTURE.md §4.7). The contact details sit beside the
 // enquiry form since section 2 was merged into it (owner, 2026-10-27).
+// Partner Company Information sits above the WhatsApp CTA (owner,
+// 2026-10-28).
 // Sections 5 and 6 render in production only once their details are
 // CONFIRMED in site.ts. Title and description are the SEO_AND_PERFORMANCE.md §3.2
 // drafts (SUGGESTION), approved page by page in M6.3.
@@ -20,8 +22,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   <main id="main">
     <Intro />
     <EnquirySection />
-    <WhatsAppEnquiry />
     <PartnerInfo />
+    <WhatsAppEnquiry />
     <AddressLocation />
   </main>
 </BaseLayout>

@@ -42,7 +42,7 @@ export const intro: {
     label: "Explore Our Spices",
     href: "#spice-product-showcase",
   },
-  /** Image: src/assets/images/categories/spices.jpg (ASSET_GUIDELINES.md §9.2) */
+  /** Image: src/assets/images/categories/spices.webp (ASSET_GUIDELINES.md §9.2) */
   imageAlt:
     "Wooden bowls of turmeric, chilli and other ground spices with coriander seeds, cumin, fennel and cardamom pods, beside fresh ginger, turmeric root, garlic and dried red chillies",
 };
@@ -303,7 +303,7 @@ export const quality: {
   eyebrow: string;
   title: string;
   intro: string;
-  /** Image: src/assets/images/hero/products-overview.png, cropped to the ginger and cinnamon */
+  /** Image: src/assets/images/hero/products-overview.webp, cropped to the ginger and cinnamon */
   imageAlt: string;
   blocks: QualityBlock[];
 } = {

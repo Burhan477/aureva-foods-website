@@ -1,8 +1,8 @@
 import type { ImageMetadata } from "astro";
 
-import dehydratedImage from "../assets/images/categories/dehydrated-products.jpg";
-import freshImage from "../assets/images/categories/fresh-fruits-vegetables.jpg";
-import spicesImage from "../assets/images/categories/spices.jpg";
+import dehydratedImage from "../assets/images/categories/dehydrated-products.webp";
+import freshImage from "../assets/images/categories/fresh-fruits-vegetables.webp";
+import spicesImage from "../assets/images/categories/spices.webp";
 
 /**
  * Navigation and product categories shared by the header, mobile menu and

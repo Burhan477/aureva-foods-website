@@ -16,7 +16,7 @@ export const companyIntro = {
     "Aureva Foods is a food ingredients supplier bringing together spices, dehydrated ingredients and fresh fruits and vegetables for food manufacturers, importers, distributors and wholesalers.",
     "We aim to make ingredient sourcing simpler, with clear product information and direct conversations with our team.",
   ],
-  /** Image: src/assets/images/sections/home-about.jpg (ASSET_GUIDELINES.md §9.2) */
+  /** Image: src/assets/images/sections/home-about.webp (ASSET_GUIDELINES.md §9.2) */
   imageAlt:
     "Bowls of turmeric powder, whole and ground spices and black peppercorns on a wooden table, with fresh ginger, lemon wedges, cardamom pods and herbs",
 };
@@ -107,7 +107,7 @@ export const processing: {
     },
   ],
   /**
-   * Image: src/assets/images/hero/home-hero.png (ASSET_GUIDELINES.md
+   * Image: src/assets/images/hero/home-hero.webp (ASSET_GUIDELINES.md
    * §9.2), cropped to the ingredients. Generic ingredients only; it shows
    * no facility, equipment or people, and the alt text claims none.
    */
@@ -169,7 +169,7 @@ export const quality: {
     },
   ],
   /**
-   * Image: src/assets/images/categories/dehydrated-products.jpg
+   * Image: src/assets/images/categories/dehydrated-products.webp
    * (ASSET_GUIDELINES.md §9.2). Generic ingredients only; no laboratory,
    * facility or people, and the alt text claims none.
    */
@@ -255,7 +255,7 @@ export const enquiryCta: {
   topics: string[];
   topicsLabel: string;
   quote: { href: string | null; pendingNote?: string };
-  /** Image: src/assets/images/categories/spices.jpg (ASSET_GUIDELINES.md §9.2) */
+  /** Image: src/assets/images/categories/spices.webp (ASSET_GUIDELINES.md §9.2) */
   imageAlt: string;
 } = {
   title: "Partner With Aureva Foods",

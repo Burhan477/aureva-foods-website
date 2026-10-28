@@ -117,7 +117,7 @@ Source: S-02 Q3. The full product list, with the client's original spelling next
 | Dev tooling | Installed 2026-10-25 (D-22): typescript 6.0.3, @astrojs/check 0.9.12, eslint 10.13.0, typescript-eslint 8.72.0, eslint-plugin-astro 3.2.1, eslint-plugin-jsx-a11y-x 0.2.0, @eslint-react/eslint-plugin 5.28.8, eslint-plugin-react-hooks 7.1.1, globals 17.13.0, prettier 3.9.10, prettier-plugin-astro 1.1.2, prettier-plugin-tailwindcss 0.8.1, eslint-config-prettier 10.1.8 |
 | Config | `astro.config.mjs`: React integration and Tailwind Vite plugin; `site` is `https://aurevafoods.com` and `trailingSlash: "always"` (C-18, AD-02). `tsconfig.json`: strict mode, React JSX |
 | Source | After M1.3 (2026-10-25): `src/layouts/BaseLayout.astro` (`lang="en"`, full viewport tag, title and description props, global stylesheet, favicon links from the separate session) and a placeholder `src/pages/index.astro`. Astro starter files removed. Config files formatted with Prettier |
-| Assets | Starter images removed in M1.3. Added 2026-10-25 in a separate session: `src/assets/images/brand/aureva-foods-logo.png`, `aureva-foods-monogram.png`, new `public/favicon.ico` and `public/apple-touch-icon.png`; `public/favicon.svg` deleted (ASSET_GUIDELINES.md §9.2, C-13) |
+| Assets | Starter images removed in M1.3. Added 2026-10-25 in a separate session: `src/assets/images/brand/aureva-foods-logo.webp`, `aureva-foods-monogram.png`, new `public/favicon.ico` and `public/apple-touch-icon.png`; `public/favicon.svg` deleted (ASSET_GUIDELINES.md §9.2, C-13) |
 | Docs | The ten planning documents in `docs/`, all approved 2026-10-25 |
 
 ### 7.2 Constraints

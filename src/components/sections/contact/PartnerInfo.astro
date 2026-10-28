@@ -10,8 +10,9 @@ import { confirmed, site } from "../../../data/site";
  * by the owner, 2026-10-28 (C-04, D-25): the company name only; see
  * data/contact.ts.
  *
- * Renders only while `site.partner` is CONFIRMED. Mint alternate band
- * after the WhatsApp panel (DESIGN_SYSTEM.md §11). Heading in 5 columns
+ * Renders only while `site.partner` is CONFIRMED. White band between the
+ * mint enquiry form and the WhatsApp panel, above the CTA at the owner's
+ * request, 2026-10-28 (DESIGN_SYSTEM.md §11). Heading in 5 columns
  * from lg, beside a white card in 7 holding the company name, centred on
  * the heading; stacked below lg. The icon is a generic building mark,
  * never a logo: no verified partner logo exists. Content reveals once
@@ -22,7 +23,7 @@ const name = confirmed(site.partner);
 ---
 
 {name && (
-  <section aria-labelledby="partner-info-title" class="bg-bg-alt py-section">
+  <section aria-labelledby="partner-info-title" class="bg-bg py-section">
     <div class="container-wide grid gap-10 lg:grid-cols-12 lg:items-center lg:gap-16">
       <div class="lg:col-span-5" data-reveal>
         <p class="text-eyebrow font-semibold text-primary">{section.eyebrow}</p>

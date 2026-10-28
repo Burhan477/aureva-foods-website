@@ -25,7 +25,7 @@ export const intro = {
   pendingNote:
     "Chat on WhatsApp stays inactive until the number is confirmed (C-01, C-02).",
   /**
-   * Image: src/assets/images/categories/dehydrated-products.jpg
+   * Image: src/assets/images/categories/dehydrated-products.webp
    * (ASSET_GUIDELINES.md §9.2). Fresh onions, garlic and beetroot beside
    * dehydrated flakes and powders; generic illustration only (§6)
    */
@@ -214,7 +214,7 @@ export const whatsAppEnquiry = {
   pendingNote:
     "Discuss Your Requirements stays inactive until the WhatsApp number is confirmed (C-01, C-02); it then opens WhatsApp with the contactEnquiry message from site.ts.",
   /**
-   * Image: src/assets/images/categories/fresh-fruits-vegetables.jpg
+   * Image: src/assets/images/categories/fresh-fruits-vegetables.webp
    * (ASSET_GUIDELINES.md §9.2), cropped from the left so the tomatoes on
    * its right edge, which are not in the catalogue, stay out of frame
    */

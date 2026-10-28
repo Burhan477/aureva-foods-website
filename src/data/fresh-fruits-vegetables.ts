@@ -47,7 +47,7 @@ export const intro: {
     href: "#fresh-vegetables",
   },
   /**
-   * Image: src/assets/images/categories/fresh-fruits-vegetables.jpg
+   * Image: src/assets/images/categories/fresh-fruits-vegetables.webp
    * (ASSET_GUIDELINES.md §9.2), cropped left-aligned so the tomatoes,
    * which are not in the catalogue, stay out of frame
    */

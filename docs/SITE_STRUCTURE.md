@@ -59,6 +59,7 @@ S-01 lists "Footer" as the last home section; it is one global footer shared by 
 | Partner | Not shown in the footer; the name appears on Contact only (D-25) | — |
 | Social | Profile links | BLOCKED (C-20); omitted if none |
 | Legal | Privacy Policy, Terms & Conditions, copyright line with company name | Links ready; Aureva's legal name not supplied (C-29) |
+| Credit | "Designed & Developed by Grow Bharat Technologies", the name linking to https://growbharat.tech/ (new tab), beside the copyright line | Owner request, 2026-10-28 |
 
 ## 4. Page section order
 
@@ -74,7 +75,7 @@ The theme modernisation merged or removed sections that repeated the same messag
 | Spices | B2B Supply Enquiries section removed; the range cards in Product Range & Specifications and the 4-step workflow in Quality are removed (they repeated the grid and the enquiry process) |
 | Dehydrated Products | B2B Supply Enquiries section and the A/B/C group summary removed; Garlic keeps one CTA |
 | Fresh Fruits & Vegetables | B2B Supply Enquiries section removed; one CTA per product group |
-| Contact Us | Unchanged order; the WhatsApp section is a contained dark panel |
+| Contact Us | The WhatsApp section is a contained dark panel; Partner Company Information moved above it (owner, 2026-10-28) |
 
 
 Section names are those in S-01. "Display heading" is given only where the visible heading must differ from the S-01 name. "Depends on" lists open items that block or limit the section; every section also follows master plan §5.
@@ -164,7 +165,7 @@ Built 2026-10-26 in the order of the owner's brief, PENDING APPROVAL: Hero (Page
 | 2 | Contact Information | Merged into section 3 (owner, 2026-10-27, PENDING REVIEW) | — | — |
 | 3 | Business Enquiry Form | Request a Quote destination (anchor `#enquiry-form`, D-10); email, phone, WhatsApp and hours listed beside the form | C-03, C-17; hours not supplied | BLOCKED (delivery method) |
 | 4 | WhatsApp Enquiry | Direct WhatsApp start | C-01, C-02 | BLOCKED |
-| 5 | Partner Company Information | Dar Al Nibras Foodstuff Trading LLC, name only (D-25) | — | READY |
+| 5 | Partner Company Information | Dar Al Nibras Foodstuff Trading LLC, name only (D-25); shown after the enquiry form, above WhatsApp Enquiry (owner, 2026-10-28) | — | READY |
 | 6 | Business Address & Location, if applicable | Address, if one is approved | C-19 | BLOCKED; omitted if no address |
 
 ### 4.8 Privacy Policy (`/privacy-policy/`) and Terms & Conditions (`/terms-and-conditions/`)
