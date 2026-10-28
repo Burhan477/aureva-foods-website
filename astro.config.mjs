@@ -13,6 +13,12 @@ export default defineConfig({
   // Every route ends in a slash (AD-02)
   trailingSlash: "always",
 
+  // The one site stylesheet (~10 KB gzip) goes inline, so the first paint
+  // doesn't wait on a render-blocking request (Lighthouse, 2026-10-28)
+  build: {
+    inlineStylesheets: "always",
+  },
+
   integrations: [react()],
 
   // Self-hosted at build time (AD-10); Inter is the only family (D-24)

@@ -69,7 +69,9 @@ function initHeaderScroll(
     if (!frame) frame = window.requestAnimationFrame(update);
   };
 
-  update();
+  // First update on the next frame: reading scrollHeight now would force a
+  // layout before the first paint
+  schedule();
   window.addEventListener("scroll", schedule, { passive: true });
   // Page height changes as lazy images load or the window resizes
   window.addEventListener("resize", schedule, { passive: true });

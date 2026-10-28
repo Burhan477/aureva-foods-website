@@ -114,8 +114,12 @@ function setup(root: HTMLElement): void {
     element.hidden = false;
   }
   root.dataset.ready = "";
-  updateControls();
-  updateStatus();
+  // First measure on the next frame: reading layout straight after
+  // unhiding the controls would force a layout before the first paint
+  requestAnimationFrame(() => {
+    updateControls();
+    updateStatus();
+  });
 }
 
 for (const root of document.querySelectorAll<HTMLElement>("[data-carousel]")) {
