@@ -65,7 +65,7 @@ Home and Products Overview introduce the company and route visitors to these pag
 
 ## 6. Social sharing
 
-Each page sets Open Graph and Twitter card tags: `og:title`, `og:description`, `og:url` (canonical), `og:type` (`website`), `og:image` (1200 × 630, ASSET_GUIDELINES.md §4), `og:site_name` "Aureva Foods", and `twitter:card` `summary_large_image`. Until a page-specific image exists, the default share image is used.
+Each page sets Open Graph and Twitter card tags: `og:title`, `og:description`, `og:url` (canonical), `og:type` (`website`), `og:image` (1200 × 630, ASSET_GUIDELINES.md §4), `og:site_name` "Aureva Foods", and `twitter:card` `summary_large_image`. Until a page-specific image exists, the default share image is used: `public/og/default.jpg`, the logo on the cream of the supplied render (Home, About Us, Contact Us). The Products page and the three category pages have their own cards (`public/og/products.jpg`, `spices.jpg`, `dehydrated-products.jpg`, `fresh-fruits-vegetables.jpg`): the page's banner photo on the left with the logo on a cream panel. BaseLayout takes them through its `ogImage` prop, which also sets `og:image:alt` and `twitter:image:alt` (2026-10-29).
 
 ## 7. Structured data
 
@@ -75,6 +75,7 @@ JSON-LD, using only CONFIRMED values from `site.ts` (AD-08). Fields that are sti
 |---|---|---|---|
 | `Organization` | Home | Name, URL, logo (when supplied), email and telephone (when confirmed), `contactPoint` | Live 2026-10-27 with name, URL, logo and the confirmed phone as a sales `contactPoint`. Email, legal name and `sameAs` profiles added when C-03, C-29 and C-20 are confirmed |
 | `WebSite` | Home | Name, URL | Live 2026-10-27 |
+| `CollectionPage` + `ItemList` | Products, category pages | Page name, description and URL; the list holds the three categories (Products) or the category's product names from the catalogue | Added 2026-10-29. Names only, so no `Product` warnings |
 | `BreadcrumbList` | Category pages | Home › Products › Category | Live 2026-10-27, built from the same trail as the visible Breadcrumbs (C-32) |
 
 Built in `src/lib/structuredData.ts` and output by BaseLayout as one `@graph` per page.

@@ -12,6 +12,7 @@ import { site } from "../data/site";
 import {
   type JsonLd,
   breadcrumbList,
+  collectionPage,
   organizationGraph,
   toJsonLd,
 } from "../lib/structuredData";
@@ -26,6 +27,10 @@ interface Props {
   organization?: boolean;
   /** Adds BreadcrumbList structured data matching the visible trail (category pages) */
   breadcrumbs?: NavLink[];
+  /** Adds CollectionPage structured data listing these items (Products and category pages) */
+  collection?: { name: string; url?: string }[];
+  /** Share image, a 1200 x 630 JPEG in public/og (SEO_AND_PERFORMANCE.md §6); the logo card when left out */
+  ogImage?: { path: string; alt: string };
 }
 
 const {
@@ -34,6 +39,8 @@ const {
   noindex = false,
   organization = false,
   breadcrumbs,
+  collection,
+  ogImage = { path: "/og/default.jpg", alt: "Aureva Foods logo" },
 } = Astro.props;
 
 // Canonical and share URLs (SEO_AND_PERFORMANCE.md §4, §6) are absolute,
@@ -41,7 +48,7 @@ const {
 // noindex page has neither.
 const pageUrl =
   Astro.site && !noindex ? new URL(Astro.url.pathname, Astro.site).href : null;
-const ogImage = Astro.site ? new URL("/og/default.jpg", Astro.site).href : null;
+const ogImageUrl = Astro.site ? new URL(ogImage.path, Astro.site).href : null;
 
 // Structured data (§7)
 const graph: JsonLd[] = [];
@@ -53,6 +60,15 @@ if (Astro.site && organization) {
 }
 if (Astro.site && breadcrumbs) {
   graph.push(breadcrumbList(Astro.site, breadcrumbs));
+}
+if (Astro.site && pageUrl && collection) {
+  graph.push(
+    collectionPage(
+      Astro.site,
+      { url: pageUrl, title, description },
+      collection,
+    ),
+  );
 }
 ---
 
@@ -70,13 +86,14 @@ if (Astro.site && breadcrumbs) {
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     {pageUrl && <meta property="og:url" content={pageUrl} />}
-    {ogImage && (
+    {ogImageUrl && (
       <>
-        <meta property="og:image" content={ogImage} />
+        <meta property="og:image" content={ogImageUrl} />
         <meta property="og:image:type" content="image/jpeg" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
-        <meta property="og:image:alt" content="Aureva Foods logo" />
+        <meta property="og:image:alt" content={ogImage.alt} />
+        <meta name="twitter:image:alt" content={ogImage.alt} />
       </>
     )}
     <meta name="twitter:card" content="summary_large_image" />

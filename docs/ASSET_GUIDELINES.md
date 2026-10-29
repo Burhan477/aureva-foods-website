@@ -177,7 +177,7 @@ Every image added to the repository gets a row here, in the same change that add
 |---|---|---|
 | C-14 | How photography will be sourced: owner photos, paid stock, free stock or approved AI images | Owner photos where possible, otherwise licensed stock in one consistent style; decide before M3.1 |
 | C-13 | Approve the supplied AI-generated logo for use, and confirm Gemini's terms allow commercial and trademark use | Confirm before launch; ideally commission a vector redraw |
-| C-13 | Footer (olive band) needs a light version of the logo | Ivory wordmark variant, or the monogram plus an Ivory text wordmark |
+| C-13 | Footer (olive band) needs a light version of the logo | Done 2026-10-29 (owner request): `brand/aureva-foods-logo-light.webp`, the same artwork with the dark green wordmark and ring recoloured to mist, replaces the monogram plus text wordmark in the footer. A vector redraw would still give cleaner edges |
 | C-13 | Header lockup: the full emblem is detailed at header height (about 64 px) | A horizontal wordmark (leafed "A" plus "Aureva"), without globe and spices, for the header |
 | C-06 | Tagline "Nature Preserved. Flavor Delivered.": "preserved" may read as a preservation or natural claim, and "Flavor" is US spelling (D-08 uses British/Indian) | Kept out of the web logo until approved |
 

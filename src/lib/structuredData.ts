@@ -55,6 +55,36 @@ export function breadcrumbList(site: URL, items: NavLink[]): JsonLd {
   };
 }
 
+/**
+ * A page that lists products or categories, with the list as an ItemList.
+ * Names only: `Product` is not used, since rich results need price or
+ * offer details the site does not show (§7, D-07).
+ */
+export function collectionPage(
+  site: URL,
+  page: { url: string; title: string; description: string },
+  items: { name: string; url?: string }[],
+): JsonLd {
+  return {
+    "@type": "CollectionPage",
+    "@id": `${page.url}#webpage`,
+    url: page.url,
+    name: page.title,
+    description: page.description,
+    isPartOf: { "@id": `${site.href}#website` },
+    mainEntity: {
+      "@type": "ItemList",
+      numberOfItems: items.length,
+      itemListElement: items.map((item, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: item.name,
+        ...(item.url && { url: new URL(item.url, site).href }),
+      })),
+    },
+  };
+}
+
 /** Serialise for a `<script type="application/ld+json">`; `<` is escaped so no text can close the tag */
 export function toJsonLd(graph: JsonLd[]): string {
   return JSON.stringify({

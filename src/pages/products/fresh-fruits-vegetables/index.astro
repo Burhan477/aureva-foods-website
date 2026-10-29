@@ -1,9 +1,12 @@
 ---
+import { getCollection } from "astro:content";
+
 import EnquiryCTA from "../../../components/sections/EnquiryCTA.astro";
 import Fruits from "../../../components/sections/fresh/Fruits.astro";
 import Intro from "../../../components/sections/fresh/Intro.astro";
 import Vegetables from "../../../components/sections/fresh/Vegetables.astro";
 import { enquiryCta, intro } from "../../../data/fresh-fruits-vegetables";
+import { productCategories } from "../../../data/navigation";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 
 // Fresh Fruits & Vegetables (SITE_STRUCTURE.md §4.6), built one section
@@ -12,12 +15,27 @@ import BaseLayout from "../../../layouts/BaseLayout.astro";
 // and goes between Fruits and Enquiries. Title and description are the
 // SEO_AND_PERFORMANCE.md §3.2 drafts (SUGGESTION), approved page by page
 // in M6.3.
+
+// Share image and the product list for structured data (SEO_AND_PERFORMANCE.md §6, §7)
+const category = productCategories.find(
+  ({ id }) => id === "fresh-fruits-vegetables",
+)!;
+const products = (
+  await getCollection("products", ({ data }) => data.category === category.id)
+)
+  .sort((a, b) => a.data.order - b.data.order)
+  .map(({ data }) => ({ name: data.name }));
 ---
 
 <BaseLayout
   title="Fresh Fruits & Vegetables from India | Aureva Foods"
   description="Fresh onion, green chilli, banana, pomegranate and mango from India for B2B buyers. Contact Aureva Foods on WhatsApp or request a quote."
   breadcrumbs={intro.breadcrumbs}
+  collection={products}
+  ogImage={{
+    path: `/og/${category.id}.jpg`,
+    alt: `${category.imageAlt}, beside the Aureva logo`,
+  }}
 >
   <main id="main">
     <Intro />

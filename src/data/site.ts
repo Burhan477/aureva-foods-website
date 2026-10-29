@@ -61,6 +61,8 @@ export interface BusinessAddress {
 export interface SiteSettings {
   name: Setting<string>;
   legalName: Setting<string | null>;
+  /** Brand tagline, shown under the footer logo */
+  tagline: Setting<string>;
   footerIntro: Setting<string>;
   whatsapp: {
     /** Digits only, with country code, no "+" (wa.me format) */
@@ -103,6 +105,12 @@ export const site: SiteSettings = {
     value: null,
     status: "BLOCKED",
     note: "C-29: registered company name not supplied; copyright uses the trading name until then",
+  },
+
+  tagline: {
+    value: "Nature Preserved. Flavor Delivered.",
+    status: "CONFIRMED",
+    note: "Owner asked for it under the footer logo (2026-10-29), resolving C-06 for the footer; wording and US spelling as on the supplied logo",
   },
 
   footerIntro: {

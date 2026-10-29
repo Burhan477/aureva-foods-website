@@ -1,4 +1,6 @@
 ---
+import { getCollection } from "astro:content";
+
 import EnquiryCTA from "../../../components/sections/EnquiryCTA.astro";
 import Garlic from "../../../components/sections/dehydrated/Garlic.astro";
 import Intro from "../../../components/sections/dehydrated/Intro.astro";
@@ -6,6 +8,7 @@ import OnionProducts from "../../../components/sections/dehydrated/OnionProducts
 import Powders from "../../../components/sections/dehydrated/Powders.astro";
 import Specifications from "../../../components/sections/dehydrated/Specifications.astro";
 import { enquiryCta, intro } from "../../../data/dehydrated-products";
+import { productCategories } from "../../../data/navigation";
 import { site } from "../../../data/site";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 
@@ -13,12 +16,27 @@ import BaseLayout from "../../../layouts/BaseLayout.astro";
 // order of the owner's briefs (2026-10-26), each PENDING APPROVAL. Title
 // and description are the SEO_AND_PERFORMANCE.md §3.2 drafts
 // (SUGGESTION), approved page by page in M6.3.
+
+// Share image and the product list for structured data (SEO_AND_PERFORMANCE.md §6, §7)
+const category = productCategories.find(
+  ({ id }) => id === "dehydrated-products",
+)!;
+const products = (
+  await getCollection("products", ({ data }) => data.category === category.id)
+)
+  .sort((a, b) => a.data.order - b.data.order)
+  .map(({ data }) => ({ name: data.name }));
 ---
 
 <BaseLayout
   title="Dehydrated Onion, Garlic & Vegetable Powders | Aureva Foods"
   description="Dehydrated white, pink and fried onion, garlic, and powders including beetroot, lemon, tamarind, mint and spinach from India. Request a quote."
   breadcrumbs={intro.breadcrumbs}
+  collection={products}
+  ogImage={{
+    path: `/og/${category.id}.jpg`,
+    alt: `${category.imageAlt}, beside the Aureva logo`,
+  }}
 >
   <main id="main">
     <Intro />
