@@ -8,9 +8,8 @@ import tailwindcss from "@tailwindcss/vite";
 // https://astro.build/config
 export default defineConfig({
   // Production domain (C-18): canonical URLs, share tags, sitemap and
-  // robots.txt are built from it. The live site is on www (owner,
-  // 2026-10-29); the bare domain still shows the registrar's default page
-  site: "https://www.aurevafoods.com",
+  // robots.txt are built from it. No www (owner, 2026-10-30)
+  site: "https://aurevafoods.com",
   // Every route ends in a slash (AD-02)
   trailingSlash: "always",
 
